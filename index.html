@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Front-End Assignment #1">
+  <title>Home | Masquerade &amp; Moon</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a class="brand" href="index.html" class="active">MASQUERADE<span>&amp;</span>MOON</a>
+    <button class="menu-toggle" aria-label="Open navigation" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</button>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="catalog.html">Catalog</a>
+      <a href="rent.html">How to Rent</a>
+      <a href="about.html">About Us</a>
+      <a href="events.html">Events</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+<section class="hero hero-home" style="background-image: url('images/home-bg.jpg');">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="eyebrow">COSTUMES FOR EVERY ALTER EGO</p>
+    <h1>Dress like<br><em>the story</em> is yours.</h1>
+    <p class="hero-copy">Discover cinematic costumes for masquerades, Halloween, winter parties, historical nights and every celebration worth remembering.</p>
+    <div class="hero-actions">
+      <a class="btn btn-gold" href="catalog.html">Explore the catalog</a>
+      <a class="btn btn-ghost" href="rent.html">How it works</a>
+    </div>
+  </div>
+  <div class="scroll-note">SCROLL TO DISCOVER ↓</div>
+</section>
+
+<section class="section intro-section">
+  <div class="section-heading">
+    <p class="eyebrow">THE COLLECTION</p>
+    <h2>One wardrobe.<br><em>Infinite characters.</em></h2>
+  </div>
+  <div class="intro-text">
+    <p>Masquerade &amp; Moon is a fictional student-made costume rental studio created for our HTML &amp; CSS assignment. We designed a visual catalog that feels like stepping into a boutique wardrobe rather than browsing a plain store.</p>
+    <a class="text-link" href="about.html">Meet the team →</a>
+  </div>
+</section>
+
+<section class="section dark-section">
+  <div class="section-topline">
+    <div><p class="eyebrow">CURATED CATEGORIES</p><h2>Choose your <em>era.</em></h2></div>
+    <a class="text-link light" href="catalog.html">View all costumes →</a>
+  </div>
+  <div class="category-grid">
+    <a class="category-card" href="catalog.html#medieval" style="background-image:url('images/cat-medieval.jpg');">
+      <div><span>01</span><h3>Medieval<br>Royalty</h3><p>Crowns, velvet &amp; court drama</p></div>
+    </a>
+    <a class="category-card" href="catalog.html#dracula" style="background-image:url('images/cat-dracula.jpg');">
+      <div><span>02</span><h3>Dracula<br>After Dark</h3><p>Gothic silhouettes &amp; crimson</p></div>
+    </a>
+    <a class="category-card" href="catalog.html#winter" style="background-image:url('images/cat-winter.jpg');">
+      <div><span>03</span><h3>Winter<br>Wonderland</h3><p>Festive looks with a twist</p></div>
+    </a>
+    <a class="category-card" href="catalog.html#halloween" style="background-image:url('images/cat-halloween.jpg');">
+      <div><span>04</span><h3>Halloween<br>Midnight</h3><p>Spooky, strange &amp; spectacular</p></div>
+    </a>
+  </div>
+</section>
+
+<section class="section quote-section">
+  <div class="quote-mark">“</div>
+  <blockquote>Clothes are never just clothes. They are the first sentence of a story.</blockquote>
+  <p>— Masquerade &amp; Moon</p>
+</section>
+
+<section class="section feature-split">
+  <div class="feature-photo" style="background-image:url('images/feature-photo.jpg');"></div>
+  <div class="feature-copy">
+    <p class="eyebrow">WHY RENT?</p>
+    <h2>More imagination.<br><em>Less closet space.</em></h2>
+    <ul class="check-list">
+      <li><strong>01</strong> Try a character without buying a whole wardrobe.</li>
+      <li><strong>02</strong> Mix accessories to create a look that is yours.</li>
+      <li><strong>03</strong> Return it after the party — no storage required.</li>
+    </ul>
+    <a class="btn btn-dark" href="rent.html">See rental rules</a>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">MASQUERADE<span>&amp;</span>MOON</div>
+      <p>Student project demonstrating HTML & CSS skills.</p>
+    </div>
+    <div>
+      <h3>Explore</h3>
+      <a href="catalog.html">Catalog</a>
+      <a href="events.html">Events</a>
+      <a href="rent.html">How to Rent</a>
+    </div>
+    <div>
+      <h3>Team</h3>
+      <p>Student Front-End Project</p>
+      <p>Astana IT University</p>
+      <p style="margin-top: 10px; color: #fff;">Alua Rakhimzhanova<br>Assiya Aitbayeva<br>Moldir Yerzhan</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>Created by Alua, Assiya, and Moldir</span>
+  </div>
+</footer>
+</body>
+</html>
