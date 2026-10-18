@@ -7,7 +7,8 @@ Frontend Assignment 4 adds JavaScript interactions to the existing six-page webs
 - Alua Rakhimzhanova
 - Assiya Aitbayeva
 - Moldir Yerzhan
-- Group SE-2509
+
+Group SE-2509
 
 ## Assignment 4
 
