@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Front-End Assignment #3: Media Queries and Bootstrap Grid">
+  <meta name="description" content="Front-End Assignment #4: Introduction to JavaScript">
   <link rel="icon" href="images/item-12.jpg" type="image/jpeg">
   <title>Home | Masquerade &amp; Moon</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="stylesheet" href="css/style.css?v=4">
 </head>
 <body>
 
@@ -47,6 +47,18 @@
   </div>
   <div class="scroll-note">SCROLL TO DISCOVER ↓</div>
 </section>
+
+<section class="section py-4" aria-label="Website settings and subscription">
+  <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+    <p class="mb-0">Current date and time: <time id="current-date-time"></time></p>
+    <div class="d-flex flex-wrap gap-2">
+      <button id="change-background" class="btn btn-outline-secondary" type="button">Change background</button>
+      <button id="open-subscription" class="btn btn-dark" type="button">Subscribe</button>
+    </div>
+  </div>
+</section>
+
+
 
 <section class="section intro-section">
   <div class="section-heading">
@@ -185,6 +197,22 @@
 </section>
 </main>
 
+<dialog id="subscription-popup" class="subscription-popup" aria-labelledby="subscription-title">
+  <div class="contact-form">
+    <div class="d-flex justify-content-end">
+      <button id="close-subscription" class="btn btn-outline-secondary btn-sm" type="button" aria-label="Close subscription form">Close</button>
+    </div>
+    <h2 id="subscription-title">Subscribe</h2>
+    <p>Try our subscription form. This demo does not send or save your email.</p>
+    <form id="subscription-form" novalidate>
+      <label class="form-label" for="subscription-email">Email</label>
+      <input class="form-control" id="subscription-email" type="email" autocomplete="email" placeholder="you@example.com" required>
+      <p id="subscription-status" class="mt-2" role="status"></p>
+      <button class="btn btn-primary mt-3" type="submit">Subscribe</button>
+    </form>
+  </div>
+</dialog>
+
 <footer class="site-footer">
   <div class="footer-grid">
     <div>
@@ -209,5 +237,6 @@
   </div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="js/script.js" defer></script>
 </body>
 </html>

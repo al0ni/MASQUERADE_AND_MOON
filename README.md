@@ -1,6 +1,6 @@
 # Masquerade and Moon
 
-Frontend Assignment 3 extends the existing six-page costume rental website with CSS media queries and Bootstrap 5.3.
+Frontend Assignment 4 adds JavaScript interactions to the existing six-page website.
 
 ## Team
 
@@ -9,33 +9,20 @@ Frontend Assignment 3 extends the existing six-page costume rental website with 
 - Moldir Yerzhan
 - Group SE-2509
 
-## Assignment 3 additions
+## Assignment 4
 
-- Responsive typography at mobile, tablet and desktop breakpoints
-- Three-card media-query layout with 3, 2 and 1 column states
-- Bootstrap grid with responsive two-column and three-column sections
-- Bootstrap spacing utilities including responsive classes
-- Bootstrap navbar on all six pages with a mobile toggler
-- Primary, secondary, outline, large and small button states
-- Bootstrap button groups
-- Bootstrap carousel with nine images, controls and indicators
-- Three responsive Bootstrap cards
-- Responsive Bootstrap form with an input group, radios and checkbox
-- Semantic HTML, labels, alternative text and readable contrast
+1. Contact: required field validation, email format, minimum 8-character password and password confirmation, with error messages.
+2. Contact: FAQ accordion with initially hidden answers and smooth transitions.
+3. Home: subscription popup opened by Subscribe and closed with Close, an outside click or Escape.
+4. Home: Change background cycles through four predefined colors.
+5. Home: current date and time, formatted with the Date object and updated every second.
 
-## Pages
-
-- Home
-- Catalog
-- How to Rent
-- About Us
-- Events
-- Contact
+The shared JavaScript file is linked in all six HTML pages. Forms demonstrate client-side validation and do not send or store data.
 
 ## Run
 
-Open `index.html` in a browser with internet access for the Bootstrap CDN files.
+Open index.html in a browser. Internet access is required for Bootstrap and Google Fonts.
 
 ## Deployment
 
-https://molya002.github.io/MASQUERADE_AND_MOON/
+https://al0ni.github.io/MASQUERADE_AND_MOON/
