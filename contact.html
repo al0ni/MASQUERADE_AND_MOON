@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Front-End Assignment #4: Introduction to JavaScript">
+  <meta name="description" content="Front-End Assignment #5: Advanced JavaScript and DOM Manipulation">
   <link rel="icon" href="images/item-12.jpg" type="image/jpeg">
   <title>Contact | Masquerade &amp; Moon</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link href="vendor/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css?v=5">
+  <link rel="stylesheet" href="css/advanced.css?v=5">
 </head>
 <body>
 
@@ -33,7 +34,7 @@
 </header>
 
 <main>
-<section class="page-hero" style="background: linear-gradient(90deg, rgba(20,14,15,.85), rgba(20,14,15,.35)), url('images/contact-bg.jpg') center/cover;">
+<section class="page-hero extracted-34" >
   <div>
     <p class="eyebrow">GET IN TOUCH</p>
     <h1>Contact <em>Us</em></h1>
@@ -140,14 +141,16 @@
       <h3>Team</h3>
       <p>Student Front-End Project</p>
       <p>Astana IT University</p>
-      <p style="margin-top: 10px; color: #fff;">Alua Rakhimzhanova<br>Assiya Aitbayeva<br>Moldir Yerzhan</p>
+      <p  class="extracted-35">Alua Rakhimzhanova<br>Assiya Aitbayeva<br>Moldir Yerzhan</p>
     </div>
   </div>
   <div class="footer-bottom">
     <span>Created by Alua, Assiya, and Moldir · SE-2509</span>
   </div>
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="vendor/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 <script src="js/script.js" defer></script>
+<div class="preference-tools" aria-label="Display and sound settings"><button id="theme-toggle" type="button" aria-pressed="false">Night theme</button><button id="sound-toggle" type="button" aria-pressed="false">Sound off</button><span id="sound-status" class="visually-hidden" role="status"></span></div>
+<script src="js/advanced.js?v=5" defer></script>
 </body>
 </html>

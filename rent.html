@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Front-End Assignment #4: Introduction to JavaScript">
+  <meta name="description" content="Front-End Assignment #5: Advanced JavaScript and DOM Manipulation">
   <link rel="icon" href="images/item-12.jpg" type="image/jpeg">
   <title>How to Rent | Masquerade &amp; Moon</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link href="vendor/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css?v=5">
+  <link rel="stylesheet" href="css/advanced.css?v=5">
 </head>
 <body>
 
@@ -33,7 +34,7 @@
 </header>
 
 <main>
-<section class="page-hero" style="background: linear-gradient(90deg, rgba(20,14,15,.85), rgba(20,14,15,.35)), url('images/rent-bg.jpg') center/cover;">
+<section class="page-hero extracted-21" >
   <div>
     <p class="eyebrow">SIMPLE &amp; STRESS-FREE</p>
     <h1>How to <em>Rent</em></h1>
@@ -41,6 +42,26 @@
   </div>
 </section>
 
+<section class="section interactive-panel" id="find-look" aria-labelledby="look-title">
+  <p class="eyebrow">A LITTLE INSPIRATION</p>
+  <h2 id="look-title">Find your <em>alter ego.</em></h2>
+  <p>Build a rental preview in three steps. Availability is confirmed through Contact.</p>
+  <form id="look-form" class="look-form" novalidate>
+    <p id="look-progress" role="status">Step 1 of 3</p>
+    <fieldset><legend tabindex="-1">Choose your collection</legend>
+      <label for="visitor-name">Your name<input id="visitor-name" name="visitor" required maxlength="50" autocomplete="given-name"></label>
+      <label for="look-collection">Collection<select id="look-collection" name="collection"><option value="medieval">Medieval and Royal</option><option value="gothic">Gothic</option><option value="winter">Winter and Festive</option><option value="halloween">Halloween and Masquerade</option></select></label>
+    </fieldset>
+    <fieldset hidden><legend tabindex="-1">Set your rental details</legend>
+      <label for="look-size">Size<select id="look-size" name="size"><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option></select></label>
+      <label for="look-days">Rental days<input id="look-days" name="days" type="number" min="3" max="14" value="3" required></label>
+      <p>The estimate starts from the listed three-day rate.</p>
+    </fieldset>
+    <fieldset hidden><legend tabindex="-1">Your look preview</legend><p id="look-result"></p><p>This is an estimate. No reservation is sent.</p><a href="contact.html" class="text-link">Contact us about this look</a></fieldset>
+    <div class="look-actions"><button id="look-back" type="button" class="btn btn-dark" disabled>Back</button><button id="look-next" type="submit" class="btn btn-gold">Next</button><button type="reset" class="btn">Start over</button></div>
+    <p id="look-status" role="status"></p>
+  </form>
+</section>
 <section class="section steps-section">
   <div class="steps-grid">
     <article class="step-card"><span>01</span><h2>Choose</h2><p>Browse our catalog and choose the costume, size and accessories that match your event.</p></article>
@@ -76,7 +97,7 @@
 </section>
 
 <section class="section faq-accordion">
-  <div class="section-heading" style="margin-bottom: 40px;">
+  <div class="section-heading extracted-22" >
     <p class="eyebrow">COMMON QUESTIONS</p>
     <h2>Need to know <em>more?</em></h2>
   </div>
@@ -114,14 +135,16 @@
       <h3>Team</h3>
       <p>Student Front-End Project</p>
       <p>Astana IT University</p>
-      <p style="margin-top: 10px; color: #fff;">Alua Rakhimzhanova<br>Assiya Aitbayeva<br>Moldir Yerzhan</p>
+      <p  class="extracted-23">Alua Rakhimzhanova<br>Assiya Aitbayeva<br>Moldir Yerzhan</p>
     </div>
   </div>
   <div class="footer-bottom">
     <span>Created by Alua, Assiya, and Moldir · SE-2509</span>
   </div>
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="vendor/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 <script src="js/script.js" defer></script>
+<div class="preference-tools" aria-label="Display and sound settings"><button id="theme-toggle" type="button" aria-pressed="false">Night theme</button><button id="sound-toggle" type="button" aria-pressed="false">Sound off</button><span id="sound-status" class="visually-hidden" role="status"></span></div>
+<script src="js/advanced.js?v=5" defer></script>
 </body>
 </html>

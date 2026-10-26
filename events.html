@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Front-End Assignment #4: Introduction to JavaScript">
+  <meta name="description" content="Front-End Assignment #5: Advanced JavaScript and DOM Manipulation">
   <link rel="icon" href="images/item-12.jpg" type="image/jpeg">
   <title>Events | Masquerade &amp; Moon</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link href="vendor/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css?v=5">
+  <link rel="stylesheet" href="css/advanced.css?v=5">
 </head>
 <body>
 
@@ -33,7 +34,7 @@
 </header>
 
 <main>
-<section class="page-hero event-hero" style="background-image: linear-gradient(90deg,rgba(20,14,15,.9),rgba(20,14,15,.25)), url('images/events-bg.jpg');">
+<section class="page-hero event-hero extracted-29" >
   <div>
     <p class="eyebrow">WHERE TO WEAR IT</p>
     <h1>Make it an <em>occasion.</em></h1>
@@ -45,21 +46,21 @@
   <div class="event-list">
     <article class="event-row">
       <div class="event-date"><strong>31</strong><span>OCT</span></div>
-      <div class="event-image" style="background-image: url('images/event-img-1.jpg');"></div>
+      <div class="event-image extracted-30" ></div>
       <div><p class="eyebrow">HALLOWEEN</p><h2>Midnight Masquerade</h2><p>A dramatic night for gothic gowns, vampires, witches and mysterious masks.</p><ul><li>Recommended: Dracula</li><li>Dress code: black / crimson</li></ul></div>
       <a class="circle-arrow" href="catalog.html#halloween">↗</a>
     </article>
     
     <article class="event-row">
       <div class="event-date"><strong>25</strong><span>DEC</span></div>
-      <div class="event-image" style="background-image: url('images/event-img-2.jpg');"></div>
+      <div class="event-image extracted-31" ></div>
       <div><p class="eyebrow">WINTER</p><h2>Winter Wonderland</h2><p>Festive costumes with velvet, faux fur, icy colors and a little theatrical magic.</p><ul><li>Recommended: Snow Queen</li><li>Dress code: silver / white</li></ul></div>
       <a class="circle-arrow" href="catalog.html#winter">↗</a>
     </article>
     
     <article class="event-row">
       <div class="event-date"><strong>14</strong><span>FEB</span></div>
-      <div class="event-image" style="background-image: url('images/event-img-3.jpg');"></div>
+      <div class="event-image extracted-32" ></div>
       <div><p class="eyebrow">THEMED PARTY</p><h2>Royal Court Night</h2><p>Turn the room into a palace with medieval-inspired silhouettes and courtly accessories.</p><ul><li>Recommended: Crimson Countess</li><li>Dress code: burgundy / gold</li></ul></div>
       <a class="circle-arrow" href="catalog.html#medieval">↗</a>
     </article>
@@ -106,7 +107,7 @@
       <h3>Team</h3>
       <p>Student Front-End Project</p>
       <p>Astana IT University</p>
-      <p style="margin-top: 10px; color: #fff;">Alua Rakhimzhanova<br>Assiya Aitbayeva<br>Moldir Yerzhan</p>
+      <p  class="extracted-33">Alua Rakhimzhanova<br>Assiya Aitbayeva<br>Moldir Yerzhan</p>
     </div>
   </div>
   <div class="footer-bottom">
@@ -114,7 +115,9 @@
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="vendor/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 <script src="js/script.js" defer></script>
+<div class="preference-tools" aria-label="Display and sound settings"><button id="theme-toggle" type="button" aria-pressed="false">Night theme</button><button id="sound-toggle" type="button" aria-pressed="false">Sound off</button><span id="sound-status" class="visually-hidden" role="status"></span></div>
+<script src="js/advanced.js?v=5" defer></script>
 </body>
 </html>

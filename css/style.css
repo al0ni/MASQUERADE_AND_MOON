@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 body { transition: background-color .3s ease; }
 .field-error { color: #a51d32; font-size: .78rem; }
@@ -354,3 +354,40 @@ details p { margin-top: 15px; color: var(--muted); font-size: 0.85rem; padding-r
   .media-query-grid { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 24px; }
   .media-query-card > div { padding: 32px; }
 }
+
+.extracted-0 { background-image: url('../images/home-bg.jpg'); }
+.extracted-1 { background-image:url('../images/cat-medieval.jpg'); }
+.extracted-2 { background-image:url('../images/cat-dracula.jpg'); }
+.extracted-3 { background-image:url('../images/cat-winter.jpg'); }
+.extracted-4 { background-image:url('../images/cat-halloween.jpg'); }
+.extracted-5 { background-image:url('../images/feature-photo.jpg'); }
+.extracted-6 { margin-top: 10px; color: #fff; }
+.extracted-7 { background: linear-gradient(90deg, rgba(20,14,15,.85), rgba(20,14,15,.35)), url('../images/catalog-bg.jpg') center/cover; }
+.extracted-8 { background-image:url('../images/item-1.jpg'); }
+.extracted-9 { background-image:url('../images/item-2.jpg'); }
+.extracted-10 { background-image:url('../images/item-3.jpg'); }
+.extracted-11 { background-image:url('../images/item-4.jpg'); }
+.extracted-12 { background-image:url('../images/item-5.jpg'); }
+.extracted-13 { background-image:url('../images/item-6.jpg'); }
+.extracted-14 { background-image:url('../images/item-7.jpg'); }
+.extracted-15 { background-image:url('../images/item-8.jpg'); }
+.extracted-16 { background-image:url('../images/item-9.jpg'); }
+.extracted-17 { background-image:url('../images/item-10.jpg'); }
+.extracted-18 { background-image:url('../images/item-11.jpg'); }
+.extracted-19 { background-image:url('../images/item-12.jpg'); }
+.extracted-20 { margin-top: 10px; color: #fff; }
+.extracted-21 { background: linear-gradient(90deg, rgba(20,14,15,.85), rgba(20,14,15,.35)), url('../images/rent-bg.jpg') center/cover; }
+.extracted-22 { margin-bottom: 40px; }
+.extracted-23 { margin-top: 10px; color: #fff; }
+.extracted-24 { background-image: url('../images/about-main.jpg'); }
+.extracted-25 { background-image: url('../images/pfp.jpg'); }
+.extracted-26 { background-image: url('../images/pfp.jpg'); }
+.extracted-27 { background-image: url('../images/pfp.jpg'); }
+.extracted-28 { margin-top: 10px; color: #fff; }
+.extracted-29 { background-image: linear-gradient(90deg,rgba(20,14,15,.9),rgba(20,14,15,.25)), url('../images/events-bg.jpg'); }
+.extracted-30 { background-image: url('../images/event-img-1.jpg'); }
+.extracted-31 { background-image: url('../images/event-img-2.jpg'); }
+.extracted-32 { background-image: url('../images/event-img-3.jpg'); }
+.extracted-33 { margin-top: 10px; color: #fff; }
+.extracted-34 { background: linear-gradient(90deg, rgba(20,14,15,.85), rgba(20,14,15,.35)), url('../images/contact-bg.jpg') center/cover; }
+.extracted-35 { margin-top: 10px; color: #fff; }

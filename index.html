@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Front-End Assignment #4: Introduction to JavaScript">
+  <meta name="description" content="Front-End Assignment #5: Advanced JavaScript and DOM Manipulation">
   <link rel="icon" href="images/item-12.jpg" type="image/jpeg">
   <title>Home | Masquerade &amp; Moon</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link href="vendor/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css?v=5">
+  <link rel="stylesheet" href="css/advanced.css?v=5">
 </head>
 <body>
 
@@ -33,7 +34,7 @@
 </header>
 
 <main>
-<section class="hero hero-home" style="background-image: url('images/home-bg.jpg');">
+<section class="hero hero-home extracted-0" >
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <p class="eyebrow">COSTUMES FOR EVERY ALTER EGO</p>
@@ -77,16 +78,16 @@
     <a class="text-link light" href="catalog.html">View all costumes →</a>
   </div>
   <div class="category-grid">
-    <a class="category-card" href="catalog.html#medieval" style="background-image:url('images/cat-medieval.jpg');">
+    <a class="category-card extracted-1" href="catalog.html#medieval" >
       <div><span>01</span><h3>Medieval<br>Royalty</h3><p>Crowns, velvet &amp; court drama</p></div>
     </a>
-    <a class="category-card" href="catalog.html#dracula" style="background-image:url('images/cat-dracula.jpg');">
+    <a class="category-card extracted-2" href="catalog.html#dracula" >
       <div><span>02</span><h3>Dracula<br>After Dark</h3><p>Gothic silhouettes &amp; crimson</p></div>
     </a>
-    <a class="category-card" href="catalog.html#winter" style="background-image:url('images/cat-winter.jpg');">
+    <a class="category-card extracted-3" href="catalog.html#winter" >
       <div><span>03</span><h3>Winter<br>Wonderland</h3><p>Festive looks with a twist</p></div>
     </a>
-    <a class="category-card" href="catalog.html#halloween" style="background-image:url('images/cat-halloween.jpg');">
+    <a class="category-card extracted-4" href="catalog.html#halloween" >
       <div><span>04</span><h3>Halloween<br>Midnight</h3><p>Spooky, strange &amp; spectacular</p></div>
     </a>
   </div>
@@ -183,7 +184,7 @@
 </section>
 
 <section class="section feature-split">
-  <div class="feature-photo" style="background-image:url('images/feature-photo.jpg');"></div>
+  <div class="feature-photo extracted-5" ></div>
   <div class="feature-copy">
     <p class="eyebrow">WHY RENT?</p>
     <h2>More imagination.<br><em>Less closet space.</em></h2>
@@ -194,6 +195,19 @@
     </ul>
     <a class="btn btn-dark" href="rent.html">See rental rules</a>
   </div>
+</section>
+<section class="section interactive-panel" aria-labelledby="rating-title">
+  <p class="eyebrow">YOUR OPINION MATTERS</p>
+  <h2 id="rating-title">Rate the <em>wardrobe.</em></h2>
+  <p>Which mood will you wear next? Tell us how you like our collection.</p>
+  <div class="rating-stars" role="group" aria-label="Rate the wardrobe from one to five stars">
+    <button type="button" data-rating="1" aria-label="1 out of 5 stars" aria-pressed="false">&#9733;</button>
+    <button type="button" data-rating="2" aria-label="2 out of 5 stars" aria-pressed="false">&#9733;</button>
+    <button type="button" data-rating="3" aria-label="3 out of 5 stars" aria-pressed="false">&#9733;</button>
+    <button type="button" data-rating="4" aria-label="4 out of 5 stars" aria-pressed="false">&#9733;</button>
+    <button type="button" data-rating="5" aria-label="5 out of 5 stars" aria-pressed="false">&#9733;</button>
+  </div>
+  <p id="rating-status" role="status">Choose a star to rate our wardrobe.</p>
 </section>
 </main>
 
@@ -229,14 +243,16 @@
       <h3>Team</h3>
       <p>Student Front-End Project</p>
       <p>Astana IT University</p>
-      <p style="margin-top: 10px; color: #fff;">Alua Rakhimzhanova<br>Assiya Aitbayeva<br>Moldir Yerzhan</p>
+      <p  class="extracted-6">Alua Rakhimzhanova<br>Assiya Aitbayeva<br>Moldir Yerzhan</p>
     </div>
   </div>
   <div class="footer-bottom">
     <span>Created by Alua, Assiya, and Moldir · SE-2509</span>
   </div>
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="vendor/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 <script src="js/script.js" defer></script>
+<div class="preference-tools" aria-label="Display and sound settings"><button id="theme-toggle" type="button" aria-pressed="false">Night theme</button><button id="sound-toggle" type="button" aria-pressed="false">Sound off</button><span id="sound-status" class="visually-hidden" role="status"></span></div>
+<script src="js/advanced.js?v=5" defer></script>
 </body>
 </html>
