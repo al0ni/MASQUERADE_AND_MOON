@@ -118,7 +118,7 @@ $(document).ready(function () {
         event.preventDefault();
         suggestions.find('button').first().trigger('focus');
       }
-      if (event.key === 'Escape') closeSuggestions();
+      if (event.key === 'Escape') { event.preventDefault(); closeSuggestions(); }
     });
     suggestions.on('click', 'button', function () {
       search.val($(this).text());
