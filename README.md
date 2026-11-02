@@ -1,43 +1,30 @@
-# Masquerade and Moon
+# Masquerade and Moon - Assignment 6
 
-Frontend Assignment 5 continues the team's six-page costume rental website.
+Team: Alua Rakhimzhanova, Assiya Aitbayeva, Moldir Yerzhan. Group SE-2509.
 
-## Team
-Alua Rakhimzhanova, Assiya Aitbayeva, Moldir Yerzhan
-Group SE-2509
-
-## Run
-Extract the complete folder and open index.html. All images, Bootstrap files and audio are included locally. No installation or build step is required.
-For consistent storage across pages, use a local web server or the deployed site.
-
-## Features
-- All pages: day/night theme, sound toggle, arrow-key menu navigation, Home and End shortcuts.
-- Home: five-star rating with saved selection.
-- Catalog: collection filter using switch, live search, price sorting, saved looks and clear filters.
-- Catalog: thumbnail gallery updates the large image source and alternative text.
-- How to Rent: three-step look preview with validation, Back, Next and Start over controls.
-- Shared JavaScript objects and methods, arrays, for loops, map, filter and forEach.
-- Local notification sound reuses one audio player and restarts it to prevent overlapping playback.
-- Event-triggered animations respect reduced-motion preferences.
-- Existing Assignment 4 validation, FAQ, subscription popup, color control and clock remain available.
-
-## Storage and privacy
-Theme, sound preference, rating and favorite costume IDs are stored in localStorage. Storage access is guarded so the interface still works if the browser blocks it. Forms do not send or save names, passwords or email addresses. The look preview is an estimate, not a real booking.
-
-## Structure
-HTML contains content. css/style.css and css/advanced.css contain presentation. js/script.js preserves Assignment 4 and js/advanced.js contains Assignment 5. There are no inline styles, inline event handlers or code comments in the project source.
-Third-party Bootstrap distribution files retain their required license notices.
-
-## Deployment
-Repository: https://github.com/al0ni/MASQUERADE_AND_MOON
 Website: https://al0ni.github.io/MASQUERADE_AND_MOON/
-GitHub Pages publishes the main branch.
 
-## Defense walkthrough
-1. Home: change theme, enable sound and click a rating star.
-2. Focus Home in the navigation, press ArrowRight, ArrowLeft, Home and End.
-3. Catalog: choose Gothic, sort by price, search, save a look and enable Saved looks only.
-4. Clear filters; enter an unmatched query to show the empty state.
-5. Select a gallery thumbnail and explain src, alt and aria-pressed updates.
-6. How to Rent: try Next with an empty name, complete the steps, go Back and finish the preview.
-7. Reload to demonstrate saved preferences. Use Start over to clear the preview.
+Open index.html or use the published website. For clipboard access, use HTTPS or a localhost server. All images, audio and library fallbacks are included. There is no build step.
+
+## Features and demonstration
+
+0. Open the console: jQuery is ready! The CDN is included in the head; a local copy is used if the CDN is unavailable.
+1. Catalog: type Crimson to filter the costumes immediately.
+2. Select a suggestion with the mouse or ArrowDown and Enter. Escape closes the suggestions.
+3. Matching text is highlighted in the product titles and descriptions. Clear filters restores all looks.
+4. Scroll any page: the burgundy and gold progress bar fills at the top.
+5. Home: scroll to the statistics. The counters animate to 12 looks, 4 collections and 5 sizes.
+6. Home: click Subscribe, enter a valid email and submit. The spinner runs for 1.6 seconds and the button is disabled.
+7. Catalog: save or remove a look to show a fading notification.
+8. Home: Copy the website link. The icon changes to a checkmark and a tooltip appears.
+9. Catalog: images use data-src until they enter the viewport. Check the Network panel before and after scrolling.
+
+## Files
+
+- js/script.js: Assignment 6 jQuery features.
+- js/legacy.js: earlier form validation, FAQ, popup, background control and clock.
+- js/advanced.js: themes, sound, rating, gallery and rental preview.
+- css/jquery.css: new component styles.
+- vendor: local Bootstrap and jQuery files with original license notices.
+
+Forms are demonstrations and do not send or save personal data. Theme, sound, rating and saved looks use localStorage. Existing sorting, collection filters, gallery and rental preview remain available.

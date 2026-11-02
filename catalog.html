@@ -3,12 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Front-End Assignment #5: Advanced JavaScript and DOM Manipulation">
+  <meta name="description" content="Front-End Assignment #6: jQuery">
   <link rel="icon" href="images/item-12.jpg" type="image/jpeg">
   <title>Catalog | Masquerade &amp; Moon</title>
   <link href="vendor/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.css?v=5">
   <link rel="stylesheet" href="css/advanced.css?v=5">
+  <link rel="stylesheet" href="css/jquery.css">
+  <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+  <script src="js/jquery-fallback.js"></script>
+  <script src="js/script.js" defer></script>
 </head>
 <body class="catalog-page">
 
@@ -43,6 +47,8 @@
   <a href="#gallery">Gallery</a>
 </aside>
 
+<div id="scroll-progress" role="progressbar" aria-label="Page scroll progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div></div></div>
+<div id="toast" role="status" aria-live="polite"></div>
 <main>
 <section class="page-hero extracted-7" >
   <div>
@@ -54,7 +60,7 @@
 
 <section class="section catalog-section">
   <div class="catalog-controls" role="search" aria-label="Filter costumes">
-  <label for="costume-search">Search looks<input id="costume-search" type="search" placeholder="Try Snow Queen"></label>
+  <div class="search-box"><label for="costume-search">Search looks</label><input id="costume-search" type="search" placeholder="Try Snow Queen" autocomplete="off" aria-controls="search-suggestions" aria-expanded="false"><ul id="search-suggestions" aria-label="Search suggestions" hidden></ul></div>
   <label for="category-filter">Collection<select id="category-filter"><option value="all">All collections</option><option value="medieval">Medieval and Royal</option><option value="gothic">Gothic</option><option value="winter">Winter and Festive</option><option value="halloween">Halloween and Masquerade</option></select></label>
   <label for="price-sort">Sort by<select id="price-sort"><option value="default">Original order</option><option value="low">Price low to high</option><option value="high">Price high to low</option></select></label>
   <label class="saved-filter"><input id="saved-only" type="checkbox"> Saved looks only</label>
@@ -67,54 +73,54 @@
 
   <div class="product-grid">
     <article class="product-card" id="medieval">
-      <div class="product-image extracted-8" ><span class="tag">MEDIEVAL</span></div>
+      <div class="product-image"><img data-src="images/item-1.jpg" src="images/placeholder.svg" alt="Costume look 1" width="400" height="500"><span class="tag">MEDIEVAL</span></div>
       <div class="product-info"><h3>The Crimson Countess</h3><p>Velvet gown · cape · belt</p><div><strong>₸ 12,000 / 3 days</strong><a href="contact.html">Rent →</a></div></div>
     </article>
     <article class="product-card">
-      <div class="product-image extracted-9" ><span class="tag">MEDIEVAL</span></div>
+      <div class="product-image"><img data-src="images/item-2.jpg" src="images/placeholder.svg" alt="Costume look 2" width="400" height="500"><span class="tag">MEDIEVAL</span></div>
       <div class="product-info"><h3>Moonlit Knight</h3><p>Tunic · cloak · faux armor</p><div><strong>₸ 14,000 / 3 days</strong><a href="contact.html">Rent →</a></div></div>
     </article>
     <article class="product-card">
-      <div class="product-image extracted-10" ><span class="tag">ROYAL</span></div>
+      <div class="product-image"><img data-src="images/item-3.jpg" src="images/placeholder.svg" alt="Costume look 3" width="400" height="500"><span class="tag">ROYAL</span></div>
       <div class="product-info"><h3>Golden Court</h3><p>Royal dress · gloves · crown</p><div><strong>₸ 16,000 / 3 days</strong><a href="contact.html">Rent →</a></div></div>
     </article>
 
     <article class="product-card" id="dracula">
-      <div class="product-image extracted-11" ><span class="tag">DRACULA</span></div>
+      <div class="product-image"><img data-src="images/item-4.jpg" src="images/placeholder.svg" alt="Costume look 4" width="400" height="500"><span class="tag">DRACULA</span></div>
       <div class="product-info"><h3>Count Dracula</h3><p>Tuxedo · cape · medallion</p><div><strong>₸ 13,500 / 3 days</strong><a href="contact.html">Rent →</a></div></div>
     </article>
     <article class="product-card">
-      <div class="product-image extracted-12" ><span class="tag">GOTHIC</span></div>
+      <div class="product-image"><img data-src="images/item-5.jpg" src="images/placeholder.svg" alt="Costume look 5" width="400" height="500"><span class="tag">GOTHIC</span></div>
       <div class="product-info"><h3>Crimson Bride</h3><p>Black gown · veil · choker</p><div><strong>₸ 13,000 / 3 days</strong><a href="contact.html">Rent →</a></div></div>
     </article>
     <article class="product-card">
-      <div class="product-image extracted-13" ><span class="tag">GOTHIC</span></div>
+      <div class="product-image"><img data-src="images/item-6.jpg" src="images/placeholder.svg" alt="Costume look 6" width="400" height="500"><span class="tag">GOTHIC</span></div>
       <div class="product-info"><h3>Velvet Vampire</h3><p>Jacket · shirt · gloves</p><div><strong>₸ 11,500 / 3 days</strong><a href="contact.html">Rent →</a></div></div>
     </article>
 
     <article class="product-card" id="winter">
-      <div class="product-image extracted-14" ><span class="tag">WINTER</span></div>
+      <div class="product-image"><img data-src="images/item-7.jpg" src="images/placeholder.svg" alt="Costume look 7" width="400" height="500"><span class="tag">WINTER</span></div>
       <div class="product-info"><h3>Midnight Santa</h3><p>Coat · hat · faux fur</p><div><strong>₸ 10,000 / 3 days</strong><a href="contact.html">Rent →</a></div></div>
     </article>
     <article class="product-card">
-      <div class="product-image extracted-15" ><span class="tag">WINTER</span></div>
+      <div class="product-image"><img data-src="images/item-8.jpg" src="images/placeholder.svg" alt="Costume look 8" width="400" height="500"><span class="tag">WINTER</span></div>
       <div class="product-info"><h3>Snow Queen</h3><p>Ice-blue gown · tiara</p><div><strong>₸ 15,000 / 3 days</strong><a href="contact.html">Rent →</a></div></div>
     </article>
     <article class="product-card">
-      <div class="product-image extracted-16" ><span class="tag">FESTIVE</span></div>
+      <div class="product-image"><img data-src="images/item-9.jpg" src="images/placeholder.svg" alt="Costume look 9" width="400" height="500"><span class="tag">FESTIVE</span></div>
       <div class="product-info"><h3>Forest Elf</h3><p>Green dress · cape · ears</p><div><strong>₸ 9,500 / 3 days</strong><a href="contact.html">Rent →</a></div></div>
     </article>
 
     <article class="product-card" id="halloween">
-      <div class="product-image extracted-17" ><span class="tag">HALLOWEEN</span></div>
+      <div class="product-image"><img data-src="images/item-10.jpg" src="images/placeholder.svg" alt="Costume look 10" width="400" height="500"><span class="tag">HALLOWEEN</span></div>
       <div class="product-info"><h3>Velvet Witch</h3><p>Dress · hat · waist corset</p><div><strong>₸ 11,000 / 3 days</strong><a href="contact.html">Rent →</a></div></div>
     </article>
     <article class="product-card">
-      <div class="product-image extracted-18" ><span class="tag">HALLOWEEN</span></div>
+      <div class="product-image"><img data-src="images/item-11.jpg" src="images/placeholder.svg" alt="Costume look 11" width="400" height="500"><span class="tag">HALLOWEEN</span></div>
       <div class="product-info"><h3>The Phantom</h3><p>Mask · coat · gloves</p><div><strong>₸ 12,500 / 3 days</strong><a href="contact.html">Rent →</a></div></div>
     </article>
     <article class="product-card">
-      <div class="product-image extracted-19" ><span class="tag">MASQUERADE</span></div>
+      <div class="product-image"><img data-src="images/item-12.jpg" src="images/placeholder.svg" alt="Costume look 12" width="400" height="500"><span class="tag">MASQUERADE</span></div>
       <div class="product-info"><h3>Golden Masquerade</h3><p>Suit · mask · pocket chain</p><div><strong>₸ 12,000 / 3 days</strong><a href="contact.html">Rent →</a></div></div>
     </article>
   </div>
@@ -125,17 +131,17 @@
     <div><p class="eyebrow">LOOKBOOK</p><h2>Inside the <em>wardrobe.</em></h2></div>
     <p class="gallery-note">Select a thumbnail to preview the costume.</p>
   </div>
-  <figure class="gallery-feature"><img id="gallery-preview" src="images/item-1.jpg" alt="Crimson Countess costume"><figcaption id="gallery-caption">Crimson Countess costume</figcaption></figure>
+  <figure class="gallery-feature"><img id="gallery-preview" src="images/placeholder.svg" data-src="images/item-1.jpg" alt="Crimson Countess costume"><figcaption id="gallery-caption">Crimson Countess costume</figcaption></figure>
   <div class="image-gallery">
-    <figure><button type="button" class="gallery-thumb" aria-label="Preview Crimson Countess" aria-pressed="true"><img src="images/item-1.jpg" alt="Crimson Countess costume"></button><figcaption>Crimson Countess</figcaption></figure>
-    <figure><button type="button" class="gallery-thumb" aria-label="Preview Moonlit Knight" aria-pressed="false"><img src="images/item-2.jpg" alt="Moonlit Knight costume"></button><figcaption>Moonlit Knight</figcaption></figure>
-    <figure><button type="button" class="gallery-thumb" aria-label="Preview Golden Court" aria-pressed="false"><img src="images/item-3.jpg" alt="Golden Court costume"></button><figcaption>Golden Court</figcaption></figure>
-    <figure><button type="button" class="gallery-thumb" aria-label="Preview Count Dracula" aria-pressed="false"><img src="images/item-4.jpg" alt="Count Dracula costume"></button><figcaption>Count Dracula</figcaption></figure>
-    <figure><button type="button" class="gallery-thumb" aria-label="Preview Crimson Bride" aria-pressed="false"><img src="images/item-5.jpg" alt="Crimson Bride costume"></button><figcaption>Crimson Bride</figcaption></figure>
-    <figure><button type="button" class="gallery-thumb" aria-label="Preview Velvet Vampire" aria-pressed="false"><img src="images/item-6.jpg" alt="Velvet Vampire costume"></button><figcaption>Velvet Vampire</figcaption></figure>
-    <figure><button type="button" class="gallery-thumb" aria-label="Preview Midnight Santa" aria-pressed="false"><img src="images/item-7.jpg" alt="Midnight Santa costume"></button><figcaption>Midnight Santa</figcaption></figure>
-    <figure><button type="button" class="gallery-thumb" aria-label="Preview Snow Queen" aria-pressed="false"><img src="images/item-8.jpg" alt="Snow Queen costume"></button><figcaption>Snow Queen</figcaption></figure>
-    <figure><button type="button" class="gallery-thumb" aria-label="Preview Velvet Witch" aria-pressed="false"><img src="images/item-10.jpg" alt="Velvet Witch costume"></button><figcaption>Velvet Witch</figcaption></figure>
+    <figure><button type="button" class="gallery-thumb" aria-label="Preview Crimson Countess" aria-pressed="true"><img src="images/placeholder.svg" data-src="images/item-1.jpg" alt="Crimson Countess costume"></button><figcaption>Crimson Countess</figcaption></figure>
+    <figure><button type="button" class="gallery-thumb" aria-label="Preview Moonlit Knight" aria-pressed="false"><img src="images/placeholder.svg" data-src="images/item-2.jpg" alt="Moonlit Knight costume"></button><figcaption>Moonlit Knight</figcaption></figure>
+    <figure><button type="button" class="gallery-thumb" aria-label="Preview Golden Court" aria-pressed="false"><img src="images/placeholder.svg" data-src="images/item-3.jpg" alt="Golden Court costume"></button><figcaption>Golden Court</figcaption></figure>
+    <figure><button type="button" class="gallery-thumb" aria-label="Preview Count Dracula" aria-pressed="false"><img src="images/placeholder.svg" data-src="images/item-4.jpg" alt="Count Dracula costume"></button><figcaption>Count Dracula</figcaption></figure>
+    <figure><button type="button" class="gallery-thumb" aria-label="Preview Crimson Bride" aria-pressed="false"><img src="images/placeholder.svg" data-src="images/item-5.jpg" alt="Crimson Bride costume"></button><figcaption>Crimson Bride</figcaption></figure>
+    <figure><button type="button" class="gallery-thumb" aria-label="Preview Velvet Vampire" aria-pressed="false"><img src="images/placeholder.svg" data-src="images/item-6.jpg" alt="Velvet Vampire costume"></button><figcaption>Velvet Vampire</figcaption></figure>
+    <figure><button type="button" class="gallery-thumb" aria-label="Preview Midnight Santa" aria-pressed="false"><img src="images/placeholder.svg" data-src="images/item-7.jpg" alt="Midnight Santa costume"></button><figcaption>Midnight Santa</figcaption></figure>
+    <figure><button type="button" class="gallery-thumb" aria-label="Preview Snow Queen" aria-pressed="false"><img src="images/placeholder.svg" data-src="images/item-8.jpg" alt="Snow Queen costume"></button><figcaption>Snow Queen</figcaption></figure>
+    <figure><button type="button" class="gallery-thumb" aria-label="Preview Velvet Witch" aria-pressed="false"><img src="images/placeholder.svg" data-src="images/item-10.jpg" alt="Velvet Witch costume"></button><figcaption>Velvet Witch</figcaption></figure>
   </div>
 </section>
 
@@ -181,7 +187,7 @@
   </div>
 </footer>
 <script src="vendor/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-<script src="js/script.js" defer></script>
+<script src="js/legacy.js" defer></script>
 <div class="preference-tools" aria-label="Display and sound settings"><button id="theme-toggle" type="button" aria-pressed="false">Night theme</button><button id="sound-toggle" type="button" aria-pressed="false">Sound off</button><span id="sound-status" class="visually-hidden" role="status"></span></div>
 <script src="js/advanced.js?v=5" defer></script>
 </body>

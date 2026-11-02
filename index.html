@@ -3,12 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Front-End Assignment #5: Advanced JavaScript and DOM Manipulation">
+  <meta name="description" content="Front-End Assignment #6: jQuery">
   <link rel="icon" href="images/item-12.jpg" type="image/jpeg">
   <title>Home | Masquerade &amp; Moon</title>
   <link href="vendor/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.css?v=5">
   <link rel="stylesheet" href="css/advanced.css?v=5">
+  <link rel="stylesheet" href="css/jquery.css">
+  <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+  <script src="js/jquery-fallback.js"></script>
+  <script src="js/script.js" defer></script>
 </head>
 <body>
 
@@ -33,6 +37,8 @@
 </nav>
 </header>
 
+<div id="scroll-progress" role="progressbar" aria-label="Page scroll progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div></div></div>
+<div id="toast" role="status" aria-live="polite"></div>
 <main>
 <section class="hero hero-home extracted-0" >
   <div class="hero-overlay"></div>
@@ -209,6 +215,21 @@
   </div>
   <p id="rating-status" role="status">Choose a star to rate our wardrobe.</p>
 </section>
+<section class="section wardrobe-stats" aria-label="Our wardrobe in numbers">
+  <p class="eyebrow">THE COLLECTION AT A GLANCE</p>
+  <h2>A look for every <em>story.</em></h2>
+  <div class="stats-grid">
+    <div><strong class="number-counter" data-count="12">0</strong><span>Signature looks</span></div>
+    <div><strong class="number-counter" data-count="4">0</strong><span>Collections</span></div>
+    <div><strong class="number-counter" data-count="5">0</strong><span>Available sizes</span></div>
+  </div>
+</section>
+<section class="section copy-section">
+  <p class="eyebrow">SHARE THE WARDROBE</p>
+  <h2>Bring a <em>friend.</em></h2>
+  <p>Copy our website link and share your favorite looks.</p>
+  <div class="copy-row"><code id="share-link">https://al0ni.github.io/MASQUERADE_AND_MOON/</code><button class="btn btn-dark copy-button" type="button" data-copy-target="#share-link" aria-describedby="copy-tooltip"><span class="copy-icon" aria-hidden="true">&#128203;</span> Copy</button><span id="copy-tooltip" role="tooltip" hidden>Copied to clipboard!</span></div>
+</section>
 </main>
 
 <dialog id="subscription-popup" class="subscription-popup" aria-labelledby="subscription-title">
@@ -251,7 +272,7 @@
   </div>
 </footer>
 <script src="vendor/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-<script src="js/script.js" defer></script>
+<script src="js/legacy.js" defer></script>
 <div class="preference-tools" aria-label="Display and sound settings"><button id="theme-toggle" type="button" aria-pressed="false">Night theme</button><button id="sound-toggle" type="button" aria-pressed="false">Sound off</button><span id="sound-status" class="visually-hidden" role="status"></span></div>
 <script src="js/advanced.js?v=5" defer></script>
 </body>

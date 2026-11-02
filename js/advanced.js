@@ -130,91 +130,14 @@ if (ratingButtons.length) {
   showRating();
 }
 
-const productGrid = document.querySelector('.product-grid');
-if (productGrid) {
-  const categories = ['medieval', 'medieval', 'medieval', 'gothic', 'gothic', 'gothic', 'winter', 'winter', 'winter', 'halloween', 'halloween', 'halloween'];
-  const storedFavorites = storage.get('favorites', []);
-  let favorites = Array.isArray(storedFavorites) ? storedFavorites.filter((id) => Number.isInteger(id) && id >= 0 && id < 12) : [];
-  const products = [...productGrid.querySelectorAll('.product-card')].map((card, index) => ({
-    id: index,
-    card,
-    name: card.querySelector('h3').textContent,
-    price: Number(card.querySelector('strong').textContent.replace(/[^0-9]/g, '').slice(0, -1)),
-    category: categories[index],
-    matches(category) {
-      switch (category) {
-        case 'medieval':
-        case 'gothic':
-        case 'winter':
-        case 'halloween':
-          return this.category === category;
-        default:
-          return true;
-      }
-    }
-  }));
-  const category = document.querySelector('#category-filter');
-  const search = document.querySelector('#costume-search');
-  const sort = document.querySelector('#price-sort');
-  const savedOnly = document.querySelector('#saved-only');
-  const count = document.querySelector('#product-count');
-
-  for (const product of products) {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'favorite-button';
-    button.setAttribute('aria-label', 'Save ' + product.name);
-    button.addEventListener('click', () => {
-      favorites = favorites.includes(product.id) ? favorites.filter((id) => id !== product.id) : [...favorites, product.id];
-      storage.set('favorites', favorites);
-      renderProducts();
-      if (button.isConnected) button.focus();
-      else savedOnly.focus();
-      playSound();
-    });
-    product.card.querySelector('.product-info').append(button);
-    product.favoriteButton = button;
-  }
-
-  function renderProducts() {
-    const query = search.value.trim().toLowerCase();
-    const shown = products.filter((product) =>
-      product.matches(category.value) &&
-      product.name.toLowerCase().includes(query) &&
-      (!savedOnly.checked || favorites.includes(product.id))
-    );
-    if (sort.value === 'low') shown.sort((a, b) => a.price - b.price);
-    if (sort.value === 'high') shown.sort((a, b) => b.price - a.price);
-    productGrid.replaceChildren();
-    for (const product of shown) {
-      const saved = favorites.includes(product.id);
-      product.favoriteButton.textContent = saved ? 'Saved' : 'Save look';
-      product.favoriteButton.setAttribute('aria-pressed', String(saved));
-      productGrid.append(product.card);
-    }
-    count.textContent = shown.length ? shown.length + ' of 12 looks. ' + favorites.length + ' saved.' : 'No looks found. Try another filter or clear your search.';
-    animateChange(productGrid);
-  }
-
-  search.addEventListener('input', renderProducts);
-  [category, sort, savedOnly].forEach((control) => control.addEventListener('change', renderProducts));
-  document.querySelector('#reset-filters').addEventListener('click', () => {
-    category.value = 'all';
-    search.value = '';
-    sort.value = 'default';
-    savedOnly.checked = false;
-    renderProducts();
-  });
-  renderProducts();
-}
-
 const galleryImage = document.querySelector('#gallery-preview');
 if (galleryImage) {
   const thumbnails = document.querySelectorAll('.gallery-thumb');
   thumbnails.forEach((button) => {
     button.addEventListener('click', () => {
       const image = button.querySelector('img');
-      galleryImage.src = image.src;
+      galleryImage.src = image.dataset.src || image.src;
+      galleryImage.removeAttribute('data-src');
       galleryImage.alt = image.alt;
       document.querySelector('#gallery-caption').textContent = image.alt;
       thumbnails.forEach((thumbnail) => thumbnail.setAttribute('aria-pressed', String(thumbnail === button)));

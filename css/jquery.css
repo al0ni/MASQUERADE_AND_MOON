@@ -1,0 +1,22 @@
+#scroll-progress { position: fixed; top: 0; left: 0; width: 100%; height: 5px; z-index: 2000; background: #252126; }
+#scroll-progress div { width: 0; height: 100%; background: linear-gradient(90deg, #7c233f, #bb6b77, #e8c77b); box-shadow: 0 0 9px #e8c77b; }
+#toast { display: none; position: fixed; left: 50%; bottom: 95px; transform: translateX(-50%); max-width: calc(100% - 32px); width: max-content; z-index: 2100; padding: 15px 24px; color: #fff8e8; background: #34212b; border: 1px solid #d3ad69; border-radius: 8px; box-shadow: 0 6px 24px #0003; }
+.search-box { position: relative; }
+.search-box > label { display: block; }
+.search-box > input { width: 100%; }
+#search-suggestions { position: absolute; top: 100%; left: 0; right: 0; z-index: 30; list-style: none; margin: 4px 0 0; padding: 5px; background: #fffcf5; color: #241c20; border: 1px solid #b89761; border-radius: 6px; box-shadow: 0 8px 20px #0002; }
+#search-suggestions button { display: block; width: 100%; border: 0; background: transparent; color: inherit; text-align: left; padding: 11px; border-radius: 3px; }
+#search-suggestions button:hover, #search-suggestions button:focus { background: #e8d8b8; outline: 2px solid #7c233f; }
+mark { background: #f2ce77; color: #241c20; padding: 0 2px; border-radius: 2px; }
+.product-image > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding-top: 25px; }
+.stats-grid > div { padding: 25px; text-align: center; border: 1px solid var(--line); }
+.number-counter { display: block; font-size: 3rem; color: var(--gold-dark); font-variant-numeric: tabular-nums; }
+.stats-grid span { display: block; margin-top: 8px; }
+.copy-row { display: flex; flex-wrap: wrap; align-items: center; gap: 15px; margin-top: 22px; }
+.copy-row code { overflow-wrap: anywhere; color: inherit; }
+#copy-tooltip { padding: 7px 12px; border-radius: 4px; background: #34212b; color: #fff8e8; }
+.submit-spinner { display: inline-block; width: 16px; height: 16px; margin-right: 7px; border: 2px solid #ffffff60; border-top-color: white; border-radius: 50%; vertical-align: middle; animation: submit-spin .7s linear infinite; }
+@keyframes submit-spin { to { transform: rotate(360deg); } }
+@media (max-width: 600px) { .stats-grid { grid-template-columns: 1fr; gap: 12px; } .stats-grid > div { padding: 16px; } }
+@media (prefers-reduced-motion: reduce) { .submit-spinner { animation: none; } }
