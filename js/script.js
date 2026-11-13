@@ -151,7 +151,7 @@
     const form=$('#login-form');if(!form)return;
     form.addEventListener('submit',async event=>{
       event.preventDefault();clearErrors(form);
-      if(!validate(form,[['email',validEmail,'Enter a valid email address.'],['password',v=>v.length>0,'Enter your password.']]))return;
+      if(!validate(form,[['email',validEmail,'Enter a valid email address.'],['password',validPassword,'Enter a password with 8+ characters, uppercase, lowercase, number and symbol.']]))return;
       const email=formValue(form,'email').toLowerCase();
       const user=(get('users',[])||[]).find(u=>u.email===email);
       if(!user){setError(form,'email','No local account matches this email.');return;}
@@ -210,7 +210,7 @@
       if(!response.ok)throw new Error('The museum could not be reached.');
       const json=await response.json(),items=(Array.isArray(json.data)?json.data:[]).filter(item=>item.is_public_domain&&item.image_id&&/^[a-z0-9-]+$/i.test(item.image_id)).slice(0,6);
       if(!items.length)throw new Error('No artworks could be loaded today.');
-      const base=/^https:\/\//.test(json.config?.iiif_url||'')?json.config.iiif_url:'https://www.artic.edu/iiif/2';
+      const base=/^https:\/\/www\.artic\.edu\/iiif\/2$/.test(json.config?.iiif_url||'')?json.config.iiif_url:'https://www.artic.edu/iiif/2';
       grid.innerHTML=items.map(item=>'<a class="archive-card" target="_blank" rel="noopener noreferrer" href="https://www.artic.edu/artworks/'+Number(item.id)+'"><img src="'+escapeHTML(base+'/'+item.image_id+'/full/600,/0/default.jpg')+'" loading="lazy" alt="'+escapeHTML(item.title)+'"><div><p class="eyebrow">ART INSTITUTE OF CHICAGO</p><h3>'+escapeHTML(item.title)+'</h3><p>'+escapeHTML(item.date_display||item.artist_display||'Historic inspiration')+'</p></div></a>').join('');
     }catch(e){error.textContent='The live museum archive is unavailable right now. You can still explore our costume collection.';error.hidden=false;retry.hidden=false;}
     finally{loading.hidden=true;}

@@ -22,6 +22,8 @@ Plain HTML5, CSS3 (Grid/Flexbox), vanilla JavaScript, localStorage, Web Crypto S
 - Mobile navigation and fully responsive layouts
 - Persistent dark/light mode across every page
 - Live costume search, category filtering, sorting and saved-only filtering; persistent filter choices
+- **Alter Ego Ritual**: three-question interactive character finder with tailored results and a costume recommendation
+- **Tonight's Muse**: a rotating daily costume pick, with direct access to details and rental previews
 - Favorite looks across pages, accessible through account and catalog
 - Accessible costume detail dialog with links to the rental preview form
 - Signup/login with JavaScript validation, visible inline errors and local account storage
@@ -35,10 +37,15 @@ Plain HTML5, CSS3 (Grid/Flexbox), vanilla JavaScript, localStorage, Web Crypto S
 ## Local development
 Use a local HTTP server, for example `python -m http.server 8000`, and visit http://localhost:8000. HTTPS or localhost is necessary for Web Crypto used during signup and login.
 
+## Automated verification
+
+Run `node tests/smoke.mjs` to check all pages, local links, form settings and JavaScript syntax. To run browser acceptance tests, install Playwright (`npm install --no-save playwright@1.56.1` and `npx playwright install chromium`), serve the project with `python3 -m http.server 8000`, then run `node tests/browser.mjs`. A GitHub Actions workflow on the final project branch executes both suites, including responsive viewport checks.
+
 ## Defense / verification checklist
 1. Navigate all pages via desktop and mobile menus.
 2. Switch theme and navigate to a different page; verify persistence.
-3. Search for `Crimson`, filter `Gothic`, sort by price, save a look, then filter to saved only.
+3. Try the three-question Alter Ego Ritual on the homepage and see your costume result; return to view Tonight's Muse.
+4. Search for `Crimson`, filter `Gothic`, sort by price, save a look, then filter to saved only.
 4. Create a test account using name, valid email, phone and strong password. Try invalid data first and verify inline errors.
 5. Log out, attempt an incorrect password, then log in successfully.
 6. Create a rental preview with a future event date. Open profile and verify the saved request.
