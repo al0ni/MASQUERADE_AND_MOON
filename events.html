@@ -1,129 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Front-End Assignment #6: jQuery">
-  <link rel="icon" href="images/item-12.jpg" type="image/jpeg">
-  <title>Events | Masquerade &amp; Moon</title>
-  <link href="vendor/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/style.css?v=5">
-  <link rel="stylesheet" href="css/advanced.css?v=5">
-  <link rel="stylesheet" href="css/jquery.css">
-  <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
-  <script src="js/jquery-fallback.js"></script>
-  <script src="js/script.js" defer></script>
-</head>
-<body>
-
-<header class="site-header">
-<nav class="site-nav navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Main navigation">
-  <div class="nav-inner container-fluid px-sm-2 px-lg-4">
-    <a class="navbar-brand brand" href="index.html">MASQUERADE<span>&amp;</span>MOON</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavigation" aria-controls="mainNavigation" aria-expanded="false" aria-label="Open navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="mainNavigation">
-      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
-        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="catalog.html">Catalog</a></li>
-        <li class="nav-item"><a class="nav-link" href="rent.html">How to Rent</a></li>
-        <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
-        <li class="nav-item"><a class="nav-link active" aria-current="page" href="events.html">Events</a></li>
-        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-</header>
-
-<div id="scroll-progress" role="progressbar" aria-label="Page scroll progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div></div></div>
-<div id="toast" role="status" aria-live="polite"></div>
-<main>
-<section class="page-hero event-hero extracted-29" >
-  <div>
-    <p class="eyebrow">WHERE TO WEAR IT</p>
-    <h1>Make it an <em>occasion.</em></h1>
-    <p>From candlelit masquerades to chaotic Halloween nights, here are a few worlds waiting for you.</p>
-  </div>
-</section>
-
-<section class="section events-section">
-  <div class="event-list">
-    <article class="event-row">
-      <div class="event-date"><strong>31</strong><span>OCT</span></div>
-      <div class="event-image extracted-30" ></div>
-      <div><p class="eyebrow">HALLOWEEN</p><h2>Midnight Masquerade</h2><p>A dramatic night for gothic gowns, vampires, witches and mysterious masks.</p><ul><li>Recommended: Dracula</li><li>Dress code: black / crimson</li></ul></div>
-      <a class="circle-arrow" href="catalog.html#halloween">↗</a>
-    </article>
-    
-    <article class="event-row">
-      <div class="event-date"><strong>25</strong><span>DEC</span></div>
-      <div class="event-image extracted-31" ></div>
-      <div><p class="eyebrow">WINTER</p><h2>Winter Wonderland</h2><p>Festive costumes with velvet, faux fur, icy colors and a little theatrical magic.</p><ul><li>Recommended: Snow Queen</li><li>Dress code: silver / white</li></ul></div>
-      <a class="circle-arrow" href="catalog.html#winter">↗</a>
-    </article>
-    
-    <article class="event-row">
-      <div class="event-date"><strong>14</strong><span>FEB</span></div>
-      <div class="event-image extracted-32" ></div>
-      <div><p class="eyebrow">THEMED PARTY</p><h2>Royal Court Night</h2><p>Turn the room into a palace with medieval-inspired silhouettes and courtly accessories.</p><ul><li>Recommended: Crimson Countess</li><li>Dress code: burgundy / gold</li></ul></div>
-      <a class="circle-arrow" href="catalog.html#medieval">↗</a>
-    </article>
-  </div>
-</section>
-
-
-<section class="media-query-section" aria-labelledby="responsive-title">
-  <div class="media-query-heading">
-    <p class="eyebrow">RESPONSIVE TYPOGRAPHY</p>
-    <h2 id="responsive-title">Events for every <em>screen.</em></h2>
-    <p>This heading, paragraph and card group change through custom CSS media queries. The cards show three columns on desktop, two on tablet and one on mobile.</p>
-  </div>
-  <div class="media-query-grid">
-    <article class="media-query-card"><img src="images/event-img-1.jpg" alt="Halloween pumpkin event"><div><span>OCTOBER</span><h3>Midnight Masquerade</h3><p>Gothic costumes and glowing details for Halloween.</p></div></article>
-    <article class="media-query-card"><img src="images/event-img-2.jpg" alt="Golden winter decorations"><div><span>DECEMBER</span><h3>Winter Wonderland</h3><p>Festive colors and warm textures for a winter celebration.</p></div></article>
-    <article class="media-query-card"><img src="images/event-img-3.jpg" alt="Royal yellow evening dress"><div><span>FEBRUARY</span><h3>Royal Court Night</h3><p>Elegant historical looks for a formal themed party.</p></div></article>
-  </div>
-</section>
-
-<section class="section event-tips dark-section">
-  <div><p class="eyebrow">STYLE NOTES</p><h2>Build the <em>whole character.</em></h2></div>
-  <div class="tips-grid">
-    <div><span>01</span><h3>Start with one statement piece</h3><p>A cape, gown or mask can define the entire silhouette.</p></div>
-    <div><span>02</span><h3>Use accessories wisely</h3><p>Gloves, crowns and jewelry make a simple costume feel intentional.</p></div>
-    <div><span>03</span><h3>Match the mood</h3><p>Choose colors and textures that fit the event rather than fighting it.</p></div>
-  </div>
-</section>
-</main>
-
-<footer class="site-footer">
-  <div class="footer-grid">
-    <div>
-      <div class="footer-brand">MASQUERADE<span>&amp;</span>MOON</div>
-      <p>Student project demonstrating Media Queries and Bootstrap 5.</p>
-    </div>
-    <div>
-      <h3>Explore</h3>
-      <a href="catalog.html">Catalog</a>
-      <a href="events.html">Events</a>
-      <a href="rent.html">How to Rent</a>
-    </div>
-    <div>
-      <h3>Team</h3>
-      <p>Student Front-End Project</p>
-      <p>Astana IT University</p>
-      <p  class="extracted-33">Alua Rakhimzhanova<br>Assiya Aitbayeva<br>Moldir Yerzhan</p>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>Created by Alua, Assiya, and Moldir · SE-2509</span>
-  </div>
-</footer>
-
-<script src="vendor/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-<script src="js/legacy.js" defer></script>
-<div class="preference-tools" aria-label="Display and sound settings"><button id="theme-toggle" type="button" aria-pressed="false">Night theme</button><button id="sound-toggle" type="button" aria-pressed="false">Sound off</button><span id="sound-status" class="visually-hidden" role="status"></span></div>
-<script src="js/advanced.js?v=5" defer></script>
-</body>
-</html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Discover exceptional costume collections, masquerade looks and magical event inspiration at Masquerade & Moon."><meta name="theme-color" content="#100f0f">
+<link rel="icon" href="images/item-12.jpg" type="image/jpeg"><title>The inspiration archive | Masquerade &amp; Moon</title>
+<script>try{document.documentElement.dataset.theme=JSON.parse(localStorage.getItem('mm_final_theme'))==='light'?'light':'dark'}catch{document.documentElement.dataset.theme='dark'}</script>
+<link rel="stylesheet" href="css/style.css"><script src="js/script.js" defer></script></head>
+<body><a class="skip-link" href="#main">Skip to content</a><div class="announcement">AN INVITATION TO BECOME SOMEONE ELSE · THE ATELIER IS OPEN</div>
+<header class="header"><div class="header-inner wrap"><button class="icon-button menu-button" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" type="button">☰</button>
+<a class="brand" href="index.html" aria-label="Masquerade and Moon homepage">MASQUERADE<span>&amp;</span>MOON</a>
+<nav class="main-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="catalog.html">Collection</a><a href="rent.html">Rent</a><a href="events.html" aria-current="page">Inspiration</a><a href="about.html">Our story</a><a href="contact.html">Contact</a></nav>
+<div class="header-actions"><a class="account-link" id="account-link" href="login.html">Account ↗</a><a class="icon-button" href="catalog.html?saved=1" aria-label="View saved looks">♡</a><span class="heart-count" id="favorite-count">0</span><button class="icon-button" type="button" id="theme-toggle" aria-label="Switch color theme">☼</button></div></div>
+<nav id="mobile-menu" class="mobile-menu" aria-label="Mobile navigation" hidden><a href="index.html">Home</a><a href="catalog.html">Collection</a><a href="rent.html">Rent</a><a href="events.html" aria-current="page">Inspiration</a><a href="about.html">Our story</a><a href="contact.html">Contact</a><a href="login.html">Account / Log in</a><a href="profile.html">My profile</a></nav></header>
+<main id="main"><section class="page-cover with-image"><img class="cover-image" src="images/events-bg.jpg" alt="" aria-hidden="true"><div class="wrap"><div class="breadcrumbs"><a href="index.html">Home</a> / The inspiration archive</div><p class="eyebrow" style="margin:30px 0 0">The inspiration archive</p><h1>The art of <em>disguise.</em></h1><p class="body-copy">Costume begins long before the dress. Discover the stories, art and moments that inspire the wardrobe.</p></div></section>
+<section class="section wrap"><div class="section-head"><div><p class="eyebrow">01 / THE OCCASIONS</p><h2>Dress for the moment.</h2></div><p>A few worlds worth stepping into, each with its own character and atmosphere.</p></div><div class="event-grid">
+<article class="event-card reveal"><img src="images/event-img-1.jpg" loading="lazy" alt="Dramatic masquerade inspiration"><div class="event-content"><p class="eyebrow">THE GRAND ENTRANCE</p><h3>A midnight masquerade</h3><p>Ornate masks, velvet evenings, and identities revealed only after midnight.</p><a class="text-link" href="catalog.html?category=masquerade">Find a masquerade look ↗</a></div></article>
+<article class="event-card reveal"><img src="images/event-img-2.jpg" loading="lazy" alt="Gothic costume inspiration"><div class="event-content"><p class="eyebrow">DARK ENCHANTMENT</p><h3>A gothic gathering</h3><p>A candlelit encounter with dark romance and unforgettable silhouettes.</p><a class="text-link" href="catalog.html?category=gothic">Explore gothic looks ↗</a></div></article>
+<article class="event-card reveal"><img src="images/event-img-3.jpg" loading="lazy" alt="Romantic themed costume inspiration"><div class="event-content"><p class="eyebrow">ANOTHER WORLD</p><h3>A fairytale after dark</h3><p>From forest spirits to royal stories, dress for the magic in between.</p><a class="text-link" href="catalog.html?category=winter">Explore fantasy looks ↗</a></div></article>
+</div></section>
+<section class="section" style="background:var(--surface)"><div class="wrap"><div class="section-head"><div><p class="eyebrow">02 / LIVE ART ARCHIVE · PUBLIC API</p><h2>History, reimagined.</h2></div><p>Artwork from the Art Institute of Chicago, fetched live from its public collection API. Open any piece to learn more.</p></div>
+<div id="archive-loading" class="loading" role="status"><span class="loader" aria-hidden="true"></span>Retrieving the museum collection…</div><div id="archive-error" class="loading" role="alert" hidden></div><div class="center"><button id="archive-retry" class="btn outline" type="button" hidden>Try loading again ↻</button></div>
+<div id="archive-grid" class="archive-grid" aria-live="polite"></div><p class="form-note" style="margin-top:25px">Artworks and image rights are attributed to the Art Institute of Chicago. Source: <a class="text-link" href="https://www.artic.edu/open-access/open-access-images" target="_blank" rel="noopener noreferrer">Art Institute of Chicago ↗</a></p></div></section>
+<section class="section wrap center"><p class="eyebrow">FROM CANVAS TO COSTUME</p><h2>Wear your inspiration.</h2><a class="btn" href="catalog.html">Explore the collection ↗</a></section></main>
+<footer class="footer"><div class="wrap"><div class="footer-top"><div><a class="brand" href="index.html">MASQUERADE<span>&amp;</span>MOON</a><p>For the nights that deserve another story. Discover theatrical costumes, considered details, and a little mystery.</p></div>
+<div><h4>Explore</h4><nav aria-label="Explore"><a href="index.html">Home</a><a href="catalog.html">Collection</a><a href="rent.html">Rent</a></nav></div>
+<div><h4>Discover</h4><nav aria-label="Discover"><a href="events.html">Inspiration</a><a href="about.html">Our story</a><a href="contact.html">Contact</a></nav></div>
+<div><h4>Your atelier</h4><nav aria-label="Account"><a href="signup.html">Create an account</a><a href="login.html">Log in</a><a href="profile.html">Your wardrobe</a></nav></div></div>
+<div class="footer-bottom"><span>© <span id="year">2026</span> MASQUERADE &amp; MOON. AN IMAGINARY ATELIER.</span><span>DEMO EXPERIENCE · NO REAL ORDERS OR PAYMENTS</span></div></div></footer>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<dialog id="look-dialog" class="modal" aria-label="Costume details"><button class="modal-close" id="close-dialog" type="button" aria-label="Close details">×</button><div class="modal-inner" id="dialog-content"></div></dialog>
+</body></html>

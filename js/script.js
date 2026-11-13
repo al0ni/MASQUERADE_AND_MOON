@@ -1,204 +1,223 @@
-$(document).ready(function () {
-  console.log('jQuery is ready!');
-
-  function notify(message) {
-    $('#toast').stop(true, true).text(message).fadeIn(180).delay(2500).fadeOut(400);
+'use strict';
+(() => {
+  const PRODUCTS = [
+    {id:1,name:'The Crimson Countess',category:'medieval',label:'Medieval',price:12000,detail:'An unforgettable entrance in rich crimson velvet.',includes:'Velvet gown · cape · belt',image:'images/item-1.jpg'},
+    {id:2,name:'Moonlit Knight',category:'medieval',label:'Medieval',price:14000,detail:'A midnight legend wrapped in silver and shadow.',includes:'Tunic · cloak · faux armor',image:'images/item-2.jpg'},
+    {id:3,name:'Golden Court',category:'medieval',label:'Royal',price:16000,detail:'A golden-hour fantasy made for grand celebrations.',includes:'Royal dress · gloves · crown',image:'images/item-3.jpg'},
+    {id:4,name:'Count Dracula',category:'gothic',label:'Gothic',price:13500,detail:'Classic darkness, sharp tailoring and a dramatic silhouette.',includes:'Tuxedo · cape · medallion',image:'images/item-4.jpg'},
+    {id:5,name:'Crimson Bride',category:'gothic',label:'Gothic',price:13000,detail:'A haunting romance with just the right amount of mystery.',includes:'Black gown · veil · choker',image:'images/item-5.jpg'},
+    {id:6,name:'Velvet Vampire',category:'gothic',label:'Gothic',price:11500,detail:'Dressed for the invitation that arrives after midnight.',includes:'Jacket · shirt · gloves',image:'images/item-6.jpg'},
+    {id:7,name:'Midnight Santa',category:'winter',label:'Winter',price:10000,detail:'A winter icon reimagined for the evening.',includes:'Coat · hat · faux fur',image:'images/item-7.jpg'},
+    {id:8,name:'Snow Queen',category:'winter',label:'Winter',price:15000,detail:'Ice, light and a little bit of theatrical magic.',includes:'Ice-blue gown · tiara',image:'images/item-8.jpg'},
+    {id:9,name:'Forest Elf',category:'winter',label:'Fantasy',price:9500,detail:'A woodland fairytale with delicate festive details.',includes:'Green dress · cape · ears',image:'images/item-9.jpg'},
+    {id:10,name:'Velvet Witch',category:'halloween',label:'Halloween',price:11000,detail:'A spellbinding look for the night you own the room.',includes:'Dress · hat · waist corset',image:'images/item-10.jpg'},
+    {id:11,name:'The Phantom',category:'halloween',label:'Halloween',price:12500,detail:'An enigmatic character from behind the mask.',includes:'Mask · coat · gloves',image:'images/item-11.jpg'},
+    {id:12,name:'Golden Masquerade',category:'masquerade',label:'Masquerade',price:12000,detail:'For an evening that calls for a secret identity.',includes:'Suit · mask · pocket chain',image:'images/item-12.jpg'}
+  ];
+  const $ = (selector,root=document) => root.querySelector(selector);
+  const $$ = (selector,root=document) => [...root.querySelectorAll(selector)];
+  const get = (key,fallback) => {try {const value=JSON.parse(localStorage.getItem('mm_final_'+key));return value===null?fallback:value;}catch{return fallback;}};
+  const put = (key,value) => {try {localStorage.setItem('mm_final_'+key,JSON.stringify(value));return true;}catch{return false;}};
+  const escapeHTML = value => String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  const money = price => '₸ '+Number(price).toLocaleString('en-US');
+  const currentUser = () => {const email=get('session',null);const users=get('users',[]);return Array.isArray(users)?users.find(user=>user.email===email)||null:null;};
+  const favoriteIds = () => {const ids=get('favorites',[]);return Array.isArray(ids)?ids.map(Number).filter(id=>PRODUCTS.some(item=>item.id===id)):[];};
+  let toastTimer;
+  function toast(message) {const node=$('#toast');if(!node)return;node.textContent=message;node.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>node.classList.remove('visible'),3000);}
+  function updateHeader(){
+    const favoriteCount=$('#favorite-count');if(favoriteCount)favoriteCount.textContent=String(favoriteIds().length);
+    const account=$('#account-link');if(account){account.href=currentUser()?'profile.html':'login.html';account.setAttribute('aria-label',currentUser()?'Your profile':'Log in');}
   }
-
-  function loadImages() {
-    const top = $(window).scrollTop();
-    const bottom = top + $(window).height();
-    $('img[data-src]').each(function () {
-      const image = $(this);
-      if (image.is(':visible') && image.offset().top < bottom && image.offset().top + image.height() > top) {
-        image.attr('src', image.attr('data-src')).removeAttr('data-src');
-      }
+  function initializeTheme(){
+    const theme=get('theme','dark');document.documentElement.dataset.theme=theme==='light'?'light':'dark';
+    const button=$('#theme-toggle');
+    function update(){const isLight=document.documentElement.dataset.theme==='light';button.textContent=isLight?'☾':'☼';button.title=isLight?'Switch to dark mode':'Switch to light mode';button.setAttribute('aria-label',button.title);button.setAttribute('aria-pressed',String(isLight));}
+    if(button){update();button.addEventListener('click',()=>{const value=document.documentElement.dataset.theme==='light'?'dark':'light';document.documentElement.dataset.theme=value;put('theme',value);update();});}
+  }
+  function initializeNavigation(){
+    const button=$('#menu-toggle'),menu=$('#mobile-menu');
+    if(button&&menu){button.addEventListener('click',()=>{const next=menu.hidden;menu.hidden=!next;button.setAttribute('aria-expanded',String(next));button.textContent=next?'×':'☰';});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!menu.hidden){menu.hidden=true;button.setAttribute('aria-expanded','false');button.textContent='☰';button.focus();}});$$('a',menu).forEach(link=>link.addEventListener('click',()=>{menu.hidden=true;button.setAttribute('aria-expanded','false');button.textContent='☰';}));}
+    const year=$('#year');if(year)year.textContent=String(new Date().getFullYear());
+  }
+  function reveal(){
+    const elements=$$('.reveal');if(!('IntersectionObserver' in window)){elements.forEach(el=>el.classList.add('in-view'));return;}
+    const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('in-view');observer.unobserve(entry.target);}});},{threshold:.08});
+    elements.forEach(el=>observer.observe(el));
+  }
+  function cardMarkup(product){
+    const saved=favoriteIds().includes(product.id);
+    return '<article class="product-card" data-id="'+product.id+'"><div class="product-photo"><img src="'+product.image+'" alt="'+escapeHTML(product.name)+' costume" width="460" height="575" loading="lazy"><span class="product-tag">'+escapeHTML(product.label)+'</span><button class="fav-btn" type="button" data-action="favorite" data-id="'+product.id+'" aria-label="'+(saved?'Remove':'Save')+' '+escapeHTML(product.name)+'" aria-pressed="'+saved+'">'+(saved?'♥':'♡')+'</button></div><div class="product-meta"><h3>'+escapeHTML(product.name)+'</h3><p>'+escapeHTML(product.includes)+'</p><div class="product-bottom"><strong>'+money(product.price)+' / 3 days</strong><button type="button" data-action="details" data-id="'+product.id+'">Explore look ↗</button></div></div></article>';
+  }
+  function renderFeatured(){const container=$('#featured-grid');if(container)container.innerHTML=[1,5,8,12].map(id=>cardMarkup(PRODUCTS.find(item=>item.id===id))).join('');}
+  function renderCatalog(){
+    const container=$('#product-grid');if(!container)return;
+    const search=($('#search-costumes')?.value||'').trim().toLocaleLowerCase();
+    const category=$('#filter-category')?.value||'all';
+    const sort=$('#sort-costumes')?.value||'curated';
+    const onlySaved=$('#saved-only')?.checked||false;
+    const favorites=favoriteIds();
+    const filtered=PRODUCTS.filter(product=>(category==='all'||product.category===category)&&(!onlySaved||favorites.includes(product.id))&&(product.name+' '+product.includes+' '+product.label+' '+product.detail).toLocaleLowerCase().includes(search));
+    if(sort==='price-up')filtered.sort((a,b)=>a.price-b.price);
+    if(sort==='price-down')filtered.sort((a,b)=>b.price-a.price);
+    if(sort==='name')filtered.sort((a,b)=>a.name.localeCompare(b.name));
+    container.innerHTML=filtered.length?filtered.map(cardMarkup).join(''):'<div class="empty-state"><p class="eyebrow">NOTHING IN THE WARDROBE</p><h3>No looks found.</h3><p>Try a different search or reset your filters.</p><button class="btn outline" type="button" id="empty-reset">Show all looks</button></div>';
+    const count=$('#result-count');if(count)count.textContent='Showing '+filtered.length+' of '+PRODUCTS.length+' looks';
+    const emptyReset=$('#empty-reset');if(emptyReset)emptyReset.addEventListener('click',resetCatalog);
+  }
+  function resetCatalog(){if($('#search-costumes'))$('#search-costumes').value='';if($('#filter-category'))$('#filter-category').value='all';if($('#sort-costumes'))$('#sort-costumes').value='curated';if($('#saved-only'))$('#saved-only').checked=false;put('filters',{search:'',category:'all',sort:'curated',saved:false});renderCatalog();}
+  function initCatalog(){
+    if(!$('#product-grid'))return;
+    const params=new URLSearchParams(location.search),stored=get('filters',{});
+    $('#search-costumes').value=params.get('q')||stored.search||'';
+    $('#filter-category').value=params.get('category')||stored.category||'all';
+    if(!$$('option',$('#filter-category')).some(opt=>opt.value===$('#filter-category').value))$('#filter-category').value='all';
+    $('#sort-costumes').value=stored.sort||'curated';$('#saved-only').checked=Boolean(stored.saved);
+    const onFilter=()=>{put('filters',{search:$('#search-costumes').value,category:$('#filter-category').value,sort:$('#sort-costumes').value,saved:$('#saved-only').checked});renderCatalog();};
+    ['input','change'].forEach(type=>$('#search-costumes').addEventListener(type,onFilter));
+    ['#filter-category','#sort-costumes','#saved-only'].forEach(id=>$(id).addEventListener('change',onFilter));
+    $('#reset-filters').addEventListener('click',resetCatalog);renderCatalog();
+  }
+  function updateCards(){if($('#product-grid'))renderCatalog();if($('#featured-grid'))renderFeatured();if($('#profile-favorites'))renderProfile();}
+  function toggleFavorite(id){
+    const favorites=favoriteIds(),next=favorites.includes(id)?favorites.filter(value=>value!==id):[...favorites,id];
+    put('favorites',next);updateHeader();updateCards();
+    toast(next.includes(id)?'Look added to your saved collection.':'Look removed from your saved collection.');
+  }
+  function showDetails(id){
+    const product=PRODUCTS.find(p=>p.id===id),modal=$('#look-dialog');if(!product||!modal)return;
+    const saved=favoriteIds().includes(id);
+    $('#dialog-content').innerHTML='<img src="'+product.image+'" alt="'+escapeHTML(product.name)+' costume"><div class="modal-copy"><p class="eyebrow">'+escapeHTML(product.label)+' · THE COLLECTION</p><h2>'+escapeHTML(product.name)+'</h2><p>'+escapeHTML(product.detail)+'</p><p class="muted">Includes: '+escapeHTML(product.includes)+'</p><p class="modal-price">'+money(product.price)+' <small style="font-size:12px">/ 3 days</small></p><div class="cta-row"><a class="btn" href="rent.html?look='+id+'">Request this look ↗</a><button class="btn outline" type="button" data-action="favorite" data-id="'+id+'">'+(saved?'♥ Saved':'♡ Save look')+'</button></div></div>';
+    if(typeof modal.showModal==='function')modal.showModal();else modal.setAttribute('open','');
+  }
+  function initProducts(){
+    document.addEventListener('click',event=>{
+      const button=event.target.closest('[data-action]');if(!button)return;
+      const id=Number(button.dataset.id),action=button.dataset.action;
+      if(action==='favorite'){toggleFavorite(id);if($('#look-dialog')?.open){showDetails(id);}}
+      if(action==='details')showDetails(id);
+    });
+    const dialog=$('#look-dialog');if(dialog){$('#close-dialog').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();});}
+    renderFeatured();initCatalog();
+  }
+  const validEmail=value=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(value).trim());
+  const validPhone=value=>{const digits=String(value).replace(/\D/g,'');return digits.length>=10&&digits.length<=15&&/^\+?[\d\s()\-]+$/.test(value);};
+  const validPassword=value=>String(value).length>=8&&/[A-Z]/.test(value)&&/[a-z]/.test(value)&&/\d/.test(value)&&/[^\w\s]/.test(value);
+  function formValue(form,name){return (form.elements.namedItem(name)?.value||'').trim();}
+  function setError(form,name,error){
+    const errorBox=form.querySelector('[data-error-for="'+name+'"]'),field=form.elements.namedItem(name);
+    if(errorBox)errorBox.textContent=error||'';
+    if(field&&field.setAttribute)field.setAttribute('aria-invalid',error?'true':'false');
+  }
+  function clearErrors(form){$$('[data-error-for]',form).forEach(el=>el.textContent='');$$('[aria-invalid]',form).forEach(el=>el.removeAttribute('aria-invalid'));const status=$('.form-status',form);if(status)status.textContent='';}
+  function validate(form,rules){
+    let firstInvalid=null;
+    for(const [name,test,message] of rules){
+      const value=formValue(form,name),correct=test(value);
+      setError(form,name,correct?'':message);
+      if(!correct&&!firstInvalid)firstInvalid=form.elements.namedItem(name);
+    }
+    if(firstInvalid)firstInvalid.focus();
+    return !firstInvalid;
+  }
+  function status(form,message){const node=$('.form-status',form);if(node){node.textContent=message;node.hidden=false;node.setAttribute('role','status');}}
+  function setupSignup(){
+    const form=$('#signup-form');if(!form)return;
+    const password=form.elements.namedItem('password');password.addEventListener('input',()=>{
+      const value=password.value,score=[value.length>=8,/[A-Z]/.test(value)&&/[a-z]/.test(value),/\d/.test(value),/[^\w\s]/.test(value)].filter(Boolean).length;
+      const meter=$('#password-meter-fill');if(meter){meter.style.width=(score*25)+'%';meter.style.background=score===4?'#7c9c78':score>2?'#c7a77a':'#b75a63';}
+    });
+    form.addEventListener('submit',async event=>{
+      event.preventDefault();clearErrors(form);
+      const rules=[['name',v=>v.length>=2,'Enter your name (at least 2 characters).'],['email',validEmail,'Enter a valid email address.'],['phone',validPhone,'Use 10–15 digits, optionally with + and spaces.'],['password',validPassword,'Use 8+ characters, uppercase, lowercase, number and symbol.'],['confirm',v=>v===form.elements.namedItem('password').value,'Passwords must match.']];
+      if(!validate(form,rules))return;
+      const users=get('users',[]);if(!Array.isArray(users)){status(form,'Local data could not be read. Try another browser.');return;}
+      const email=formValue(form,'email').toLowerCase();if(users.some(u=>u.email===email)){setError(form,'email','An account already exists with this email.');form.elements.namedItem('email').focus();return;}
+      if(!globalThis.crypto?.subtle){status(form,'Secure sign-up requires HTTPS or localhost. Please open the hosted site.');return;}
+      const button=$('button[type=submit]',form);button.disabled=true;button.textContent='Creating account…';
+      try{
+        const salt=crypto.randomUUID(),hash=await hashPassword(form.elements.namedItem('password').value,salt);
+        const user={name:formValue(form,'name'),email,phone:formValue(form,'phone'),salt,passwordHash:hash,createdAt:new Date().toISOString()};
+        if(!put('users',[...users,user])||!put('session',email))throw Error('Storage is blocked');
+        location.href='profile.html';
+      }catch{status(form,'Could not save this account on your device. Check storage permissions.');button.disabled=false;button.textContent='Create my account →';}
     });
   }
-
-  function updateScroll() {
-    const distance = $(document).height() - $(window).height();
-    const percent = distance > 0 ? Math.min(100, $(window).scrollTop() / distance * 100) : 0;
-    $('#scroll-progress div').css('width', percent + '%');
-    $('#scroll-progress').attr('aria-valuenow', Math.round(percent));
-    loadImages();
-    $('.number-counter').each(function () {
-      const counter = $(this);
-      if (!counter.data('started') && counter.offset().top < $(window).scrollTop() + $(window).height()) {
-        counter.data('started', true);
-        $({ value: 0 }).animate({ value: Number(counter.attr('data-count')) }, {
-          duration: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1400,
-          easing: 'swing',
-          step: function (value) { counter.text(Math.floor(value)); },
-          complete: function () { counter.text(counter.attr('data-count')); }
-        });
-      }
+  async function hashPassword(password,salt){
+    const raw=new TextEncoder().encode(salt+':'+password);
+    const digest=await crypto.subtle.digest('SHA-256',raw);
+    return [...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,'0')).join('');
+  }
+  function setupLogin(){
+    const form=$('#login-form');if(!form)return;
+    form.addEventListener('submit',async event=>{
+      event.preventDefault();clearErrors(form);
+      if(!validate(form,[['email',validEmail,'Enter a valid email address.'],['password',v=>v.length>0,'Enter your password.']]))return;
+      const email=formValue(form,'email').toLowerCase();
+      const user=(get('users',[])||[]).find(u=>u.email===email);
+      if(!user){setError(form,'email','No local account matches this email.');return;}
+      try{
+        const hash=await hashPassword(form.elements.namedItem('password').value,user.salt);
+        if(hash!==user.passwordHash){setError(form,'password','Incorrect password. Please try again.');return;}
+        if(!put('session',email))throw Error('Storage is blocked');
+        location.href='profile.html';
+      }catch{status(form,'Unable to sign in. Please open the HTTPS hosted site and enable local storage.');}
     });
   }
-
-  $(window).on('scroll resize load', updateScroll);
-  updateScroll();
-
-  const grid = $('.product-grid');
-  if (grid.length) {
-    const cards = grid.find('.product-card').get();
-    const categories = ['medieval', 'medieval', 'medieval', 'gothic', 'gothic', 'gothic', 'winter', 'winter', 'winter', 'halloween', 'halloween', 'halloween'];
-    const search = $('#costume-search');
-    const suggestions = $('#search-suggestions');
-    const stored = storage.get('favorites', []);
-    let favorites = Array.isArray(stored) ? stored.filter(id => Number.isInteger(id) && id >= 0 && id < cards.length) : [];
-
-    $(cards).each(function (index) {
-      const card = $(this);
-      card.data('id', index).data('category', categories[index]);
-      card.data('name', card.find('h3').text());
-      card.data('price', Number(card.find('strong').text().split('/')[0].replace(/[^0-9]/g, '')));
-      card.find('h3, .product-info > p').each(function () { $(this).data('original', $(this).text()); });
-      card.find('.product-info').append($('<button>', { type: 'button', class: 'favorite-button', 'aria-label': 'Save ' + card.data('name') }));
+  function initRental(){
+    const form=$('#rental-form');if(!form)return;
+    const select=form.elements.namedItem('look');
+    select.innerHTML='<option value="">Choose a costume</option>'+PRODUCTS.map(p=>'<option value="'+p.id+'">'+escapeHTML(p.name)+' · '+money(p.price)+'</option>').join('');
+    const param=new URLSearchParams(location.search).get('look');if(PRODUCTS.some(p=>String(p.id)===param))select.value=param;
+    const user=currentUser();if(user){form.elements.namedItem('name').value=user.name;form.elements.namedItem('email').value=user.email;form.elements.namedItem('phone').value=user.phone;}
+    form.addEventListener('submit',event=>{
+      event.preventDefault();clearErrors(form);
+      const rules=[['look',v=>PRODUCTS.some(p=>String(p.id)===v),'Select a costume.'],['name',v=>v.length>=2,'Enter your name.'],['email',validEmail,'Enter a valid email address.'],['phone',validPhone,'Use 10–15 digits, optionally with + and spaces.'],['date',v=>{if(!/^\d{4}-\d{2}-\d{2}$/.test(v))return false;const date=new Date(v+'T12:00:00');const today=new Date();today.setHours(0,0,0,0);return Number.isFinite(date.getTime())&&date>=today;},'Choose today or a future date.']];
+      if(!validate(form,rules))return;
+      const requests=get('requests',[]);if(!Array.isArray(requests)){status(form,'Local storage is unavailable.');return;}
+      const entry={id:crypto.randomUUID?.()||String(Date.now()),look:Number(formValue(form,'look')),name:formValue(form,'name'),email:formValue(form,'email').toLowerCase(),phone:formValue(form,'phone'),date:formValue(form,'date'),note:formValue(form,'note'),createdAt:new Date().toISOString()};
+      if(!put('requests',[entry,...requests])){status(form,'Could not save the request on this device.');return;}
+      status(form,'Your rental request was saved on this device as a preview. No reservation was submitted to a real business.');
+      form.reset();if(user){form.elements.namedItem('name').value=user.name;form.elements.namedItem('email').value=user.email;form.elements.namedItem('phone').value=user.phone;}
+      toast('Rental request saved locally.');
     });
-
-    function highlight(element, query) {
-      const text = element.data('original');
-      element.empty();
-      let position = 0;
-      let match = query ? text.toLowerCase().indexOf(query) : -1;
-      while (match !== -1) {
-        element.append(document.createTextNode(text.slice(position, match)));
-        element.append($('<mark>').text(text.slice(match, match + query.length)));
-        position = match + query.length;
-        match = text.toLowerCase().indexOf(query, position);
-      }
-      element.append(document.createTextNode(text.slice(position)));
-    }
-
-    function matchingCards(query) {
-      return $(cards).filter(function () {
-        const card = $(this);
-        return ($('#category-filter').val() === 'all' || card.data('category') === $('#category-filter').val()) &&
-          (!$('#saved-only').prop('checked') || favorites.includes(card.data('id'))) &&
-          card.data('name').toLowerCase().includes(query);
-      }).get();
-    }
-
-    function closeSuggestions() {
-      suggestions.prop('hidden', true);
-      search.attr('aria-expanded', 'false');
-    }
-
-    function renderProducts(showSuggestions) {
-      const query = search.val().trim().toLowerCase();
-      const shown = matchingCards(query);
-      if ($('#price-sort').val() === 'low') shown.sort((a, b) => $(a).data('price') - $(b).data('price'));
-      if ($('#price-sort').val() === 'high') shown.sort((a, b) => $(b).data('price') - $(a).data('price'));
-      $(cards).detach();
-      shown.forEach(function (element) {
-        const card = $(element);
-        const saved = favorites.includes(card.data('id'));
-        card.find('.favorite-button').text(saved ? 'Saved' : 'Save look').attr('aria-pressed', String(saved));
-        card.find('h3, .product-info > p').each(function () { highlight($(this), query); });
-        grid.append(card);
-      });
-      $('#product-count').text(shown.length ? shown.length + ' of 12 looks. ' + favorites.length + ' saved.' : 'No looks found. Try another filter or clear your search.');
-      suggestions.empty();
-      if (showSuggestions && query) {
-        shown.slice(0, 5).forEach(function (card) {
-          const button = $('<button>', { type: 'button', text: $(card).data('name') });
-          suggestions.append($('<li>').append(button));
-        });
-      }
-      const open = suggestions.children().length > 0;
-      suggestions.prop('hidden', !open);
-      search.attr('aria-expanded', String(open));
-      updateScroll();
-    }
-
-    search.on('input', function () { renderProducts(true); });
-    search.on('keydown', function (event) {
-      if (event.key === 'ArrowDown' && !suggestions.prop('hidden')) {
-        event.preventDefault();
-        suggestions.find('button').first().trigger('focus');
-      }
-      if (event.key === 'Escape') { event.preventDefault(); closeSuggestions(); }
-    });
-    suggestions.on('click', 'button', function () {
-      search.val($(this).text());
-      renderProducts(false);
-      search.trigger('focus');
-    });
-    suggestions.on('keydown', 'button', function (event) {
-      const buttons = suggestions.find('button');
-      const index = buttons.index(this);
-      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-        event.preventDefault();
-        buttons.eq((index + (event.key === 'ArrowDown' ? 1 : -1) + buttons.length) % buttons.length).trigger('focus');
-      }
-      if (event.key === 'Escape') { closeSuggestions(); search.trigger('focus'); }
-    });
-    $(document).on('click focusin', function (event) {
-      if (!$(event.target).closest('.search-box').length) closeSuggestions();
-    });
-    $('#category-filter, #price-sort, #saved-only').on('change', function () { renderProducts(false); });
-    $('#reset-filters').on('click', function () {
-      search.val('');
-      $('#category-filter').val('all');
-      $('#price-sort').val('default');
-      $('#saved-only').prop('checked', false);
-      renderProducts(false);
-    });
-    grid.on('click', '.favorite-button', function () {
-      const id = $(this).closest('.product-card').data('id');
-      const saved = favorites.includes(id);
-      favorites = saved ? favorites.filter(value => value !== id) : [...favorites, id];
-      storage.set('favorites', favorites);
-      renderProducts(false);
-      if (this.isConnected) this.focus();
-      else $('#saved-only').trigger('focus');
-      notify(saved ? 'Look removed from saved looks.' : 'Look added to saved looks.');
-      playSound();
-    });
-    renderProducts(false);
   }
-
-  $('#subscription-form').on('submit', function (event) {
-    event.preventDefault();
-    const form = $(this);
-    if (form.data('busy')) return;
-    const email = $('#subscription-email');
-    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.val().trim());
-    email.attr('aria-invalid', String(!valid));
-    if (!valid) {
-      $('#subscription-status').text('Enter a valid email address.');
-      email.trigger('focus');
-      return;
-    }
-    const button = form.find('[type="submit"]');
-    const label = button.html();
-    form.data('busy', true).attr('aria-busy', 'true');
-    button.prop('disabled', true).html('<span class="submit-spinner" aria-hidden="true"></span> Please wait...');
-    $('#subscription-status').text('Checking your subscription...');
-    setTimeout(function () {
-      button.prop('disabled', false).html(label);
-      form.data('busy', false).attr('aria-busy', 'false');
-      $('#subscription-status').text('Subscription demo complete. Your email was not sent or saved.');
-      notify('Subscription demo completed successfully.');
-    }, 1600);
+  function initContact(){
+    const form=$('#contact-form');if(!form)return;
+    const user=currentUser();if(user){form.elements.namedItem('name').value=user.name;form.elements.namedItem('email').value=user.email;form.elements.namedItem('phone').value=user.phone;}
+    form.addEventListener('submit',event=>{
+      event.preventDefault();clearErrors(form);
+      if(!validate(form,[['name',v=>v.length>=2,'Enter your name.'],['email',validEmail,'Enter a valid email address.'],['phone',validPhone,'Use 10–15 digits, optionally with + and spaces.'],['message',v=>v.length>=15,'Write at least 15 characters.']]))return;
+      const messages=get('messages',[]);if(!Array.isArray(messages)||!put('messages',[{name:formValue(form,'name'),email:formValue(form,'email'),phone:formValue(form,'phone'),message:formValue(form,'message'),createdAt:new Date().toISOString()},...messages])){status(form,'Could not save your message locally.');return;}
+      status(form,'Message saved locally for this site demo. It was not emailed or sent to a business.');
+      form.reset();toast('Message saved on this device.');
+    });
+  }
+  function renderProfile(){
+    const panel=$('#profile-content');if(!panel)return;
+    const user=currentUser();
+    if(!user){panel.innerHTML='<div class="subtle-box center narrow"><p class="eyebrow">YOUR WARDROBE</p><h2>Your story starts here.</h2><p>Log in to see your locally saved profile and rental requests.</p><div class="cta-row" style="justify-content:center"><a class="btn" href="login.html">Log in</a><a class="btn outline" href="signup.html">Create account</a></div></div>';return;}
+    const saved=favoriteIds().map(id=>PRODUCTS.find(p=>p.id===id)).filter(Boolean);
+    const requests=(get('requests',[])||[]).filter(req=>req.email===user.email);
+    panel.innerHTML='<div class="profile-grid"><aside class="profile-panel"><p class="eyebrow">THE INNER CIRCLE</p><h2>Hello, '+escapeHTML(user.name.split(' ')[0])+'.</h2><p>Your private little corner of the atelier.</p><dl><dt>Full name</dt><dd>'+escapeHTML(user.name)+'</dd><dt>Email</dt><dd>'+escapeHTML(user.email)+'</dd><dt>Phone</dt><dd>'+escapeHTML(user.phone)+'</dd></dl><div class="cta-row"><button type="button" class="btn outline" id="logout-button">Log out ↗</button></div><p class="form-note">Demo account: data is stored only in this browser. Never reuse an important password here.</p></aside><div><section class="profile-panel"><p class="eyebrow">YOUR EDIT</p><h2>Saved looks <span style="font-size:22px">'+saved.length+'</span></h2><div class="profile-list" id="profile-favorites">'+(saved.length?saved.map(p=>'<div class="profile-row"><div><strong>'+escapeHTML(p.name)+'</strong><small>'+escapeHTML(p.label)+' · '+money(p.price)+'</small></div><button type="button" data-action="favorite" data-id="'+p.id+'">Remove</button></div>').join(''):'<p>No saved looks yet. <a class="text-link" href="catalog.html">Explore the collection</a></p>')+'</div></section><section class="profile-panel"><p class="eyebrow">RENTAL PREVIEWS</p><h2>Your requests <span style="font-size:22px">'+requests.length+'</span></h2><div class="profile-list">'+(requests.length?requests.map(req=>{const p=PRODUCTS.find(item=>item.id===req.look);return '<div class="profile-row"><div><strong>'+escapeHTML(p?.name||'Costume')+'</strong><small>'+escapeHTML(req.date)+' · Local demo request, not submitted</small></div><button type="button" data-request-remove="'+escapeHTML(req.id)+'">Delete</button></div>';}).join(''):'<p>You have no rental previews yet. <a class="text-link" href="rent.html">Create a request</a></p>')+'</div></section></div></div>';
+    $('#logout-button')?.addEventListener('click',()=>{put('session',null);location.href='index.html';});
+    $$('[data-request-remove]',panel).forEach(btn=>btn.addEventListener('click',()=>{const remaining=(get('requests',[])||[]).filter(req=>req.id!==btn.dataset.requestRemove);put('requests',remaining);renderProfile();toast('Request deleted from this browser.');}));
+  }
+  async function loadArchive(){
+    const grid=$('#archive-grid'),loading=$('#archive-loading'),error=$('#archive-error'),retry=$('#archive-retry');if(!grid)return;
+    grid.innerHTML='';loading.hidden=false;error.hidden=true;retry.hidden=true;
+    try{
+      const response=await fetch('https://api.artic.edu/api/v1/artworks/search?q=mask&limit=100&fields=id,title,image_id,is_public_domain,artist_display,date_display');
+      if(!response.ok)throw new Error('The museum could not be reached.');
+      const json=await response.json(),items=(Array.isArray(json.data)?json.data:[]).filter(item=>item.is_public_domain&&item.image_id&&/^[a-z0-9-]+$/i.test(item.image_id)).slice(0,6);
+      if(!items.length)throw new Error('No artworks could be loaded today.');
+      const base=/^https:\/\//.test(json.config?.iiif_url||'')?json.config.iiif_url:'https://www.artic.edu/iiif/2';
+      grid.innerHTML=items.map(item=>'<a class="archive-card" target="_blank" rel="noopener noreferrer" href="https://www.artic.edu/artworks/'+Number(item.id)+'"><img src="'+escapeHTML(base+'/'+item.image_id+'/full/600,/0/default.jpg')+'" loading="lazy" alt="'+escapeHTML(item.title)+'"><div><p class="eyebrow">ART INSTITUTE OF CHICAGO</p><h3>'+escapeHTML(item.title)+'</h3><p>'+escapeHTML(item.date_display||item.artist_display||'Historic inspiration')+'</p></div></a>').join('');
+    }catch(e){error.textContent='The live museum archive is unavailable right now. You can still explore our costume collection.';error.hidden=false;retry.hidden=false;}
+    finally{loading.hidden=true;}
+  }
+  function initArchive(){if(!$('#archive-grid'))return;$('#archive-retry')?.addEventListener('click',loadArchive);loadArchive();}
+  window.addEventListener('storage',event=>{if(event.key?.startsWith('mm_final_')){updateHeader();updateCards();}});
+  document.addEventListener('DOMContentLoaded',()=>{
+    initializeTheme();initializeNavigation();updateHeader();reveal();initProducts();setupSignup();setupLogin();initRental();initContact();renderProfile();initArchive();
   });
-
-  $('.copy-button').on('click', async function () {
-    const button = $(this);
-    const text = $(button.attr('data-copy-target')).text();
-    try {
-      await navigator.clipboard.writeText(text);
-      button.find('.copy-icon').text('\u2713');
-      $('#copy-tooltip').prop('hidden', false);
-      notify('Copied to clipboard!');
-      clearTimeout(button.data('timer'));
-      button.data('timer', setTimeout(function () {
-        button.find('.copy-icon').text('\uD83D\uDCCB');
-        $('#copy-tooltip').prop('hidden', true);
-      }, 2500));
-    } catch {
-      notify('Copy is unavailable. Select the link and copy it manually.');
-    }
-  });
-});
+})();
