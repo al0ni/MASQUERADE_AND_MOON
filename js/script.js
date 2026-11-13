@@ -76,8 +76,8 @@
     if(!$$('option',$('#filter-category')).some(opt=>opt.value===$('#filter-category').value))$('#filter-category').value='all';
     $('#sort-costumes').value=stored.sort||'curated';$('#saved-only').checked=params.has('saved')?params.get('saved')==='1':Boolean(stored.saved);
     const onFilter=()=>{put('filters',{search:$('#search-costumes').value,category:$('#filter-category').value,sort:$('#sort-costumes').value,saved:$('#saved-only').checked});if(location.search)history.replaceState(null,'',location.pathname);syncPills();renderCatalog();};
-    function syncPills(){$('[data-category-pill]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.categoryPill===$('#filter-category').value)));}
-    $('[data-category-pill]').forEach(button=>button.addEventListener('click',()=>{$('#filter-category').value=button.dataset.categoryPill;onFilter();}));
+    function syncPills(){document.querySelectorAll('[data-category-pill]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.categoryPill===$('#filter-category').value)));}
+    document.querySelectorAll('[data-category-pill]').forEach(button=>button.addEventListener('click',()=>{$('#filter-category').value=button.dataset.categoryPill;onFilter();}));
     ['input','change'].forEach(type=>$('#search-costumes').addEventListener(type,onFilter));
     ['#filter-category','#sort-costumes','#saved-only'].forEach(id=>$(id).addEventListener('change',onFilter));
     $('#reset-filters').addEventListener('click',()=>{resetCatalog();syncPills();});syncPills();renderCatalog();
