@@ -1,162 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Front-End Assignment #6: jQuery">
-  <link rel="icon" href="images/item-12.jpg" type="image/jpeg">
-  <title>Contact | Masquerade &amp; Moon</title>
-  <link href="vendor/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/style.css?v=5">
-  <link rel="stylesheet" href="css/advanced.css?v=5">
-  <link rel="stylesheet" href="css/jquery.css">
-  <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
-  <script src="js/jquery-fallback.js"></script>
-  <script src="js/script.js" defer></script>
-</head>
-<body>
-
-<header class="site-header">
-<nav class="site-nav navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Main navigation">
-  <div class="nav-inner container-fluid px-sm-2 px-lg-4">
-    <a class="navbar-brand brand" href="index.html">MASQUERADE<span>&amp;</span>MOON</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavigation" aria-controls="mainNavigation" aria-expanded="false" aria-label="Open navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="mainNavigation">
-      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
-        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="catalog.html">Catalog</a></li>
-        <li class="nav-item"><a class="nav-link" href="rent.html">How to Rent</a></li>
-        <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
-        <li class="nav-item"><a class="nav-link" href="events.html">Events</a></li>
-        <li class="nav-item"><a class="nav-link active" aria-current="page" href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-</header>
-
-<div id="scroll-progress" role="progressbar" aria-label="Page scroll progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div></div></div>
-<div id="toast" role="status" aria-live="polite"></div>
-<main>
-<section class="page-hero extracted-34" >
-  <div>
-    <p class="eyebrow">GET IN TOUCH</p>
-    <h1>Contact <em>Us</em></h1>
-    <p>Have questions about our project or web development work? Reach out to us.</p>
-  </div>
-</section>
-
-<section class="section contact-layout">
-  <div class="contact-info">
-    <p class="eyebrow">CONTACT DETAILS</p>
-    <h2>We are one message <em>away.</em></h2>
-    <p>Please note that this form is a functional UI demonstration for our university assignment. You can reach us directly via the working contacts below.</p>
-    <div class="contact-details">
-      <div><span>EMAIL</span><strong><a href="mailto:foreifon@bk.ru">foreifon@bk.ru</a></strong></div>
-      <div><span>PHONE</span><strong><a href="tel:+77753145134">+7 (775) 314-51-34</a></strong></div>
-      <div><span>LOCATION</span><strong>Astana, Kazakhstan</strong></div>
-    </div>
-  </div>
-
-  <form id="contact-form" class="contact-form" action="#" method="post" novalidate>
-    <h2>Send a message</h2>
-    <p>Password fields are included for the validation demonstration. No data is sent or saved.</p>
-    <div class="row g-3">
-      <div class="col-12 col-md-6">
-        <label class="form-label" for="name">Name</label>
-        <input class="form-control" id="name" name="name" type="text" placeholder="Your name" autocomplete="name" required>
-      </div>
-      <div class="col-12 col-md-6">
-        <label class="form-label" for="phone">Phone</label>
-        <div class="input-group"><span class="input-group-text">+7</span><input class="form-control" id="phone" name="phone" type="tel" placeholder="700 000 00 00" autocomplete="tel" required></div>
-      </div>
-      <div class="col-12">
-        <label class="form-label" for="email">Email</label>
-        <input class="form-control" id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
-      </div>
-      <div class="col-12 col-md-6">
-        <label class="form-label" for="password">Password</label>
-        <input class="form-control" id="password" name="password" type="password" autocomplete="new-password" minlength="8" required aria-describedby="password-help">
-        <small id="password-help">At least 8 characters.</small>
-      </div>
-      <div class="col-12 col-md-6">
-        <label class="form-label" for="confirm-password">Confirm password</label>
-        <input class="form-control" id="confirm-password" name="confirm-password" type="password" autocomplete="new-password" required>
-      </div>
-      <div class="col-12">
-        <label class="form-label" for="topic">Topic</label>
-        <select class="form-select" id="topic" name="topic"><option>Costume rental</option><option>Project feedback</option><option>Collaboration</option></select>
-      </div>
-      <fieldset class="col-12">
-        <legend class="form-label">Preferred reply</legend>
-        <div class="d-flex flex-wrap gap-3">
-          <div class="form-check"><input class="form-check-input" id="reply-email" name="reply" type="radio" value="email" checked><label class="form-check-label" for="reply-email">Email</label></div>
-          <div class="form-check"><input class="form-check-input" id="reply-phone" name="reply" type="radio" value="phone"><label class="form-check-label" for="reply-phone">Phone</label></div>
-        </div>
-      </fieldset>
-      <div class="col-12">
-        <label class="form-label" for="message">Message</label>
-        <textarea class="form-control" id="message" name="message" rows="5" placeholder="Write your message here"></textarea>
-      </div>
-      <div class="col-12">
-        <div class="form-check"><input class="form-check-input" id="agreement" type="checkbox" required><label class="form-check-label" for="agreement">I agree to the rental and contact rules.</label></div>
-      </div>
-      <div class="col-12">
-        <div class="btn-group w-100" role="group" aria-label="Form actions"><button class="btn btn-primary btn-lg" type="submit">Send message</button><button class="btn btn-outline-secondary btn-sm" type="reset">Clear</button></div>
-      </div>
-    </div>
-    <p id="form-status" class="mt-3 mb-0" role="status"></p>
-  </form>
-</section>
-
-<section class="section faq-section">
-  <p class="eyebrow">QUICK ANSWERS</p>
-  <h2>Frequently asked <em>questions.</em></h2>
-  <div class="faq-list mt-4">
-    <div class="faq-item">
-      <h3><button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-1">Is this a real shop?</button></h3>
-      <div class="faq-answer" id="faq-answer-1"><div><p>No, this is a student project created for a Front-End web development assignment.</p></div></div>
-    </div>
-    <div class="faq-item">
-      <h3><button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-2">What tech stack was used?</button></h3>
-      <div class="faq-answer" id="faq-answer-2"><div><p>We used semantic HTML5, CSS media queries, Bootstrap 5 and JavaScript.</p></div></div>
-    </div>
-    <div class="faq-item">
-      <h3><button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-3">Who developed this?</button></h3>
-      <div class="faq-answer" id="faq-answer-3"><div><p>This project was developed by Alua, Assiya, and Moldir at AITU.</p></div></div>
-    </div>
-  </div>
-</section>
-</main>
-
-<footer class="site-footer">
-  <div class="footer-grid">
-    <div>
-      <div class="footer-brand">MASQUERADE<span>&amp;</span>MOON</div>
-      <p>Student project demonstrating Media Queries and Bootstrap 5.</p>
-    </div>
-    <div>
-      <h3>Explore</h3>
-      <a href="catalog.html">Catalog</a>
-      <a href="events.html">Events</a>
-      <a href="rent.html">How to Rent</a>
-    </div>
-    <div>
-      <h3>Team</h3>
-      <p>Student Front-End Project</p>
-      <p>Astana IT University</p>
-      <p  class="extracted-35">Alua Rakhimzhanova<br>Assiya Aitbayeva<br>Moldir Yerzhan</p>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>Created by Alua, Assiya, and Moldir · SE-2509</span>
-  </div>
-</footer>
-<script src="vendor/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-<script src="js/legacy.js" defer></script>
-<div class="preference-tools" aria-label="Display and sound settings"><button id="theme-toggle" type="button" aria-pressed="false">Night theme</button><button id="sound-toggle" type="button" aria-pressed="false">Sound off</button><span id="sound-status" class="visually-hidden" role="status"></span></div>
-<script src="js/advanced.js?v=5" defer></script>
-</body>
-</html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Discover exceptional costume collections, masquerade looks and magical event inspiration at Masquerade & Moon."><meta name="theme-color" content="#100f0f">
+<link rel="icon" href="images/item-12.jpg" type="image/jpeg"><title>Contact the atelier | Masquerade &amp; Moon</title>
+<script>try{document.documentElement.dataset.theme=JSON.parse(localStorage.getItem('mm_final_theme'))==='light'?'light':'dark'}catch{document.documentElement.dataset.theme='dark'}</script>
+<link rel="stylesheet" href="css/style.css"><script src="js/script.js" defer></script></head>
+<body><a class="skip-link" href="#main">Skip to content</a><div class="announcement">AN INVITATION TO BECOME SOMEONE ELSE · THE ATELIER IS OPEN</div>
+<header class="header"><div class="header-inner wrap"><button class="icon-button menu-button" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" type="button">☰</button>
+<a class="brand" href="index.html" aria-label="Masquerade and Moon homepage">MASQUERADE<span>&amp;</span>MOON</a>
+<nav class="main-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="catalog.html">Collection</a><a href="rent.html">Rent</a><a href="events.html">Inspiration</a><a href="about.html">Our story</a><a href="contact.html" aria-current="page">Contact</a></nav>
+<div class="header-actions"><a class="account-link" id="account-link" href="login.html">Account ↗</a><a class="icon-button" href="catalog.html?saved=1" aria-label="View saved looks">♡</a><span class="heart-count" id="favorite-count">0</span><button class="icon-button" type="button" id="theme-toggle" aria-label="Switch color theme">☼</button></div></div>
+<nav id="mobile-menu" class="mobile-menu" aria-label="Mobile navigation" hidden><a href="index.html">Home</a><a href="catalog.html">Collection</a><a href="rent.html">Rent</a><a href="events.html">Inspiration</a><a href="about.html">Our story</a><a href="contact.html" aria-current="page">Contact</a><a href="login.html">Account / Log in</a><a href="profile.html">My profile</a></nav></header>
+<main id="main"><section class="page-cover with-image"><img class="cover-image" src="images/contact-bg.jpg" alt="" aria-hidden="true"><div class="wrap"><div class="breadcrumbs"><a href="index.html">Home</a> / Get in touch</div><p class="eyebrow" style="margin:30px 0 0">Get in touch</p><h1>Let's <em>talk.</em></h1><p class="body-copy">Have a question about the collection or the experience? Leave a message in your private site demo.</p></div></section>
+<section class="section wrap form-shell"><div><p class="eyebrow">A NOTE TO THE ATELIER</p><h2>Every great story begins with <em>a conversation.</em></h2><p class="body-copy">Tell us which look speaks to you, or ask a question about the fictional collection. Your message can be saved to this browser for demonstration purposes.</p>
+<div class="subtle-box"><p class="eyebrow">A TRANSPARENT EXPERIENCE</p><h3>Fictional, by design.</h3><p>There is no real storefront, customer support mailbox or order processing behind this website. This contact form is a working front-end simulation.</p><a class="text-link" href="rent.html">Explore rental previews ↗</a></div></div>
+<div class="form-card"><form id="contact-form" novalidate><div class="form-grid"><div class="form-field "><label for="field-name">Your name</label><input class="control" id="field-name" name="name" type="text" placeholder="Full name" autocomplete="name" aria-describedby="error-name"><div class="field-error" id="error-name" data-error-for="name"></div></div><div class="form-field "><label for="field-email">Email address</label><input class="control" id="field-email" name="email" type="text" placeholder="you@example.com" autocomplete="email" aria-describedby="error-email"><div class="field-error" id="error-email" data-error-for="email"></div></div><div class="form-field "><label for="field-phone">Phone number</label><input class="control" id="field-phone" name="phone" type="tel" placeholder="+7 700 000 0000" autocomplete="tel" aria-describedby="error-phone"><div class="field-error" id="error-phone" data-error-for="phone"></div></div><div class="form-field"><label for="contact-topic">Topic</label><select class="control" id="contact-topic" name="topic"><option>Costume inquiry</option><option>Rental preview</option><option>General question</option></select></div>
+<div class="form-field full"><label for="contact-message">Your message</label><textarea id="contact-message" name="message" class="control" placeholder="Write your message here…"></textarea><div data-error-for="message" class="field-error"></div></div><div class="full"><button type="submit" class="btn" style="width:100%">Save message locally ↗</button><p class="form-note">This form does not send emails.</p><div class="form-status" aria-live="polite"></div></div></div></form></div></section></main>
+<footer class="footer"><div class="wrap"><div class="footer-top"><div><a class="brand" href="index.html">MASQUERADE<span>&amp;</span>MOON</a><p>For the nights that deserve another story. Discover theatrical costumes, considered details, and a little mystery.</p></div>
+<div><h4>Explore</h4><nav aria-label="Explore"><a href="index.html">Home</a><a href="catalog.html">Collection</a><a href="rent.html">Rent</a></nav></div>
+<div><h4>Discover</h4><nav aria-label="Discover"><a href="events.html">Inspiration</a><a href="about.html">Our story</a><a href="contact.html">Contact</a></nav></div>
+<div><h4>Your atelier</h4><nav aria-label="Account"><a href="signup.html">Create an account</a><a href="login.html">Log in</a><a href="profile.html">Your wardrobe</a></nav></div></div>
+<div class="footer-bottom"><span>© <span id="year">2026</span> MASQUERADE &amp; MOON. AN IMAGINARY ATELIER.</span><span>DEMO EXPERIENCE · NO REAL ORDERS OR PAYMENTS</span></div></div></footer>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<dialog id="look-dialog" class="modal" aria-label="Costume details"><button class="modal-close" id="close-dialog" type="button" aria-label="Close details">×</button><div class="modal-inner" id="dialog-content"></div></dialog>
+</body></html>

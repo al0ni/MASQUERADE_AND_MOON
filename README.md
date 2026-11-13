@@ -1,30 +1,58 @@
-# Masquerade and Moon - Assignment 6
+# Masquerade & Moon — The Costume Atelier
 
-Team: Alua Rakhimzhanova, Assiya Aitbayeva, Moldir Yerzhan. Group SE-2509.
+An editorial, responsive, multi-page costume discovery website, featuring a curated wardrobe, an interactive product catalog, local demo accounts, rental previews and a live museum archive.
 
-Website: https://al0ni.github.io/MASQUERADE_AND_MOON/
+**Live website:** https://al0ni.github.io/MASQUERADE_AND_MOON/
 
-Open index.html or use the published website. For clipboard access, use HTTPS or a localhost server. All images, audio and library fallbacks are included. There is no build step.
+## Pages
+- `index.html` — editorial homepage and collections
+- `catalog.html` — searchable and filterable 12-look costume catalog
+- `rent.html` — rental explanation, validated request preview and FAQ
+- `about.html` — brand story and concept
+- `events.html` — themed inspiration and live Art Institute of Chicago API
+- `contact.html` — validated local message form
+- `signup.html` — client-side account creation
+- `login.html` — client-side sign in
+- `profile.html` — saved favorites and personal rental previews
 
-## Features and demonstration
+## Technology
+Plain HTML5, CSS3 (Grid/Flexbox), vanilla JavaScript, localStorage, Web Crypto SHA-256 password digest, fetch() and the [Art Institute of Chicago public API](https://api.artic.edu/docs/). No build step or external JavaScript frameworks. Costume photos are local assets from the original project; Google Fonts provides the display typography.
 
-0. Open the console: jQuery is ready! The CDN is included in the head; a local copy is used if the CDN is unavailable.
-1. Catalog: type Crimson to filter the costumes immediately.
-2. Select a suggestion with the mouse or ArrowDown and Enter. Escape closes the suggestions.
-3. Matching text is highlighted in the product titles and descriptions. Clear filters restores all looks.
-4. Scroll any page: the burgundy and gold progress bar fills at the top.
-5. Home: scroll to the statistics. The counters animate to 12 looks, 4 collections and 5 sizes.
-6. Home: click Subscribe, enter a valid email and submit. The spinner runs for 1.6 seconds and the button is disabled.
-7. Catalog: save or remove a look to show a fading notification.
-8. Home: Copy the website link. The icon changes to a checkmark and a tooltip appears.
-9. Catalog: images use data-src until they enter the viewport. Check the Network panel before and after scrolling.
+## Core functionality
+- Mobile navigation and fully responsive layouts
+- Persistent dark/light mode across every page
+- Live costume search, category filtering, sorting and saved-only filtering; persistent filter choices
+- **Alter Ego Ritual**: three-question interactive character finder with tailored results and a costume recommendation
+- **Tonight's Muse**: a rotating daily costume pick, with direct access to details and rental previews
+- Favorite looks across pages, accessible through account and catalog
+- Accessible costume detail dialog with links to the rental preview form
+- Signup/login with JavaScript validation, visible inline errors and local account storage
+- Passwords are stored as **salted SHA-256 digests**, not plaintext. This is still **a client-side demonstration, not production-grade authentication**. Browser-local data and session state are not secure against someone with access to the same device.
+- Rental previews stored in localStorage; listed in the user profile if the email matches
+- Contact form validated and saved locally (not sent to a mailbox)
+- Museum API uses async/await, loading indicator, error message and retry
+- Accessible inputs/labels, focus styles, semantic landmarks, reduced-motion support
+- No fake live business, payments, order submission or actual reservations
 
-## Files
+## Local development
+Use a local HTTP server, for example `python -m http.server 8000`, and visit http://localhost:8000. HTTPS or localhost is necessary for Web Crypto used during signup and login.
 
-- js/script.js: Assignment 6 jQuery features.
-- js/legacy.js: earlier form validation, FAQ, popup, background control and clock.
-- js/advanced.js: themes, sound, rating, gallery and rental preview.
-- css/jquery.css: new component styles.
-- vendor: local Bootstrap and jQuery files with original license notices.
+## Automated verification
 
-Forms are demonstrations and do not send or save personal data. Theme, sound, rating and saved looks use localStorage. Existing sorting, collection filters, gallery and rental preview remain available.
+Run `node tests/smoke.mjs` to check all pages, local links, form settings and JavaScript syntax. To run browser acceptance tests, install Playwright (`npm install --no-save playwright@1.56.1` and `npx playwright install chromium`), serve the project with `python3 -m http.server 8000`, then run `node tests/browser.mjs`. A GitHub Actions workflow on the final project branch executes both suites, including responsive viewport checks.
+
+## Defense / verification checklist
+1. Navigate all pages via desktop and mobile menus.
+2. Switch theme and navigate to a different page; verify persistence.
+3. Try the three-question Alter Ego Ritual on the homepage and see your costume result; return to view Tonight's Muse.
+4. Search for `Crimson`, filter `Gothic`, sort by price, save a look, then filter to saved only.
+4. Create a test account using name, valid email, phone and strong password. Try invalid data first and verify inline errors.
+5. Log out, attempt an incorrect password, then log in successfully.
+6. Create a rental preview with a future event date. Open profile and verify the saved request.
+7. Check contact validation, then save a demo message.
+8. Open Inspiration and verify live museum artwork, or use retry/error state if API is unavailable.
+9. Test Chrome DevTools responsive widths at 375, 768, 1024 and 1440 pixels.
+10. Verify every page and image through the published GitHub Pages address.
+
+## Privacy and limitations
+No backend is present. All account, favorite, form and request data remains on the same browser/device and may disappear if site storage is cleared. **Never use a real personal password**. The website is a fictional demonstration and does not process actual rental bookings, payments, or customer support requests.
