@@ -51,7 +51,7 @@
     const saved=favoriteIds().includes(product.id);
     return '<article class="product-card" data-id="'+product.id+'"><div class="product-photo"><button class="photo-open" type="button" data-action="details" data-id="'+product.id+'" aria-label="Explore '+escapeHTML(product.name)+'"><img src="'+product.image+'" alt="'+escapeHTML(product.name)+'" width="460" height="575" loading="lazy"></button><span class="product-tag">'+escapeHTML(product.label)+'</span><button class="fav-btn" type="button" data-action="favorite" data-id="'+product.id+'" aria-label="'+(saved?'Remove':'Save')+' '+escapeHTML(product.name)+'" aria-pressed="'+saved+'">'+(saved?'♥':'♡')+'</button></div><div class="product-meta"><h3>'+escapeHTML(product.name)+'</h3><p>'+escapeHTML(product.includes)+'</p><div class="product-bottom"><strong>'+money(product.price)+' / 3 days</strong><button type="button" data-action="details" data-id="'+product.id+'">Explore look ↗</button></div></div></article>';
   }
-  function renderFeatured(){const container=$('#featured-grid');if(container)container.innerHTML=[1,4,8,16].map(id=>cardMarkup(PRODUCTS.find(item=>item.id===id))).join('');}
+  function renderFeatured(){const container=$('#featured-grid');if(container)container.innerHTML=[1,6,8,17].map(id=>cardMarkup(PRODUCTS.find(item=>item.id===id))).join('');}
   function renderCatalog(){
     const container=$('#product-grid');if(!container)return;
     const search=($('#search-costumes')?.value||'').trim().toLocaleLowerCase();
@@ -283,7 +283,8 @@
   function initDailyMuse(){
     const node=$('#daily-muse');if(!node)return;
     const day=Math.floor((Date.now()-new Date().getTimezoneOffset()*60000)/86400000);
-    const pick=PRODUCTS[day%PRODUCTS.length];
+    const dailyLooks=PRODUCTS.filter(product=>product.category!=='accessories');
+    const pick=dailyLooks[day%dailyLooks.length];
     const label=$('#daily-muse-date');if(label)label.textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
     const picture=$('#daily-muse-image');picture.src=pick.image;picture.alt=pick.name+' — today’s featured costume';
     $('#daily-muse-name').textContent=pick.name;
