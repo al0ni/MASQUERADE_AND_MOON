@@ -1,18 +1,26 @@
 'use strict';
 (() => {
+  // A small, curated inventory. Every item uses a real file in /images.
   const PRODUCTS = [
-    {id:1,name:'The Crimson Countess',category:'medieval',label:'Medieval',price:12000,detail:'An unforgettable entrance in rich crimson velvet.',includes:'Velvet gown · cape · belt',image:'images/item-1.jpg'},
-    {id:2,name:'Moonlit Knight',category:'medieval',label:'Medieval',price:14000,detail:'A midnight legend wrapped in silver and shadow.',includes:'Tunic · cloak · faux armor',image:'images/item-2.jpg'},
-    {id:3,name:'Golden Court',category:'medieval',label:'Royal',price:16000,detail:'A golden-hour fantasy made for grand celebrations.',includes:'Royal dress · gloves · crown',image:'images/item-3.jpg'},
-    {id:4,name:'Count Dracula',category:'gothic',label:'Gothic',price:13500,detail:'Classic darkness, sharp tailoring and a dramatic silhouette.',includes:'Tuxedo · cape · medallion',image:'images/item-4.jpg'},
-    {id:5,name:'Crimson Bride',category:'gothic',label:'Gothic',price:13000,detail:'A haunting romance with just the right amount of mystery.',includes:'Black gown · veil · choker',image:'images/item-5.jpg'},
-    {id:6,name:'Velvet Vampire',category:'gothic',label:'Gothic',price:11500,detail:'Dressed for the invitation that arrives after midnight.',includes:'Jacket · shirt · gloves',image:'images/item-6.jpg'},
-    {id:7,name:'Midnight Santa',category:'winter',label:'Winter',price:10000,detail:'A winter icon reimagined for the evening.',includes:'Coat · hat · faux fur',image:'images/item-7.jpg'},
-    {id:8,name:'Snow Queen',category:'winter',label:'Winter',price:15000,detail:'Ice, light and a little bit of theatrical magic.',includes:'Ice-blue gown · tiara',image:'images/item-8.jpg'},
-    {id:9,name:'Forest Elf',category:'winter',label:'Fantasy',price:9500,detail:'A woodland fairytale with delicate festive details.',includes:'Green dress · cape · ears',image:'images/item-9.jpg'},
-    {id:10,name:'Velvet Witch',category:'halloween',label:'Halloween',price:11000,detail:'A spellbinding look for the night you own the room.',includes:'Dress · hat · waist corset',image:'images/item-10.jpg'},
-    {id:11,name:'The Phantom',category:'halloween',label:'Halloween',price:12500,detail:'An enigmatic character from behind the mask.',includes:'Mask · coat · gloves',image:'images/item-11.jpg'},
-    {id:12,name:'Golden Masquerade',category:'masquerade',label:'Masquerade',price:12000,detail:'For an evening that calls for a secret identity.',includes:'Suit · mask · pocket chain',image:'images/item-12.jpg'}
+    {id:1,name:'The Crimson Countess',category:'medieval',label:'Royal',price:12000,detail:'An entrance made for grand halls and dramatic stories.',includes:'Crimson gown · flowing sleeves',image:'images/item-1.jpg'},
+    {id:2,name:'Moonlit Knight',category:'medieval',label:'Medieval',price:14000,detail:'Armor, winter light, and the promise of an epic adventure.',includes:'Knight-inspired ensemble · cloak',image:'images/item-2.jpg'},
+    {id:3,name:'Golden Court',category:'medieval',label:'Royal',price:16000,detail:'The warmth of candlelight captured in gold.',includes:'Gold gown · matching fan',image:'images/item-3.jpg'},
+    {id:4,name:'The Night Count',category:'gothic',label:'Gothic',price:13500,detail:'An aristocratic shadow from the streets of the old city.',includes:'Tailored suit · burgundy waistcoat · cape',image:'images/item-4.jpg'},
+    {id:5,name:'The Haunted Bride',category:'halloween',label:'Halloween',price:13000,detail:'A dark bridal story with ghostly, theatrical details.',includes:'White bridal costume · veil',image:'images/item-5.jpg'},
+    {id:6,name:'Velvet Vampire',category:'gothic',label:'Gothic',price:11500,detail:'Soft burgundy velvet, gothic romance, and a little danger.',includes:'Burgundy velvet gown · bell sleeves',image:'images/item-6.jpg'},
+    {id:7,name:'The Blue Yule',category:'winter',label:'Winter',price:10000,detail:'An unconventional Santa-inspired costume in deep winter blue.',includes:'Festive blue suit · hat',image:'images/item-7.jpg'},
+    {id:8,name:'Snow Queen',category:'winter',label:'Winter',price:15000,detail:'An ice-blue silhouette made for a wintry fairytale.',includes:'Ice-blue dress · cape',image:'images/item-8.jpg'},
+    {id:9,name:'Forest Elf',category:'winter',label:'Fantasy',price:9500,detail:'A delicate woodland look with a touch of magic.',includes:'Green fantasy dress · accessories',image:'images/item-9.jpg'},
+    {id:10,name:'Burgundy Reverie',category:'gothic',label:'Gothic',price:11000,detail:'A rich velvet silhouette for a romantic evening after dark.',includes:'Burgundy evening gown',image:'images/item-10.jpg'},
+    {id:11,name:'The Phantom',category:'halloween',label:'Halloween',price:12500,detail:'A mysterious presence, dressed entirely in shadow.',includes:'Black cloak · hat · gloves',image:'images/item-11.jpg'},
+    {id:12,name:'The Gilded Mask',category:'accessories',label:'Accessory',price:6500,detail:'A minimal golden mask that transforms any outfit.',includes:'Metallic gold mask',image:'images/item-12.jpg'},
+    {id:13,name:'The Sunburst Masque',category:'accessories',label:'Accessory',price:7200,detail:'Theater and Venetian glamour in one elaborate face piece.',includes:'Decorative sunburst mask',image:'images/about-main.jpg'},
+    {id:14,name:'The Shadow Visitor',category:'halloween',label:'Halloween',price:10500,detail:'A dark, unsettling character from a midnight tale.',includes:'Nosferatu-inspired character styling',image:'images/cat-dracula.jpg'},
+    {id:15,name:'The Armored Visor',category:'accessories',label:'Accessory',price:6900,detail:'A sculptural helmet for a knightly fantasy.',includes:'Decorative medieval-style helmet',image:'images/cat-medieval.jpg'},
+    {id:16,name:'Venetian Reverie',category:'masquerade',label:'Masquerade',price:14900,detail:'Old-world carnival romance in embroidered, theatrical costume.',includes:'Venetian carnival-inspired ensemble',image:'images/catalog-bg.jpg'},
+    {id:17,name:'Saffron Empress',category:'medieval',label:'Royal',price:14500,detail:'A golden-yellow gown that brings every room to life.',includes:'Yellow statement gown',image:'images/event-img-3.jpg'},
+    {id:18,name:'Midnight Tiara',category:'accessories',label:'Accessory',price:3900,detail:'A sparkling finishing touch for a royal-inspired look.',includes:'Silver statement tiara',image:'images/rent-bg.jpg'},
+    {id:19,name:'Golden Whisper',category:'accessories',label:'Accessory',price:2900,detail:'A subtle gold detail to complete a masquerade mood.',includes:'Gold accessory styling piece',image:'images/event-img-2.jpg'}
   ];
   const $ = (selector,root=document) => root.querySelector(selector);
   const $$ = (selector,root=document) => [...root.querySelectorAll(selector)];
@@ -26,7 +34,7 @@
   function toast(message) {const node=$('#toast');if(!node)return;node.textContent=message;node.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>node.classList.remove('visible'),3000);}
   function updateHeader(){
     const favoriteCount=$('#favorite-count');if(favoriteCount)favoriteCount.textContent=String(favoriteIds().length);
-    const account=$('#account-link');if(account){account.href=currentUser()?'profile.html':'login.html';account.setAttribute('aria-label',currentUser()?'Your profile':'Log in');}
+    const account=$('#account-link'),mobile=$('#mobile-account-link');const target=currentUser()?'profile.html':'login.html';if(account){account.href=target;account.textContent=currentUser()?'My profile ↗':'Account ↗';account.setAttribute('aria-label',currentUser()?'Your profile':'Log in');}if(mobile){mobile.href=target;mobile.textContent=currentUser()?'My profile':'Account / Log in';}
   }
   function initializeTheme(){
     const theme=get('theme','dark');document.documentElement.dataset.theme=theme==='light'?'light':'dark';
@@ -41,9 +49,9 @@
   }
   function cardMarkup(product){
     const saved=favoriteIds().includes(product.id);
-    return '<article class="product-card" data-id="'+product.id+'"><div class="product-photo"><img src="'+product.image+'" alt="'+escapeHTML(product.name)+' costume" width="460" height="575" loading="lazy"><span class="product-tag">'+escapeHTML(product.label)+'</span><button class="fav-btn" type="button" data-action="favorite" data-id="'+product.id+'" aria-label="'+(saved?'Remove':'Save')+' '+escapeHTML(product.name)+'" aria-pressed="'+saved+'">'+(saved?'♥':'♡')+'</button></div><div class="product-meta"><h3>'+escapeHTML(product.name)+'</h3><p>'+escapeHTML(product.includes)+'</p><div class="product-bottom"><strong>'+money(product.price)+' / 3 days</strong><button type="button" data-action="details" data-id="'+product.id+'">Explore look ↗</button></div></div></article>';
+    return '<article class="product-card" data-id="'+product.id+'"><div class="product-photo"><button class="photo-open" type="button" data-action="details" data-id="'+product.id+'" aria-label="Explore '+escapeHTML(product.name)+'"><img src="'+product.image+'" alt="'+escapeHTML(product.name)+'" width="460" height="575" loading="lazy"></button><span class="product-tag">'+escapeHTML(product.label)+'</span><button class="fav-btn" type="button" data-action="favorite" data-id="'+product.id+'" aria-label="'+(saved?'Remove':'Save')+' '+escapeHTML(product.name)+'" aria-pressed="'+saved+'">'+(saved?'♥':'♡')+'</button></div><div class="product-meta"><h3>'+escapeHTML(product.name)+'</h3><p>'+escapeHTML(product.includes)+'</p><div class="product-bottom"><strong>'+money(product.price)+' / 3 days</strong><button type="button" data-action="details" data-id="'+product.id+'">Explore look ↗</button></div></div></article>';
   }
-  function renderFeatured(){const container=$('#featured-grid');if(container)container.innerHTML=[1,5,8,12].map(id=>cardMarkup(PRODUCTS.find(item=>item.id===id))).join('');}
+  function renderFeatured(){const container=$('#featured-grid');if(container)container.innerHTML=[1,4,8,16].map(id=>cardMarkup(PRODUCTS.find(item=>item.id===id))).join('');}
   function renderCatalog(){
     const container=$('#product-grid');if(!container)return;
     const search=($('#search-costumes')?.value||'').trim().toLocaleLowerCase();
@@ -51,7 +59,7 @@
     const sort=$('#sort-costumes')?.value||'curated';
     const onlySaved=$('#saved-only')?.checked||false;
     const favorites=favoriteIds();
-    const filtered=PRODUCTS.filter(product=>(category==='all'||product.category===category)&&(!onlySaved||favorites.includes(product.id))&&(product.name+' '+product.includes+' '+product.label+' '+product.detail).toLocaleLowerCase().includes(search));
+    const filtered=PRODUCTS.filter(product=>(category==='all'||product.category===category)&&(!onlySaved||favorites.includes(product.id))&&(product.name+' '+product.includes+' '+product.label+' '+product.detail+' '+product.category).toLocaleLowerCase().includes(search));
     if(sort==='price-up')filtered.sort((a,b)=>a.price-b.price);
     if(sort==='price-down')filtered.sort((a,b)=>b.price-a.price);
     if(sort==='name')filtered.sort((a,b)=>a.name.localeCompare(b.name));
@@ -59,7 +67,7 @@
     const count=$('#result-count');if(count)count.textContent='Showing '+filtered.length+' of '+PRODUCTS.length+' looks';
     const emptyReset=$('#empty-reset');if(emptyReset)emptyReset.addEventListener('click',resetCatalog);
   }
-  function resetCatalog(){if($('#search-costumes'))$('#search-costumes').value='';if($('#filter-category'))$('#filter-category').value='all';if($('#sort-costumes'))$('#sort-costumes').value='curated';if($('#saved-only'))$('#saved-only').checked=false;put('filters',{search:'',category:'all',sort:'curated',saved:false});renderCatalog();}
+  function resetCatalog(){if($('#search-costumes'))$('#search-costumes').value='';if($('#filter-category'))$('#filter-category').value='all';if($('#sort-costumes'))$('#sort-costumes').value='curated';if($('#saved-only'))$('#saved-only').checked=false;put('filters',{search:'',category:'all',sort:'curated',saved:false});if(location.search)history.replaceState(null,'',location.pathname);renderCatalog();}
   function initCatalog(){
     if(!$('#product-grid'))return;
     const params=new URLSearchParams(location.search),stored=get('filters',{});
@@ -67,13 +75,16 @@
     $('#filter-category').value=params.get('category')||stored.category||'all';
     if(!$$('option',$('#filter-category')).some(opt=>opt.value===$('#filter-category').value))$('#filter-category').value='all';
     $('#sort-costumes').value=stored.sort||'curated';$('#saved-only').checked=params.has('saved')?params.get('saved')==='1':Boolean(stored.saved);
-    const onFilter=()=>{put('filters',{search:$('#search-costumes').value,category:$('#filter-category').value,sort:$('#sort-costumes').value,saved:$('#saved-only').checked});renderCatalog();};
+    const onFilter=()=>{put('filters',{search:$('#search-costumes').value,category:$('#filter-category').value,sort:$('#sort-costumes').value,saved:$('#saved-only').checked});if(location.search)history.replaceState(null,'',location.pathname);syncPills();renderCatalog();};
+    function syncPills(){$('[data-category-pill]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.categoryPill===$('#filter-category').value)));}
+    $('[data-category-pill]').forEach(button=>button.addEventListener('click',()=>{$('#filter-category').value=button.dataset.categoryPill;onFilter();}));
     ['input','change'].forEach(type=>$('#search-costumes').addEventListener(type,onFilter));
     ['#filter-category','#sort-costumes','#saved-only'].forEach(id=>$(id).addEventListener('change',onFilter));
-    $('#reset-filters').addEventListener('click',resetCatalog);renderCatalog();
+    $('#reset-filters').addEventListener('click',()=>{resetCatalog();syncPills();});syncPills();renderCatalog();
   }
   function updateCards(){if($('#product-grid'))renderCatalog();if($('#featured-grid'))renderFeatured();if($('#profile-favorites'))renderProfile();}
   function toggleFavorite(id){
+    if(!PRODUCTS.some(p=>p.id===id))return;
     const favorites=favoriteIds(),next=favorites.includes(id)?favorites.filter(value=>value!==id):[...favorites,id];
     put('favorites',next);updateHeader();updateCards();
     toast(next.includes(id)?'Look added to your saved collection.':'Look removed from your saved collection.');
@@ -81,18 +92,27 @@
   function showDetails(id){
     const product=PRODUCTS.find(p=>p.id===id),modal=$('#look-dialog');if(!product||!modal)return;
     const saved=favoriteIds().includes(id);
-    $('#dialog-content').innerHTML='<img src="'+product.image+'" alt="'+escapeHTML(product.name)+' costume"><div class="modal-copy"><p class="eyebrow">'+escapeHTML(product.label)+' · THE COLLECTION</p><h2>'+escapeHTML(product.name)+'</h2><p>'+escapeHTML(product.detail)+'</p><p class="muted">Includes: '+escapeHTML(product.includes)+'</p><p class="modal-price">'+money(product.price)+' <small style="font-size:12px">/ 3 days</small></p><div class="cta-row"><a class="btn" href="rent.html?look='+id+'">Request this look ↗</a><button class="btn outline" type="button" data-action="favorite" data-id="'+id+'">'+(saved?'♥ Saved':'♡ Save look')+'</button></div></div>';
+    const related=PRODUCTS.filter(p=>p.category===product.category&&p.id!==id).slice(0,2);
+    const suggestions=related.length?'<div class="modal-related"><span class="eyebrow">YOU MIGHT ALSO LOVE</span>'+related.map(p=>'<button type="button" data-action="details" data-id="'+p.id+'">'+escapeHTML(p.name)+' ↗</button>').join('')+'</div>':'';
+    $('#dialog-content').innerHTML='<img src="'+product.image+'" alt="'+escapeHTML(product.name)+'"><div class="modal-copy"><p class="eyebrow">'+escapeHTML(product.label)+' · THE ATELIER</p><h2>'+escapeHTML(product.name)+'</h2><p>'+escapeHTML(product.detail)+'</p><p class="muted">Look details: '+escapeHTML(product.includes)+'</p><p class="modal-price">'+money(product.price)+' <small style="font-size:12px">/ 3 days</small></p><p class="form-note">Illustrative rental pricing · No payment is collected</p><div class="cta-row"><a class="btn" href="rent.html?look='+id+'">Plan this look ↗</a><button class="btn outline" type="button" data-action="favorite" data-id="'+id+'">'+(saved?'♥ Saved':'♡ Save look')+'</button></div>'+suggestions+'</div>';
+    const visited=get('visited',[]);put('visited',[id,...(Array.isArray(visited)?visited:[]).filter(value=>value!==id)].slice(0,6));
+    renderRecent();
     if(typeof modal.showModal==='function'){if(!modal.open)modal.showModal();}else modal.setAttribute('open','');
+  }
+  function renderRecent(){
+    const section=$('#recently-viewed'),grid=$('#recent-grid');if(!section||!grid)return;
+    const ids=get('visited',[]);const entries=(Array.isArray(ids)?ids:[]).map(id=>PRODUCTS.find(p=>p.id===id)).filter(Boolean).slice(0,4);
+    section.hidden=!entries.length;if(entries.length)grid.innerHTML=entries.map(cardMarkup).join('');
   }
   function initProducts(){
     document.addEventListener('click',event=>{
       const button=event.target.closest('[data-action]');if(!button)return;
       const id=Number(button.dataset.id),action=button.dataset.action;
-      if(action==='favorite'){toggleFavorite(id);if($('#look-dialog')?.open){showDetails(id);}}
+      if(action==='favorite'){toggleFavorite(id);if($('#look-dialog')?.open){showDetails(id);}else{const replacement=document.querySelector('.product-card[data-id="'+id+'"] .fav-btn');replacement?.focus();}}
       if(action==='details')showDetails(id);
     });
     const dialog=$('#look-dialog');if(dialog){$('#close-dialog').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();});}
-    renderFeatured();initCatalog();
+    renderFeatured();initCatalog();renderRecent();
   }
   const validEmail=value=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(value).trim());
   const validPhone=value=>{const digits=String(value).replace(/\D/g,'');return digits.length>=10&&digits.length<=15&&/^\+?[\d\s()\-]+$/.test(value);};
@@ -166,7 +186,7 @@
     const user=currentUser();if(user){form.elements.namedItem('name').value=user.name;form.elements.namedItem('email').value=user.email;form.elements.namedItem('phone').value=user.phone;}
     form.addEventListener('submit',event=>{
       event.preventDefault();clearErrors(form);
-      const rules=[['look',v=>PRODUCTS.some(p=>String(p.id)===v),'Select a costume.'],['name',v=>v.length>=2,'Enter your name.'],['email',validEmail,'Enter a valid email address.'],['phone',validPhone,'Use 10–15 digits, optionally with + and spaces.'],['date',v=>{if(!/^\d{4}-\d{2}-\d{2}$/.test(v))return false;const date=new Date(v+'T12:00:00');const today=new Date();today.setHours(0,0,0,0);return Number.isFinite(date.getTime())&&date>=today;},'Choose today or a future date.']];
+      const rules=[['look',v=>PRODUCTS.some(p=>String(p.id)===v),'Select a costume.'],['name',v=>v.length>=2,'Enter your name.'],['email',validEmail,'Enter a valid email address.'],['phone',validPhone,'Use 10–15 digits, optionally with + and spaces.'],['date',v=>{if(!/^\d{4}-\d{2}-\d{2}$/.test(v))return false;const date=new Date(v+'T12:00:00');const today=new Date();today.setHours(0,0,0,0);const parts=v.split('-').map(Number);return Number.isFinite(date.getTime())&&date.getFullYear()===parts[0]&&date.getMonth()+1===parts[1]&&date.getDate()===parts[2]&&date>=today;},'Choose today or a future date.']];
       if(!validate(form,rules))return;
       const requests=get('requests',[]);if(!Array.isArray(requests)){status(form,'Local storage is unavailable.');return;}
       const entry={id:crypto.randomUUID?.()||String(Date.now()),look:Number(formValue(form,'look')),name:formValue(form,'name'),email:formValue(form,'email').toLowerCase(),phone:formValue(form,'phone'),date:formValue(form,'date'),note:formValue(form,'note'),createdAt:new Date().toISOString()};
@@ -262,9 +282,8 @@
   }
   function initDailyMuse(){
     const node=$('#daily-muse');if(!node)return;
-    const today=new Date().toLocaleDateString('en-CA');
-    const sum=today.split('').reduce((n,ch)=>n+ch.charCodeAt(0),0);
-    const pick=PRODUCTS[(sum*7)%PRODUCTS.length];
+    const day=Math.floor((Date.now()-new Date().getTimezoneOffset()*60000)/86400000);
+    const pick=PRODUCTS[day%PRODUCTS.length];
     const label=$('#daily-muse-date');if(label)label.textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
     const picture=$('#daily-muse-image');picture.src=pick.image;picture.alt=pick.name+' — today’s featured costume';
     $('#daily-muse-name').textContent=pick.name;

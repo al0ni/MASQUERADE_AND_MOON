@@ -1,7 +1,7 @@
 name: Final Project Quality Checks
 on:
   push:
-    branches: [final-atelier-2026]
+    branches: [final-atelier-2026, luxury-audit-2026]
   pull_request:
     branches: [main]
 permissions:
