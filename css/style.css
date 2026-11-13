@@ -23,4 +23,43 @@ details{border-bottom:1px solid var(--line);padding:20px 0}summary{cursor:pointe
 @media(max-width:620px){.wrap{width:min(calc(100% - 32px),var(--wrap))}.announcement{font-size:8px;letter-spacing:.1em}.brand{font-size:23px}.brand small{font-size:7px}.header-actions{gap:6px}.icon-button{width:35px;height:35px;font-size:18px}.header-inner{gap:5px}.hero{min-height:685px}.hero-content{padding-block:100px 120px}.hero h1{font-size:clamp(4.3rem,15vw,6.7rem)}.hero-side{display:none}.hero-bottom{font-size:8px;gap:10px}.hero-copy{font-size:14px}.cta-row{gap:10px}.cta-row .btn{width:100%}.ticker{grid-template-columns:1fr 1fr;padding-block:12px;font-size:8px}.ticker span::before{margin-right:5px}.section-head{display:block}.section-head p{margin-top:15px}.collection-grid{gap:10px}.collection-card{min-height:290px}.collection-info{left:15px;bottom:17px}.collection-info h3{font-size:28px}.collection-info small{font-size:8px}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 11px}.product-meta h3{font-size:23px}.product-meta p{font-size:11px}.product-bottom{align-items:flex-start;flex-direction:column;gap:4px}.product-tag{font-size:8px;top:10px;left:9px}.fav-btn{width:31px;height:31px;top:8px;right:8px}.editorial-copy{padding:45px 25px}.page-cover{padding:75px 0 60px}.page-cover h1{font-size:clamp(3.8rem,13vw,6rem)}.filters{grid-template-columns:1fr 1fr}.filters .field:first-child{grid-column:1/-1}.step-grid,.feature-columns,.form-shell,.event-grid,.archive-grid{grid-template-columns:1fr}.step-grid{gap:18px}.form-card{padding:24px 17px}.form-grid{grid-template-columns:1fr;gap:19px}.form-grid .full{grid-column:auto}.feature-columns img{min-height:350px}.footer .footer-top{grid-template-columns:1fr 1fr;gap:40px 15px}.footer .footer-top>div:first-child{grid-column:1/-1}.footer-bottom{display:block}.footer-bottom span{display:block;margin-bottom:8px}.modal-inner{grid-template-columns:1fr}.modal-inner>img{min-height:0;height:290px}.modal-copy{padding:23px}.modal-copy h2{font-size:43px}.auth-art{min-height:280px;padding:30px}.auth-art h2{font-size:42px}.auth-form-wrap{padding:52px 18px}.profile-row{align-items:flex-start}.profile-row button{flex-shrink:0}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 
+
+/* The Alter Ego Ritual: three questions, one character reveal. */
+.ritual-section{background:var(--surface);border-block:1px solid var(--line)}
+.quiz-shell{display:grid;grid-template-columns:0.82fr 1.18fr;min-height:595px;border:1px solid var(--line);background:var(--bg)}
+.quiz-visual{position:relative;overflow:hidden;min-height:460px;background:#301e28;color:#fff}
+.quiz-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,7,12,.16),rgba(10,7,12,.78));pointer-events:none}
+.quiz-visual img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:opacity .35s}
+.quiz-visual-inner{position:absolute;bottom:40px;left:35px;right:35px;z-index:1;display:flex;flex-direction:column;gap:12px;font-size:10px;letter-spacing:.25em;font-weight:700}
+.quiz-ornament{font:normal clamp(60px,8vw,120px) 'Italiana',Georgia,serif;line-height:1;color:#ead5b4}
+.quiz-panel{padding:clamp(27px,5vw,68px);display:flex;flex-direction:column;justify-content:center}
+.quiz-head,.quiz-foot{display:flex;align-items:center;justify-content:space-between;gap:15px}
+.quiz-head .eyebrow,.quiz-head .tiny{margin:0}
+.quiz-progress{height:2px;background:var(--line);width:100%;margin:25px 0 36px;overflow:hidden}
+.quiz-progress span{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.quiz-panel h3{font-size:clamp(37px,4vw,62px);max-width:570px;margin:0 0 12px}
+.quiz-panel>p{font-size:14px;max-width:490px}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.quiz-option{display:flex;align-items:center;gap:11px;text-align:left;min-height:84px;padding:16px;border:1px solid var(--line);background:var(--surface);color:var(--text);transition:border-color .2s,background .2s,transform .25s;font-size:13px;line-height:1.35}
+.quiz-option span{color:var(--accent);font-size:10px;letter-spacing:.15em}
+.quiz-option b{margin-left:auto;font-size:17px;font-weight:400;color:var(--accent)}
+.quiz-option:hover,.quiz-option:focus-visible{border-color:var(--accent);background:var(--surface2);transform:translateY(-2px)}
+.quiz-foot{margin-top:32px;min-height:28px}
+.quiz-foot .text-link{background:none;border-top:none;border-left:none;border-right:none;cursor:pointer}
+.quiz-foot>span{font-size:9px;letter-spacing:.14em;color:var(--muted);margin-left:auto}
+.quiz-answer{grid-column:1/-1;padding:15px 0 5px}
+.quiz-answer h4{font:normal clamp(32px,4vw,50px) 'Italiana',serif;margin:12px 0 9px}
+.quiz-answer p{font-size:14px;max-width:460px}
+.quiz-answer .btn{min-height:49px}
+.muse-shell{display:grid;grid-template-columns:1.1fr .9fr;background:var(--surface);min-height:450px;border:1px solid var(--line)}
+.muse-copy{padding:clamp(30px,6vw,90px);display:flex;flex-direction:column;justify-content:center}
+.muse-kicker{letter-spacing:.19em;font-size:11px;text-transform:uppercase;color:var(--muted);margin:16px 0 18px}
+.muse-kicker span{color:var(--accent);font-size:22px;margin-left:12px}
+.muse-copy h3{font-size:clamp(44px,6vw,82px);max-width:650px;margin-bottom:12px}
+.muse-copy>p:last-of-type{max-width:460px}
+.muse-image{min-height:380px;overflow:hidden;background:var(--surface2)}
+.muse-image img{height:100%;width:100%;object-fit:cover}
+@media(max-width:880px){.quiz-shell{grid-template-columns:1fr}.quiz-visual{min-height:330px;max-height:400px}.quiz-panel{padding:35px}.muse-shell{grid-template-columns:1fr 1fr}.muse-copy{padding:30px}.muse-copy h3{font-size:46px}}
+@media(max-width:620px){.quiz-visual{min-height:300px}.quiz-visual-inner{left:22px;bottom:22px}.quiz-panel{padding:28px 20px}.quiz-panel h3{font-size:41px}.quiz-options{grid-template-columns:1fr;gap:9px}.quiz-option{min-height:64px;padding:12px}.quiz-foot{align-items:flex-start;flex-wrap:wrap}.muse-shell{grid-template-columns:1fr}.muse-image{min-height:350px;max-height:390px;order:-1}.muse-copy{padding:34px 22px}.muse-copy h3{font-size:50px}.muse-copy .btn{width:100%}.muse-section .section-head{margin-bottom:25px}}
+
 @media(prefers-reduced-motion:reduce){.quiz-visual img,.quiz-option,.quiz-progress span{transition:none!important}}

@@ -71,7 +71,7 @@
     $('#search-costumes').value=params.get('q')||stored.search||'';
     $('#filter-category').value=params.get('category')||stored.category||'all';
     if(!$$('option',$('#filter-category')).some(opt=>opt.value===$('#filter-category').value))$('#filter-category').value='all';
-    $('#sort-costumes').value=stored.sort||'curated';$('#saved-only').checked=Boolean(stored.saved);
+    $('#sort-costumes').value=stored.sort||'curated';$('#saved-only').checked=params.has('saved')?params.get('saved')==='1':Boolean(stored.saved);
     const onFilter=()=>{put('filters',{search:$('#search-costumes').value,category:$('#filter-category').value,sort:$('#sort-costumes').value,saved:$('#saved-only').checked});renderCatalog();};
     ['input','change'].forEach(type=>$('#search-costumes').addEventListener(type,onFilter));
     ['#filter-category','#sort-costumes','#saved-only'].forEach(id=>$(id).addEventListener('change',onFilter));
@@ -87,7 +87,7 @@
     const product=PRODUCTS.find(p=>p.id===id),modal=$('#look-dialog');if(!product||!modal)return;
     const saved=favoriteIds().includes(id);
     $('#dialog-content').innerHTML='<img src="'+product.image+'" alt="'+escapeHTML(product.name)+' costume"><div class="modal-copy"><p class="eyebrow">'+escapeHTML(product.label)+' · THE COLLECTION</p><h2>'+escapeHTML(product.name)+'</h2><p>'+escapeHTML(product.detail)+'</p><p class="muted">Includes: '+escapeHTML(product.includes)+'</p><p class="modal-price">'+money(product.price)+' <small style="font-size:12px">/ 3 days</small></p><div class="cta-row"><a class="btn" href="rent.html?look='+id+'">Request this look ↗</a><button class="btn outline" type="button" data-action="favorite" data-id="'+id+'">'+(saved?'♥ Saved':'♡ Save look')+'</button></div></div>';
-    if(typeof modal.showModal==='function')modal.showModal();else modal.setAttribute('open','');
+    if(typeof modal.showModal==='function'){if(!modal.open)modal.showModal();}else modal.setAttribute('open','');
   }
   function initProducts(){
     document.addEventListener('click',event=>{
@@ -187,7 +187,7 @@
     form.addEventListener('submit',event=>{
       event.preventDefault();clearErrors(form);
       if(!validate(form,[['name',v=>v.length>=2,'Enter your name.'],['email',validEmail,'Enter a valid email address.'],['phone',validPhone,'Use 10–15 digits, optionally with + and spaces.'],['message',v=>v.length>=15,'Write at least 15 characters.']]))return;
-      const messages=get('messages',[]);if(!Array.isArray(messages)||!put('messages',[{name:formValue(form,'name'),email:formValue(form,'email'),phone:formValue(form,'phone'),message:formValue(form,'message'),createdAt:new Date().toISOString()},...messages])){status(form,'Could not save your message locally.');return;}
+      const messages=get('messages',[]);if(!Array.isArray(messages)||!put('messages',[{name:formValue(form,'name'),email:formValue(form,'email'),phone:formValue(form,'phone'),topic:formValue(form,'topic'),message:formValue(form,'message'),createdAt:new Date().toISOString()},...messages])){status(form,'Could not save your message locally.');return;}
       status(form,'Message saved locally for this site demo. It was not emailed or sent to a business.');
       form.reset();toast('Message saved on this device.');
     });
@@ -216,8 +216,70 @@
     finally{loading.hidden=true;}
   }
   function initArchive(){if(!$('#archive-grid'))return;$('#archive-retry')?.addEventListener('click',loadArchive);loadArchive();}
+
+  function initAlterEgo() {
+    const root=$('#quiz-stage');if(!root)return;
+    const questions=[
+      {title:'Where does your story begin?',prompt:'Choose the world you would disappear into.',choices:[['A candlelit royal ballroom','medieval'],['A castle after midnight','gothic'],['An enchanted winter garden','winter'],['A secret masked celebration','masquerade']]},
+      {title:'Pick your signature detail.',prompt:'The little thing that makes the character yours.',choices:[['A golden crown','medieval'],['A dramatic velvet cape','gothic'],['A shimmer of silver','winter'],['An ornate, mysterious mask','masquerade']]},
+      {title:'What should they remember?',prompt:'Every unforgettable night leaves an impression.',choices:[['The grand entrance','medieval'],['The beautiful mystery','gothic'],['The impossible magic','winter'],['The delicious secret','masquerade']]}
+    ];
+    const titles={medieval:'The Royal Dreamer',gothic:'The Midnight Romantic',winter:'The Winter Enchanter',masquerade:'The Beautiful Enigma'};
+    const descriptions={
+      medieval:'An old-soul heroine with a flair for grand entrances and golden details.',
+      gothic:'You belong to candlelight, velvet and the stories whispered after midnight.',
+      winter:'There is a certain kind of magic in your quiet, otherworldly presence.',
+      masquerade:'No one quite knows the whole story. That is your greatest charm.'
+    };
+    let step=0,answers=[];
+    const label=$('#quiz-step'),title=$('#quiz-title'),prompt=$('#quiz-prompt'),options=$('#quiz-options'),bar=$('#quiz-progress-fill'),back=$('#quiz-back'),visual=$('#quiz-visual-img'),caption=$('#quiz-visual-caption'),restart=$('#quiz-restart');
+    function showQuestion(){
+      const q=questions[step];label.textContent='0'+(step+1)+' / 03';
+      title.textContent=q.title;prompt.textContent=q.prompt;
+      options.hidden=false;
+      options.innerHTML=q.choices.map((c,i)=>'<button type="button" class="quiz-option" data-choice="'+i+'"><span>0'+(i+1)+'</span>'+escapeHTML(c[0])+'<b aria-hidden="true">↗</b></button>').join('');
+      bar.style.width=(step/3*100)+'%';back.hidden=step===0;restart.hidden=true;
+      visual.src='images/cat-'+(['medieval','dracula','winter'][step]||'medieval')+'.jpg';
+      visual.alt='Atmospheric costume collection';caption.textContent='THE ART OF BECOMING';
+    }
+    function showResult(){
+      const totals={medieval:0,gothic:0,winter:0,masquerade:0};
+      answers.forEach(value=>{totals[value]++;});
+      const category=answers.slice().reverse().reduce((winner,value)=>totals[value]>totals[winner]?value:winner,answers[answers.length-1]);
+      const found=PRODUCTS.filter(p=>p.category===category);
+      const pick=found[(new Date().getDate()+answers.length)%found.length];
+      put('quizResult',{productId:pick.id,category,date:new Date().toISOString()});
+      label.textContent='YOUR ALTER EGO / REVEALED';title.textContent=titles[category];
+      prompt.textContent=descriptions[category];
+      options.innerHTML='<div class="quiz-answer"><span class="eyebrow">YOUR SIGNATURE LOOK</span><h4>'+escapeHTML(pick.name)+'</h4><p>'+escapeHTML(pick.detail)+'</p><div class="cta-row"><button type="button" class="btn" data-action="details" data-id="'+pick.id+'">Explore your look ↗</button><button type="button" class="btn outline" data-action="favorite" data-id="'+pick.id+'">♡ Save this look</button></div></div>';
+      bar.style.width='100%';visual.src=pick.image;visual.alt=pick.name+' costume';caption.textContent='YOUR STORY STARTS HERE';
+      back.hidden=true;restart.hidden=false;
+    }
+    options.addEventListener('click',event=>{
+      const choice=event.target.closest('[data-choice]');if(!choice)return;
+      const index=Number(choice.dataset.choice);answers[step]=questions[step].choices[index][1];
+      step++;
+      if(step===questions.length)showResult();else showQuestion();
+    });
+    back.addEventListener('click',()=>{if(step>0){step--;answers=answers.slice(0,step);showQuestion();}});
+    restart.addEventListener('click',()=>{step=0;answers=[];showQuestion();});
+    showQuestion();
+  }
+  function initDailyMuse(){
+    const node=$('#daily-muse');if(!node)return;
+    const today=new Date().toLocaleDateString('en-CA');
+    const sum=today.split('').reduce((n,ch)=>n+ch.charCodeAt(0),0);
+    const pick=PRODUCTS[(sum*7)%PRODUCTS.length];
+    const label=$('#daily-muse-date');if(label)label.textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+    const picture=$('#daily-muse-image');picture.src=pick.image;picture.alt=pick.name+' — today’s featured costume';
+    $('#daily-muse-name').textContent=pick.name;
+    $('#daily-muse-copy').textContent=pick.detail;
+    const link=$('#daily-muse-link');link.href='rent.html?look='+pick.id;
+    $('#daily-muse-explore').dataset.id=String(pick.id);
+  }
+
   window.addEventListener('storage',event=>{if(event.key?.startsWith('mm_final_')){updateHeader();updateCards();}});
   document.addEventListener('DOMContentLoaded',()=>{
-    initializeTheme();initializeNavigation();updateHeader();reveal();initProducts();setupSignup();setupLogin();initRental();initContact();renderProfile();initArchive();
+    initializeTheme();initializeNavigation();updateHeader();reveal();initProducts();initAlterEgo();initDailyMuse();setupSignup();setupLogin();initRental();initContact();renderProfile();initArchive();
   });
 })();
