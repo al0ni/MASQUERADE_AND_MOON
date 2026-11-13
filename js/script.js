@@ -39,11 +39,6 @@
     if(button&&menu){button.addEventListener('click',()=>{const next=menu.hidden;menu.hidden=!next;button.setAttribute('aria-expanded',String(next));button.textContent=next?'×':'☰';});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!menu.hidden){menu.hidden=true;button.setAttribute('aria-expanded','false');button.textContent='☰';button.focus();}});$$('a',menu).forEach(link=>link.addEventListener('click',()=>{menu.hidden=true;button.setAttribute('aria-expanded','false');button.textContent='☰';}));}
     const year=$('#year');if(year)year.textContent=String(new Date().getFullYear());
   }
-  function reveal(){
-    const elements=$$('.reveal');if(!('IntersectionObserver' in window)){elements.forEach(el=>el.classList.add('in-view'));return;}
-    const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('in-view');observer.unobserve(entry.target);}});},{threshold:.08});
-    elements.forEach(el=>observer.observe(el));
-  }
   function cardMarkup(product){
     const saved=favoriteIds().includes(product.id);
     return '<article class="product-card" data-id="'+product.id+'"><div class="product-photo"><img src="'+product.image+'" alt="'+escapeHTML(product.name)+' costume" width="460" height="575" loading="lazy"><span class="product-tag">'+escapeHTML(product.label)+'</span><button class="fav-btn" type="button" data-action="favorite" data-id="'+product.id+'" aria-label="'+(saved?'Remove':'Save')+' '+escapeHTML(product.name)+'" aria-pressed="'+saved+'">'+(saved?'♥':'♡')+'</button></div><div class="product-meta"><h3>'+escapeHTML(product.name)+'</h3><p>'+escapeHTML(product.includes)+'</p><div class="product-bottom"><strong>'+money(product.price)+' / 3 days</strong><button type="button" data-action="details" data-id="'+product.id+'">Explore look ↗</button></div></div></article>';
@@ -280,6 +275,6 @@
 
   window.addEventListener('storage',event=>{if(event.key?.startsWith('mm_final_')){updateHeader();updateCards();}});
   document.addEventListener('DOMContentLoaded',()=>{
-    initializeTheme();initializeNavigation();updateHeader();reveal();initProducts();initAlterEgo();initDailyMuse();setupSignup();setupLogin();initRental();initContact();renderProfile();initArchive();
+    initializeTheme();initializeNavigation();updateHeader();initProducts();initAlterEgo();initDailyMuse();setupSignup();setupLogin();initRental();initContact();renderProfile();initArchive();
   });
 })();

@@ -111,6 +111,15 @@ try{
       if(dims.w>dims.v+2){const offenders=await page.evaluate(()=>[...document.querySelectorAll('body *')].filter(el=>el.getBoundingClientRect().right>innerWidth+3&&getComputedStyle(el).position!=='absolute').slice(0,8).map(el=>({tag:el.tagName,id:el.id,cls:el.className?.toString().slice(0,45),right:Math.round(el.getBoundingClientRect().right)})));console.error('Overflow elements:',JSON.stringify(offenders));}verify(dims.w<=dims.v+2,'Horizontal overflow at '+width+'px on '+file+' ('+dims.w+' > '+dims.v+')');
     }
   }
+  // Export two visual snapshots only after the functional tests pass.
+  await page.evaluate(()=>localStorage.setItem('mm_final_theme',JSON.stringify('dark')));
+  for(const [width,height,file] of [[1440,900,'preview-desktop.png'],[375,812,'preview-mobile.png']]){
+    await page.setViewportSize({width,height});
+    await visit('index.html');
+    await page.evaluate(()=>document.querySelectorAll('img[loading="lazy"]').forEach(image=>{image.loading='eager';}));
+    await page.waitForTimeout(900);
+    await page.screenshot({path:file,fullPage:true});
+  }
   console.log('Browser acceptance checks passed:',checks,'assertions.');
 }catch(error){
   console.error('Browser acceptance failure:',error);
