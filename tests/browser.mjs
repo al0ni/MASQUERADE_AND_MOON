@@ -131,6 +131,14 @@ try{
     await page.waitForTimeout(900);
     await page.screenshot({path:file,fullPage:true});
   }
+  // Screenshot the full catalog, not just the homepage.
+  for(const [width,height,file] of [[1440,900,'catalog-desktop.png'],[375,812,'catalog-mobile.png']]){
+    await page.setViewportSize({width,height});
+    await visit('catalog.html');
+    await page.evaluate(()=>document.querySelectorAll('img[loading="lazy"]').forEach(img=>{img.loading='eager';}));
+    await page.waitForTimeout(900);
+    await page.screenshot({path:file,fullPage:true});
+  }
   console.log('Browser acceptance checks passed:',checks,'assertions.');
 }catch(error){
   console.error('Browser acceptance failure:',error);

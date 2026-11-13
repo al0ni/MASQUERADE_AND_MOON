@@ -34,6 +34,8 @@ jobs:
           path: |
             preview-desktop.png
             preview-mobile.png
+            catalog-desktop.png
+            catalog-mobile.png
           if-no-files-found: error
       - name: Upload failure screenshot
         if: failure()
