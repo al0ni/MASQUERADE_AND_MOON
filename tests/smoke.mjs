@@ -25,6 +25,18 @@ for(const page of pages){
     assert.doesNotMatch(tag,/\b(?:required|pattern|minlength|maxlength|min|max)\s*=/,'Native validation attributes in '+page);
   }
 }
+
+const js=fs.readFileSync('js/script.js','utf8');
+const productImagePaths=[...js.matchAll(/image:'(images\/[^']+)'/g)].map(match=>match[1]);
+assert.equal(productImagePaths.length,19,'Expected 19 curated pieces');
+assert.equal(new Set(productImagePaths).size,productImagePaths.length,'Duplicate product imagery');
+for(const filename of productImagePaths){
+  assert(fs.existsSync(filename),'Missing catalog photo '+filename);
+  checks++;
+}
+const imageBytes=fs.readdirSync('images').filter(name=>name.endsWith('.jpg')).reduce((sum,name)=>sum+fs.statSync('images/'+name).size,0);
+assert(imageBytes<10*1024*1024,'Image payload exceeds 10 MB: optimization required');
+
 execFileSync(process.execPath,['--check','js/script.js'],{stdio:'inherit'});
 assert(fs.readFileSync('js/script.js','utf8').includes('fetch('),'No external API call');
 assert(fs.readFileSync('js/script.js','utf8').includes('localStorage'),'No persistence');

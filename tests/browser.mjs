@@ -31,9 +31,9 @@ try{
   verify(await page.locator('#product-grid .product-card').count()===1,'Saved-only filter incorrect');
   verify(await page.locator('html').getAttribute('data-theme')==='light','Theme did not persist');
   await page.locator('#reset-filters').click();
-  verify(await page.locator('#product-grid .product-card').count()===12,'Catalog missing looks');
+  verify(await page.locator('#product-grid .product-card').count()===19,'Catalog missing curated pieces');
   await page.locator('#search-costumes').fill('Crimson');
-  verify(await page.locator('#product-grid .product-card').count()===2,'Search did not filter');
+  verify(await page.locator('#product-grid .product-card').count()===1,'Search did not filter');
   await page.locator('#search-costumes').fill('Not A Costume');
   verify((await page.locator('.empty-state').textContent()).includes('No looks found'),'Empty state absent');
   await page.locator('#reset-filters').click();
@@ -41,8 +41,19 @@ try{
   verify(await page.locator('#product-grid .product-card').count()===3,'Category filter wrong');
   await page.locator('#sort-costumes').selectOption('price-up');
   const prices=await page.locator('#product-grid .product-bottom strong').allTextContents();
-  verify(prices[0].includes('11,500'),'Price sorting wrong');
+  verify(prices[0].includes('11,000'),'Price sorting wrong');
   await page.locator('#reset-filters').click();
+  await page.locator('[data-category-pill="accessories"]').click();
+  verify(await page.locator('#product-grid .product-card').count()===5,'Accessories collection filter failed');
+  verify(await page.locator('[data-category-pill="accessories"]').getAttribute('aria-pressed')==='true','Collection pill state missing');
+  await page.locator('[data-category-pill="all"]').click();
+  verify(await page.locator('#product-grid .product-card').count()===19,'All collection filter failed');
+  await page.locator('#product-grid .photo-open').first().click();
+  verify(await page.locator('#look-dialog').evaluate(el=>el.open),'Clickable product photo failed');
+  await page.locator('#close-dialog').click();
+  await page.locator('#product-grid img').evaluateAll(images=>images.forEach(img=>img.loading='eager'));
+  await page.waitForFunction(()=>[...document.querySelectorAll('#product-grid img')].every(img=>img.complete&&img.naturalWidth>0));
+  verify(true,'All product photos load successfully');
 
   await visit('signup.html');
   await page.locator('#signup-form button[type=submit]').click();
@@ -58,7 +69,7 @@ try{
   verify((await page.locator('#profile-content').textContent()).includes('Test Member'),'Signed-up profile not shown');
   const savedUser=await page.evaluate(()=>localStorage.getItem('mm_final_users'));
   verify(savedUser&&!savedUser.includes('GoodPassword9!'),'Password was stored in plaintext');
-  verify((await page.locator('#profile-content').textContent()).includes('The Crimson Countess')||(await page.locator('#profile-content').textContent()).includes('Moonlit Knight')||(await page.locator('#profile-content').textContent()).includes('Golden Court'),'Favorite missing in profile');
+  verify((await page.locator('#profile-content .profile-row').count())>=1,'Favorite missing in profile');
   await page.locator('#logout-button').click();
   await page.waitForURL(/index\.html$/);
 
@@ -117,6 +128,14 @@ try{
     await page.setViewportSize({width,height});
     await visit('index.html');
     await page.evaluate(()=>document.querySelectorAll('img[loading="lazy"]').forEach(image=>{image.loading='eager';}));
+    await page.waitForTimeout(900);
+    await page.screenshot({path:file,fullPage:true});
+  }
+  // Screenshot the full catalog, not just the homepage.
+  for(const [width,height,file] of [[1440,900,'catalog-desktop.png'],[375,812,'catalog-mobile.png']]){
+    await page.setViewportSize({width,height});
+    await visit('catalog.html');
+    await page.evaluate(()=>document.querySelectorAll('img[loading="lazy"]').forEach(img=>{img.loading='eager';}));
     await page.waitForTimeout(900);
     await page.screenshot({path:file,fullPage:true});
   }

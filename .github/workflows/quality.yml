@@ -1,7 +1,7 @@
 name: Final Project Quality Checks
 on:
   push:
-    branches: [final-atelier-2026]
+    branches: [final-atelier-2026, luxury-audit-2026]
   pull_request:
     branches: [main]
 permissions:
@@ -34,6 +34,8 @@ jobs:
           path: |
             preview-desktop.png
             preview-mobile.png
+            catalog-desktop.png
+            catalog-mobile.png
           if-no-files-found: error
       - name: Upload failure screenshot
         if: failure()

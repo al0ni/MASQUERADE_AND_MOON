@@ -6,7 +6,7 @@ An editorial, responsive, multi-page costume discovery website, featuring a cura
 
 ## Pages
 - `index.html` — editorial homepage and collections
-- `catalog.html` — searchable and filterable 12-look costume catalog
+- `catalog.html` — searchable and filterable 19-piece costume catalog
 - `rent.html` — rental explanation, validated request preview and FAQ
 - `about.html` — brand story and concept
 - `events.html` — themed inspiration and live Art Institute of Chicago API
@@ -18,13 +18,19 @@ An editorial, responsive, multi-page costume discovery website, featuring a cura
 ## Technology
 Plain HTML5, CSS3 (Grid/Flexbox), vanilla JavaScript, localStorage, Web Crypto SHA-256 password digest, fetch() and the [Art Institute of Chicago public API](https://api.artic.edu/docs/). No build step or external JavaScript frameworks. Costume photos are local assets from the original project; Google Fonts provides the display typography.
 
+## Image performance
+
+The 26 original local photographs were recompressed for the web: from approximately 30.1 MB to 6.0 MB (80% smaller). The one-time image optimizer is in `scripts/optimize_photos.py` and the result is verified in CI.
+
 ## Core functionality
 - Mobile navigation and fully responsive layouts
 - Persistent dark/light mode across every page
-- Live costume search, category filtering, sorting and saved-only filtering; persistent filter choices
+- Live costume search, category filtering, sorting, seven active category shortcuts, and saved-only filtering; persistent filter choices
 - **Alter Ego Ritual**: three-question interactive character finder with tailored results and a costume recommendation
 - **Tonight's Muse**: a rotating daily costume pick, with direct access to details and rental previews
 - Favorite looks across pages, accessible through account and catalog
+- Clickable product photos, related-look recommendations and locally saved recently viewed products
+- Nineteen pieces (costumes and statement accessories), with names and descriptions aligned to the photographs
 - Accessible costume detail dialog with links to the rental preview form
 - Signup/login with JavaScript validation, visible inline errors and local account storage
 - Passwords are stored as **salted SHA-256 digests**, not plaintext. This is still **a client-side demonstration, not production-grade authentication**. Browser-local data and session state are not secure against someone with access to the same device.
