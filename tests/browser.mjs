@@ -108,7 +108,7 @@ try{
     for(const file of pages){
       await visit(file);
       const dims=await page.evaluate(()=>({w:document.documentElement.scrollWidth,v:innerWidth}));
-      verify(dims.w<=dims.v+2,'Horizontal overflow at '+width+'px on '+file+' ('+dims.w+' > '+dims.v+')');
+      if(dims.w>dims.v+2){const offenders=await page.evaluate(()=>[...document.querySelectorAll('body *')].filter(el=>el.getBoundingClientRect().right>innerWidth+3&&getComputedStyle(el).position!=='absolute').slice(0,8).map(el=>({tag:el.tagName,id:el.id,cls:el.className?.toString().slice(0,45),right:Math.round(el.getBoundingClientRect().right)})));console.error('Overflow elements:',JSON.stringify(offenders));}verify(dims.w<=dims.v+2,'Horizontal overflow at '+width+'px on '+file+' ('+dims.w+' > '+dims.v+')');
     }
   }
   console.log('Browser acceptance checks passed:',checks,'assertions.');

@@ -63,3 +63,5 @@ details{border-bottom:1px solid var(--line);padding:20px 0}summary{cursor:pointe
 @media(max-width:620px){.quiz-visual{min-height:300px}.quiz-visual-inner{left:22px;bottom:22px}.quiz-panel{padding:28px 20px}.quiz-panel h3{font-size:41px}.quiz-options{grid-template-columns:1fr;gap:9px}.quiz-option{min-height:64px;padding:12px}.quiz-foot{align-items:flex-start;flex-wrap:wrap}.muse-shell{grid-template-columns:1fr}.muse-image{min-height:350px;max-height:390px;order:-1}.muse-copy{padding:34px 22px}.muse-copy h3{font-size:50px}.muse-copy .btn{width:100%}.muse-section .section-head{margin-bottom:25px}}
 
 @media(prefers-reduced-motion:reduce){.quiz-visual img,.quiz-option,.quiz-progress span{transition:none!important}}
+
+@media(max-width:620px){.header-inner{grid-template-columns:35px minmax(0,1fr) auto}.header-inner>.brand{font-size:clamp(16px,4.8vw,20px);letter-spacing:-.065em;min-width:0}.header-actions{position:relative}.heart-count{position:absolute;top:-6px;left:24px;margin:0;min-width:15px;height:15px;font-size:8px}}
