@@ -33,7 +33,7 @@
   let toastTimer;
   function toast(message) {const node=$('#toast');if(!node)return;node.textContent=message;node.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>node.classList.remove('visible'),3000);}
   function updateHeader(){
-    const favoriteCount=$('#favorite-count');if(favoriteCount)favoriteCount.textContent=String(favoriteIds().length);
+    
     const account=$('#account-link'),mobile=$('#mobile-account-link');const target=currentUser()?'profile.html':'login.html';if(account){account.href=target;account.textContent=currentUser()?'My profile ↗':'Account ↗';account.setAttribute('aria-label',currentUser()?'Your profile':'Log in');}if(mobile){mobile.href=target;mobile.textContent=currentUser()?'My profile':'Account / Log in';}
   }
   function initializeTheme(){
@@ -210,12 +210,63 @@
   function renderProfile(){
     const panel=$('#profile-content');if(!panel)return;
     const user=currentUser();
-    if(!user){panel.innerHTML='<div class="subtle-box center narrow"><p class="eyebrow">YOUR WARDROBE</p><h2>Your story starts here.</h2><p>Log in to see your locally saved profile and rental requests.</p><div class="cta-row" style="justify-content:center"><a class="btn" href="login.html">Log in</a><a class="btn outline" href="signup.html">Create account</a></div></div>';return;}
-    const saved=favoriteIds().map(id=>PRODUCTS.find(p=>p.id===id)).filter(Boolean);
-    const requests=(get('requests',[])||[]).filter(req=>req.email===user.email);
-    panel.innerHTML='<div class="profile-grid"><aside class="profile-panel"><p class="eyebrow">THE INNER CIRCLE</p><h2>Hello, '+escapeHTML(user.name.split(' ')[0])+'.</h2><p>Your private little corner of the atelier.</p><dl><dt>Full name</dt><dd>'+escapeHTML(user.name)+'</dd><dt>Email</dt><dd>'+escapeHTML(user.email)+'</dd><dt>Phone</dt><dd>'+escapeHTML(user.phone)+'</dd></dl><div class="cta-row"><button type="button" class="btn outline" id="logout-button">Log out ↗</button></div><p class="form-note">Demo account: data is stored only in this browser. Never reuse an important password here.</p></aside><div><section class="profile-panel"><p class="eyebrow">YOUR EDIT</p><h2>Saved looks <span style="font-size:22px">'+saved.length+'</span></h2><div class="profile-list" id="profile-favorites">'+(saved.length?saved.map(p=>'<div class="profile-row"><div><strong>'+escapeHTML(p.name)+'</strong><small>'+escapeHTML(p.label)+' · '+money(p.price)+'</small></div><button type="button" data-action="favorite" data-id="'+p.id+'">Remove</button></div>').join(''):'<p>No saved looks yet. <a class="text-link" href="catalog.html">Explore the collection</a></p>')+'</div></section><section class="profile-panel"><p class="eyebrow">RENTAL PREVIEWS</p><h2>Your requests <span style="font-size:22px">'+requests.length+'</span></h2><div class="profile-list">'+(requests.length?requests.map(req=>{const p=PRODUCTS.find(item=>item.id===req.look);return '<div class="profile-row"><div><strong>'+escapeHTML(p?.name||'Costume')+'</strong><small>'+escapeHTML(req.date)+' · Local demo request, not submitted</small></div><button type="button" data-request-remove="'+escapeHTML(req.id)+'">Delete</button></div>';}).join(''):'<p>You have no rental previews yet. <a class="text-link" href="rent.html">Create a request</a></p>')+'</div></section></div></div>';
+    if(!user){
+      panel.innerHTML='<div class="profile-guest">'+
+        '<div class="profile-guest-copy"><p class="eyebrow">A PRIVATE LITTLE UNIVERSE</p><h1>Your own <em>wardrobe.</em></h1>'+
+        '<p class="body-copy">A space for every character you love. Create an account to keep your saved looks and rental previews together.</p>'+
+        '<div class="cta-row"><a class="btn" href="signup.html">Create an account ↗</a><a class="btn outline" href="login.html">Log in</a></div>'+
+        '<p class="form-note">This is a demo account stored only in your browser.</p></div>'+
+        '<div class="profile-guest-photo"><img src="images/item-12.jpg" alt="Masquerade costume from the collection"></div></div>';return;
+    }
+    const saved=favoriteIds().map(id=>PRODUCTS.find(item=>item.id===id)).filter(Boolean);
+    const allRequests=get('requests',[]);
+    const requests=(Array.isArray(allRequests)?allRequests:[]).filter(req=>req.email===user.email);
+    const firstName=user.name.trim().split(' ')[0];
+    const picture=saved[0]?.image||'images/item-1.jpg';
+    const savedMarkup=saved.length?saved.map(product=>
+      '<div class="profile-row"><img src="'+escapeHTML(product.image)+'" alt="'+escapeHTML(product.name)+'" loading="lazy">'+
+      '<div class="profile-row-info"><strong>'+escapeHTML(product.name)+'</strong><small>'+escapeHTML(product.label)+' · '+money(product.price)+' / 3 days</small>'+
+      '<a href="rent.html?look='+product.id+'">Plan this look ↗</a></div>'+
+      '<button type="button" data-action="favorite" data-id="'+product.id+'" aria-label="Remove '+escapeHTML(product.name)+' from saved looks">Remove</button></div>').join(''):
+      '<div class="profile-empty"><p>No saved looks yet. Find a character you love and tap the heart on its card.</p>'+
+      '<a class="btn outline" href="catalog.html">Explore the collection ↗</a></div>';
+    const requestMarkup=requests.length?requests.map(req=>{
+      const product=PRODUCTS.find(item=>item.id===req.look);
+      return '<div class="profile-row"><img src="'+escapeHTML(product?.image||'images/item-1.jpg')+'" alt="" loading="lazy">'+
+        '<div class="profile-row-info"><strong>'+escapeHTML(product?.name||'Costume')+'</strong>'+
+        '<small>'+escapeHTML(req.date)+' · Local demo request, not submitted</small></div>'+
+        '<button type="button" data-request-remove="'+escapeHTML(req.id)+'">Delete</button></div>';
+    }).join(''):
+      '<div class="profile-empty"><p>No rental previews saved yet. Find an occasion worth dressing up for.</p>'+
+      '<a class="text-link" href="rent.html">Plan a look ↗</a></div>';
+    panel.innerHTML=
+      '<div class="profile-dashboard-head"><div class="profile-dashboard-intro">'+
+      '<p class="eyebrow">THE INNER CIRCLE / YOUR ACCOUNT</p><h1>Welcome, <em>'+escapeHTML(firstName)+'.</em></h1>'+
+      '<p>Your characters, saved stories, and plans — all in one place.</p>'+
+      '<div class="profile-shortcuts"><a href="#saved-section"><strong>'+saved.length+'</strong> saved looks ↓</a>'+
+      '<a href="#requests-section"><strong>'+requests.length+'</strong> rental previews ↓</a></div></div>'+
+      '<div class="profile-dashboard-art"><img src="'+escapeHTML(picture)+'" alt="A featured look from the wardrobe">'+
+      '<span>THE ART OF BECOMING</span></div></div>'+
+      '<div class="profile-sections"><section class="profile-panel profile-details">'+
+      '<p class="eyebrow">YOUR DETAILS</p><h2>My account.</h2><dl>'+
+      '<dt>Full name</dt><dd>'+escapeHTML(user.name)+'</dd>'+
+      '<dt>Email</dt><dd>'+escapeHTML(user.email)+'</dd>'+
+      '<dt>Phone number</dt><dd>'+escapeHTML(user.phone)+'</dd></dl>'+
+      '<button type="button" class="profile-logout" id="logout-button">Log out ↗</button>'+
+      '<p class="form-note">This is a local demo account. Data stays in this browser.</p></section>'+
+      '<section class="profile-panel" id="saved-section"><div class="profile-panel-head">'+
+      '<div><p class="eyebrow">YOUR COLLECTION</p><h2>Saved looks.</h2></div>'+
+      '<a class="text-link" href="catalog.html">Browse all ↗</a></div>'+
+      '<div class="profile-list" id="profile-favorites">'+savedMarkup+'</div></section></div>'+
+      '<section class="profile-panel profile-request-panel" id="requests-section">'+
+      '<div class="profile-panel-head"><div><p class="eyebrow">UPCOMING STORIES</p><h2>Rental previews.</h2></div>'+
+      '<a class="text-link" href="rent.html">Plan a look ↗</a></div>'+
+      '<div class="profile-list">'+requestMarkup+'</div></section>';
     $('#logout-button')?.addEventListener('click',()=>{put('session',null);location.href='index.html';});
-    $$('[data-request-remove]',panel).forEach(btn=>btn.addEventListener('click',()=>{const remaining=(get('requests',[])||[]).filter(req=>req.id!==btn.dataset.requestRemove);put('requests',remaining);renderProfile();toast('Request deleted from this browser.');}));
+    $$('[data-request-remove]',panel).forEach(button=>button.addEventListener('click',()=>{
+      const remaining=(get('requests',[])||[]).filter(req=>req.id!==button.dataset.requestRemove);
+      put('requests',remaining);renderProfile();toast('Request deleted from this browser.');
+    }));
   }
   async function loadArchive(){
     const grid=$('#archive-grid'),loading=$('#archive-loading'),error=$('#archive-error'),retry=$('#archive-retry');if(!grid)return;
