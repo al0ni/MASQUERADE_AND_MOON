@@ -73,6 +73,11 @@ try{
   const profileBounds=await page.locator('.profile-dashboard-head').boundingBox();
   verify(profileBounds&&profileBounds.y<260,'Profile content starts too far down the page');
   verify(await page.locator('.header-actions [aria-label="View saved looks"]').count()===0,'Redundant header heart still visible');
+  // Capture the account dashboard in both layouts for visual review.
+  await page.screenshot({path:'profile-desktop.png',fullPage:true});
+  await page.setViewportSize({width:375,height:812});
+  await page.screenshot({path:'profile-mobile.png',fullPage:true});
+  await page.setViewportSize({width:1440,height:900});
   await page.locator('#logout-button').click();
   await page.waitForURL(/index\.html$/);
 

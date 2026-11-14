@@ -36,6 +36,8 @@ jobs:
             preview-mobile.png
             catalog-desktop.png
             catalog-mobile.png
+            profile-desktop.png
+            profile-mobile.png
           if-no-files-found: error
       - name: Upload failure screenshot
         if: failure()
