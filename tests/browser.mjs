@@ -22,7 +22,7 @@ try{
   await page.locator('#dialog-content [data-action="favorite"]').click();
   verify(await page.locator('#look-dialog').evaluate(el=>el.open),'Saving a look closed or broke the dialog');
   await page.locator('#close-dialog').click();
-  verify((await page.locator('#favorite-count').textContent())==='1','Favorite count did not update');
+  verify(await page.evaluate(()=>JSON.parse(localStorage.getItem('mm_final_favorites')||'[]').length===1),'Favorite was not saved');
   await page.locator('#theme-toggle').click();
   verify(await page.locator('html').getAttribute('data-theme')==='light','Light mode failed');
 
@@ -70,6 +70,9 @@ try{
   const savedUser=await page.evaluate(()=>localStorage.getItem('mm_final_users'));
   verify(savedUser&&!savedUser.includes('GoodPassword9!'),'Password was stored in plaintext');
   verify((await page.locator('#profile-content .profile-row').count())>=1,'Favorite missing in profile');
+  const profileBounds=await page.locator('.profile-dashboard-head').boundingBox();
+  verify(profileBounds&&profileBounds.y<260,'Profile content starts too far down the page');
+  verify(await page.locator('.header-actions [aria-label="View saved looks"]').count()===0,'Redundant header heart still visible');
   await page.locator('#logout-button').click();
   await page.waitForURL(/index\.html$/);
 
