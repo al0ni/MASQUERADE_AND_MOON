@@ -344,8 +344,113 @@
     $('#daily-muse-explore').dataset.id=String(pick.id);
   }
 
-  window.addEventListener('storage',event=>{if(event.key?.startsWith('mm_final_')){updateHeader();updateCards();}});
+
+  // This guestbook is a browser-local demonstration, never a public review feed.
+  function getReviews(){
+    const items=get('reviews',[]);
+    return Array.isArray(items)?items.filter(item=>item&&typeof item.id==='string'&&Number.isInteger(item.rating)&&item.rating>=1&&item.rating<=5).slice(0,60):[];
+  }
+  function renderGuestbook(){
+    const list=$('#reviews-list');if(!list)return;
+    const reviews=getReviews();
+    const sort=$('#review-sort')?.value||'newest';
+    if(sort==='highest')reviews.sort((a,b)=>b.rating-a.rating);
+    else if(sort==='lowest')reviews.sort((a,b)=>a.rating-b.rating);
+    else reviews.sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)));
+    const summary=$('#review-summary');
+    if(summary){
+      const count=reviews.length;
+      if(!count)summary.textContent='No reviews on this device yet';
+      else {
+        const average=reviews.reduce((sum,item)=>sum+item.rating,0)/count;
+        summary.textContent=average.toFixed(1)+' / 5 · '+count+' local '+(count===1?'review':'reviews');
+      }
+    }
+    if(!reviews.length){
+      list.innerHTML='<div class="guestbook-empty"><span class="guestbook-empty-mark" aria-hidden="true">✧</span><h3>Your story could be the first.</h3><p>No reviews have been saved on this device yet. Share what you think of the atelier.</p></div>';
+      return;
+    }
+    list.innerHTML=reviews.map(review=>{
+      const product=PRODUCTS.find(item=>String(item.id)===String(review.topic));
+      const subject=product?product.name:'Atelier experience';
+      const date=new Date(review.createdAt);
+      const dateLabel=Number.isNaN(date.getTime())?'Recently':date.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+      return '<article class="guestbook-review"><div class="guestbook-review-top"><span class="guestbook-stars" aria-label="'+review.rating+' out of 5 stars">'+
+        '★'.repeat(review.rating)+'<span class="guestbook-unfilled" aria-hidden="true">'+'☆'.repeat(5-review.rating)+'</span></span>'+
+        '<span class="guestbook-date">'+escapeHTML(dateLabel)+'</span></div>'+
+        '<p class="guestbook-review-text">'+escapeHTML(review.comment)+'</p>'+
+        '<div class="guestbook-review-bottom"><div><strong>'+escapeHTML(review.name)+'</strong><small>'+escapeHTML(subject)+'</small></div>'+
+        '<button type="button" data-review-delete="'+escapeHTML(review.id)+'" aria-label="Delete review by '+escapeHTML(review.name)+'">Delete</button></div></article>';
+    }).join('');
+  }
+  function initGuestbook(){
+    const form=$('#review-form');if(!form)return;
+    const name=form.elements.namedItem('name');
+    const textArea=form.elements.namedItem('comment');
+    const topic=form.elements.namedItem('topic');
+    const user=currentUser();
+    if(user)name.value=user.name;
+    topic.innerHTML='<option value="atelier">My atelier experience</option>'+
+      PRODUCTS.map(product=>'<option value="'+product.id+'">'+escapeHTML(product.name)+'</option>').join('');
+    const radioButtons=Array.from(form.querySelectorAll('input[name="rating"]'));
+    const updateStars=()=>{
+      const checked=form.querySelector('input[name="rating"]:checked');
+      const chosen=checked?Number(checked.value):0;
+      Array.from(form.querySelectorAll('.review-star')).forEach((label,index)=>label.classList.toggle('selected',index<chosen));
+    };
+    radioButtons.forEach(input=>input.addEventListener('change',updateStars));
+    const counter=$('#review-character-count');
+    textArea.addEventListener('input',()=>{
+      counter.textContent=String(textArea.value.length)+' / 500 characters';
+      counter.classList.toggle('over-limit',textArea.value.length>500);
+    });
+    $('#review-sort').addEventListener('change',renderGuestbook);
+    $('#reviews-list').addEventListener('click',event=>{
+      const button=event.target.closest('[data-review-delete]');if(!button)return;
+      const id=button.dataset.reviewDelete;
+      const updated=getReviews().filter(review=>review.id!==id);
+      if(put('reviews',updated)){renderGuestbook();toast('Review deleted from this browser.');}
+    });
+    form.addEventListener('submit',event=>{
+      event.preventDefault();
+      Array.from(form.querySelectorAll('[data-review-error]')).forEach(node=>node.textContent='');
+      const status=$('#review-status');status.textContent='';
+      const displayName=name.value.trim();
+      const comment=textArea.value.trim();
+      const chosen=form.querySelector('input[name="rating"]:checked');
+      let firstInvalid=null;
+      function invalid(field,message,selector){
+        $(selector,form).textContent=message;
+        if(!firstInvalid)firstInvalid=field;
+      }
+      if(displayName.length<2||displayName.length>50)invalid(name,'Please enter a display name between 2 and 50 characters.','[data-review-error="name"]');
+      if(!chosen)invalid(radioButtons[0],'Please choose a rating from 1 to 5 stars.','[data-review-error="rating"]');
+      if(comment.length<15||comment.length>500)invalid(textArea,'Write between 15 and 500 characters.','[data-review-error="comment"]');
+      if(firstInvalid){firstInvalid.focus();return;}
+      const reviews=getReviews();
+      const review={
+        id:crypto.randomUUID?.()||String(Date.now())+'-'+Math.floor(Math.random()*100000),
+        name:displayName,topic:topic.value,rating:Number(chosen.value),
+        comment,createdAt:new Date().toISOString()
+      };
+      if(!put('reviews',[review,...reviews].slice(0,60))){
+        status.textContent='Your browser could not save this review. Check your storage settings.';
+        return;
+      }
+      form.reset();
+      if(user)name.value=user.name;
+      updateStars();
+      counter.textContent='0 / 500 characters';
+      counter.classList.remove('over-limit');
+      renderGuestbook();
+      status.textContent='Review saved on this device. Thank you for sharing your story.';
+      toast('Your review was added to your local guestbook.');
+    });
+    renderGuestbook();
+  }
+
+  window.addEventListener('storage',event=>{if(event.key?.startsWith('mm_final_')){updateHeader();updateCards();if(event.key==='mm_final_reviews')renderGuestbook();}});
   document.addEventListener('DOMContentLoaded',()=>{
-    initializeTheme();initializeNavigation();updateHeader();initProducts();initAlterEgo();initDailyMuse();setupSignup();setupLogin();initRental();initContact();renderProfile();initArchive();
+    initializeTheme();initializeNavigation();updateHeader();initProducts();initAlterEgo();initDailyMuse();setupSignup();setupLogin();initRental();initContact();renderProfile();initArchive();initGuestbook();
   });
 })();
