@@ -52,7 +52,7 @@ for (const page of pages) {
 }
 
 const js = fs.readFileSync('js/script.js', 'utf8');
-const productImagePaths = [...js.matchAll(/image:'(images\/[^']+)'/g)].map((match) => match[1]);
+const productImagePaths = [...js.matchAll(/image:\s*['\"](images\/[^'\"]+)['\"]/g)].map((match) => match[1]);
 assert.equal(productImagePaths.length, 19, 'Expected 19 curated pieces');
 assert.equal(new Set(productImagePaths).size, productImagePaths.length, 'Duplicate product imagery');
 for (const filename of productImagePaths) {
@@ -64,6 +64,11 @@ const imageBytes = fs
   .filter((name) => name.endsWith('.jpg'))
   .reduce((sum, name) => sum + fs.statSync('images/' + name).size, 0);
 assert(imageBytes < 10 * 1024 * 1024, 'Image payload exceeds 10 MB: optimization required');
+
+for (const filename of ['js/script.js', 'css/style.css', 'tests/browser.mjs', 'tests/audit.mjs', 'tests/api-live.mjs']) {
+  const source = fs.readFileSync(filename, 'utf8');
+  assert.doesNotMatch(source, /(^|\n)\s*\/\/[^\n]*|\/\*[\s\S]*?\*\//, 'Code comments found in ' + filename);
+}
 
 execFileSync(process.execPath, ['--check', 'js/script.js'], { stdio: 'inherit' });
 assert(fs.readFileSync('js/script.js', 'utf8').includes('fetch('), 'No external API call');
