@@ -16,7 +16,7 @@ const pages = [
 ];
 const widths = [320, 360, 375, 390, 768, 820, 1024, 1280, 1440, 1920];
 const browser = await chromium.launch({ headless: true, args: ['--no-sandbox'] });
-const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
 const page = await context.newPage();
 const failures = [];
 let tested = 0;
@@ -70,6 +70,7 @@ try {
         localStorage.setItem('mm_final_theme', JSON.stringify(value));
         document.documentElement.dataset.theme = value;
       }, theme);
+      await page.waitForTimeout(100);
       if (name === 'events.html') await page.locator('#archive-error').waitFor({ state: 'visible' });
       const report = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
