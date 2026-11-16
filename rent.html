@@ -1,29 +1,288 @@
-<!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Discover exceptional costume collections, masquerade looks and magical event inspiration at Masquerade & Moon."><meta name="theme-color" content="#100f0f">
-<link rel="icon" href="images/item-12.jpg" type="image/jpeg"><title>How to rent | Masquerade &amp; Moon</title>
-<script>try{document.documentElement.dataset.theme=JSON.parse(localStorage.getItem('mm_final_theme'))==='light'?'light':'dark'}catch{document.documentElement.dataset.theme='dark'}</script>
-<link rel="stylesheet" href="css/style.css"><script src="js/script.js" defer></script></head>
-<body><a class="skip-link" href="#main">Skip to content</a><div class="announcement">AN INVITATION TO BECOME SOMEONE ELSE · THE ATELIER IS OPEN</div>
-<header class="header"><div class="header-inner wrap"><button class="icon-button menu-button" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" type="button">☰</button>
-<a class="brand" href="index.html" aria-label="Masquerade and Moon homepage">MASQUERADE<span>&amp;</span>MOON</a>
-<nav class="main-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="catalog.html">Collection</a><a href="rent.html" aria-current="page">Rent</a><a href="events.html">Inspiration</a><a href="about.html">Our story</a><a href="contact.html">Contact</a><a href="index.html#guestbook">Reviews</a></nav>
-<div class="header-actions"><a class="account-link" id="account-link" href="login.html">Account ↗</a><button class="icon-button" type="button" id="theme-toggle" aria-label="Switch color theme">☼</button></div></div>
-<nav id="mobile-menu" class="mobile-menu" aria-label="Mobile navigation" hidden><a href="index.html">Home</a><a href="catalog.html">Collection</a><a href="rent.html" aria-current="page">Rent</a><a href="events.html">Inspiration</a><a href="about.html">Our story</a><a href="contact.html">Contact</a><a id="mobile-account-link" href="login.html">Account / Log in</a><a href="profile.html">My wardrobe</a></nav></header>
-<main id="main"><section class="page-cover with-image"><img class="cover-image" src="images/rent-bg.jpg" alt="" aria-hidden="true"><div class="wrap"><div class="breadcrumbs"><a href="index.html">Home</a> / The experience</div><p class="eyebrow" style="margin:30px 0 0">The experience</p><h1>The <em>ritual.</em></h1><p class="body-copy">From the first glance to the final entrance: explore your look and create a rental preview.</p></div></section>
-<section class="section wrap"><div class="section-head"><div><p class="eyebrow">01 / HOW IT WORKS</p><h2>Three simple acts.</h2></div><p>Make choosing your next costume feel like part of the occasion.</p></div><div class="step-grid"><div class="step-card"><span class="step-number">01</span><h3>Find the character.</h3><p>Explore the curated collection and save the looks that catch your eye.</p></div><div class="step-card"><span class="step-number">02</span><h3>Plan the moment.</h3><p>Select your costume, enter your event date and review the indicative three-day rental price.</p></div><div class="step-card"><span class="step-number">03</span><h3>Keep the preview.</h3><p>Save your request locally. Signed-in users can see their rental previews in their profile.</p></div></div></section>
-<div class="line wrap"></div>
-<section class="section wrap form-shell" id="request"><div><p class="eyebrow">02 / YOUR INVITATION</p><h2>Make a <em>request.</em></h2><p class="body-copy">Choose a look and a date to save a private planning preview. This is a fictional atelier, so no rental is booked or charged.</p>
-<div class="subtle-box"><p class="eyebrow">BEFORE YOU BEGIN</p><h3>Rental preview only.</h3><p>Each listed price is an illustrative three-day rate in KZT. Availability, payments and deliveries are not connected to a real service.</p><a class="text-link" href="catalog.html">Browse the wardrobe ↗</a></div></div>
-<div class="form-card"><form id="rental-form" novalidate><div class="form-grid"><div class="form-field full"><label for="rental-look">Choose your look</label><select class="control" id="rental-look" name="look"><option value="">Choose a costume</option></select><div class="field-error" data-error-for="look"></div></div>
-<div class="form-field "><label for="field-name">Your name</label><input class="control" id="field-name" name="name" type="text" placeholder="Full name" autocomplete="name" aria-describedby="error-name"><div class="field-error" id="error-name" data-error-for="name"></div></div><div class="form-field "><label for="field-email">Email address</label><input class="control" id="field-email" name="email" type="text" placeholder="you@example.com" autocomplete="email" aria-describedby="error-email"><div class="field-error" id="error-email" data-error-for="email"></div></div><div class="form-field "><label for="field-phone">Phone number</label><input class="control" id="field-phone" name="phone" type="tel" placeholder="+7 700 000 0000" autocomplete="tel" aria-describedby="error-phone"><div class="field-error" id="error-phone" data-error-for="phone"></div></div><div class="form-field "><label for="field-date">Event date</label><input class="control" id="field-date" name="date" type="date" placeholder="YYYY-MM-DD" autocomplete="off" aria-describedby="error-date"><div class="field-error" id="error-date" data-error-for="date"></div></div><div class="form-field full"><label for="rental-note">A note about the occasion (optional)</label><textarea id="rental-note" name="note" class="control" placeholder="Tell us what kind of evening you have in mind…"></textarea></div>
-<div class="full"><button type="submit" class="btn" style="width:100%">Save my rental preview ↗</button><p class="form-note">Nothing is sent to a real store. Information stays in this browser.</p><div class="form-status" aria-live="polite"></div></div></div></form></div></section>
-<section class="section wrap"><p class="eyebrow">COMMON QUESTIONS</p><h2>Before the curtain rises.</h2><div class="narrow"><details><summary>Can I actually rent a costume here?</summary><p>Not yet. Masquerade &amp; Moon is a fictional storefront created as an interactive website demo. Rental requests are saved only in your browser.</p></details><details><summary>What does the listed price mean?</summary><p>Prices are illustrative amounts in Kazakhstani tenge for a three-day costume rental. They are not real offers.</p></details><details><summary>Where are my requests stored?</summary><p>In your device's localStorage. This is a front-end simulation without a backend, payment processing or real booking service.</p></details><details><summary>Can I save my favorite looks?</summary><p>Yes. Tap the heart on any costume, then use the saved-only filter or your profile to revisit it.</p></details></div></section></main>
-<footer class="footer"><div class="wrap"><div class="footer-top"><div><a class="brand" href="index.html">MASQUERADE<span>&amp;</span>MOON</a><p>For the nights that deserve another story. Discover theatrical costumes, considered details, and a little mystery.</p></div>
-<div><h4>Explore</h4><nav aria-label="Explore"><a href="index.html">Home</a><a href="catalog.html">Collection</a><a href="rent.html">Rent</a></nav></div>
-<div><h4>Discover</h4><nav aria-label="Discover"><a href="events.html">Inspiration</a><a href="about.html">Our story</a><a href="contact.html">Contact</a><a href="index.html#guestbook">Reviews</a></nav></div>
-<div><h4>Your atelier</h4><nav aria-label="Account"><a href="signup.html">Create an account</a><a href="login.html">Log in</a><a href="profile.html">Your wardrobe</a></nav></div></div>
-<div class="footer-bottom"><span>© <span id="year">2026</span> MASQUERADE &amp; MOON · THE COSTUME ATELIER</span><span>CONCEPT STORE · RENTAL PREVIEWS ONLY</span></div></div></footer>
-<div id="toast" class="toast" role="status" aria-live="polite"></div>
-<dialog id="look-dialog" class="modal" aria-label="Costume details"><button class="modal-close" id="close-dialog" type="button" aria-label="Close details">×</button><div class="modal-inner" id="dialog-content"></div></dialog>
-</body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Choose a costume, select your event date, and save a local rental planning preview at Masquerade & Moon."
+    />
+    <meta name="theme-color" content="#100f0f" />
+    <link rel="icon" href="images/item-12.jpg" type="image/jpeg" />
+    <title>How to rent | Masquerade &amp; Moon</title>
+    <script>
+      try {
+        document.documentElement.dataset.theme =
+          JSON.parse(localStorage.getItem('mm_final_theme')) === 'light' ? 'light' : 'dark';
+      } catch {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="announcement">AN INVITATION TO BECOME SOMEONE ELSE · THE ATELIER IS OPEN</div>
+    <header class="header">
+      <div class="header-inner wrap">
+        <button
+          class="icon-button menu-button"
+          id="menu-toggle"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          type="button"
+        >
+          ☰
+        </button>
+        <a class="brand" href="index.html" aria-label="Masquerade and Moon homepage"
+          >MASQUERADE<span>&amp;</span>MOON</a
+        >
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="index.html">Home</a><a href="catalog.html">Collection</a
+          ><a href="rent.html" aria-current="page">Rent</a><a href="events.html">Inspiration</a
+          ><a href="about.html">Our story</a><a href="contact.html">Contact</a
+          ><a href="index.html#guestbook">Reviews</a>
+        </nav>
+        <div class="header-actions">
+          <a class="account-link" id="account-link" href="login.html">Account ↗</a
+          ><button class="icon-button" type="button" id="theme-toggle" aria-label="Switch color theme">
+            ☼
+          </button>
+        </div>
+      </div>
+      <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile navigation" hidden>
+        <a href="index.html">Home</a><a href="catalog.html">Collection</a
+        ><a href="rent.html" aria-current="page">Rent</a><a href="events.html">Inspiration</a
+        ><a href="about.html">Our story</a><a href="contact.html">Contact</a
+        ><a id="mobile-account-link" href="login.html">Account / Log in</a
+        ><a href="profile.html">My wardrobe</a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="page-cover with-image">
+        <img class="cover-image" src="images/rent-bg.jpg" alt="" aria-hidden="true" />
+        <div class="wrap">
+          <div class="breadcrumbs"><a href="index.html">Home</a> / The experience</div>
+          <p class="eyebrow" style="margin: 30px 0 0">The experience</p>
+          <h1>The <em>ritual.</em></h1>
+          <p class="body-copy">
+            From the first glance to the final entrance: explore your look and create a rental preview.
+          </p>
+        </div>
+      </section>
+      <section class="section wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">01 / HOW IT WORKS</p>
+            <h2>Three simple acts.</h2>
+          </div>
+          <p>Make choosing your next costume feel like part of the occasion.</p>
+        </div>
+        <div class="step-grid">
+          <div class="step-card">
+            <span class="step-number">01</span>
+            <h3>Find the character.</h3>
+            <p>Explore the curated collection and save the looks that catch your eye.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-number">02</span>
+            <h3>Plan the moment.</h3>
+            <p>
+              Select your costume, enter your event date and review the indicative three-day rental
+              price.
+            </p>
+          </div>
+          <div class="step-card">
+            <span class="step-number">03</span>
+            <h3>Keep the preview.</h3>
+            <p>
+              Save your request locally. Signed-in users can see their rental previews in their profile.
+            </p>
+          </div>
+        </div>
+      </section>
+      <div class="line wrap"></div>
+      <section class="section wrap form-shell" id="request">
+        <div>
+          <p class="eyebrow">02 / YOUR INVITATION</p>
+          <h2>Make a <em>request.</em></h2>
+          <p class="body-copy">
+            Choose a look and a date to save a private planning preview. This is a fictional atelier, so
+            no rental is booked or charged.
+          </p>
+          <div class="subtle-box">
+            <p class="eyebrow">BEFORE YOU BEGIN</p>
+            <h3>Rental preview only.</h3>
+            <p>
+              Each listed price is an illustrative three-day rate in KZT. Availability, payments and
+              deliveries are not connected to a real service.
+            </p>
+            <a class="text-link" href="catalog.html">Browse the wardrobe ↗</a>
+          </div>
+        </div>
+        <div class="form-card">
+          <form id="rental-form" novalidate>
+            <div class="form-grid">
+              <div class="form-field full">
+                <label for="rental-look">Choose your look</label
+                ><select class="control" id="rental-look" name="look">
+                  <option value="">Choose a costume</option>
+                </select>
+                <div class="field-error" data-error-for="look"></div>
+              </div>
+              <div class="form-field">
+                <label for="field-name">Your name</label
+                ><input
+                  class="control"
+                  id="field-name"
+                  name="name"
+                  type="text"
+                  placeholder="Full name"
+                  autocomplete="name"
+                  aria-describedby="error-name"
+                />
+                <div class="field-error" id="error-name" data-error-for="name"></div>
+              </div>
+              <div class="form-field">
+                <label for="field-email">Email address</label
+                ><input
+                  class="control"
+                  id="field-email"
+                  name="email"
+                  type="text"
+                  placeholder="you@example.com"
+                  autocomplete="email"
+                  aria-describedby="error-email"
+                />
+                <div class="field-error" id="error-email" data-error-for="email"></div>
+              </div>
+              <div class="form-field">
+                <label for="field-phone">Phone number</label
+                ><input
+                  class="control"
+                  id="field-phone"
+                  name="phone"
+                  type="tel"
+                  placeholder="+7 700 000 0000"
+                  autocomplete="tel"
+                  aria-describedby="error-phone"
+                />
+                <div class="field-error" id="error-phone" data-error-for="phone"></div>
+              </div>
+              <div class="form-field">
+                <label for="field-date">Event date</label
+                ><input
+                  class="control"
+                  id="field-date"
+                  name="date"
+                  type="date"
+                  placeholder="YYYY-MM-DD"
+                  autocomplete="off"
+                  aria-describedby="error-date"
+                />
+                <div class="field-error" id="error-date" data-error-for="date"></div>
+              </div>
+              <div class="form-field full">
+                <label for="rental-note">A note about the occasion (optional)</label
+                ><textarea
+                  id="rental-note"
+                  name="note"
+                  class="control"
+                  placeholder="Tell us what kind of evening you have in mind…"
+                ></textarea>
+              </div>
+              <div class="full">
+                <button type="submit" class="btn" style="width: 100%">Save my rental preview ↗</button>
+                <p class="form-note">
+                  Nothing is sent to a real store. Information stays in this browser.
+                </p>
+                <div class="form-status" aria-live="polite"></div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+      <section class="section wrap">
+        <p class="eyebrow">COMMON QUESTIONS</p>
+        <h2>Before the curtain rises.</h2>
+        <div class="narrow">
+          <details>
+            <summary>Can I actually rent a costume here?</summary>
+            <p>
+              Not yet. Masquerade &amp; Moon is a fictional storefront created as an interactive website
+              demo. Rental requests are saved only in your browser.
+            </p>
+          </details>
+          <details>
+            <summary>What does the listed price mean?</summary>
+            <p>
+              Prices are illustrative amounts in Kazakhstani tenge for a three-day costume rental. They
+              are not real offers.
+            </p>
+          </details>
+          <details>
+            <summary>Where are my requests stored?</summary>
+            <p>
+              In your device's localStorage. This is a front-end simulation without a backend, payment
+              processing or real booking service.
+            </p>
+          </details>
+          <details>
+            <summary>Can I save my favorite looks?</summary>
+            <p>
+              Yes. Tap the heart on any costume, then use the saved-only filter or your profile to
+              revisit it.
+            </p>
+          </details>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="wrap">
+        <div class="footer-top">
+          <div>
+            <a class="brand" href="index.html">MASQUERADE<span>&amp;</span>MOON</a>
+            <p>
+              For the nights that deserve another story. Discover theatrical costumes, considered
+              details, and a little mystery.
+            </p>
+          </div>
+          <div>
+            <h4>Explore</h4>
+            <nav aria-label="Explore">
+              <a href="index.html">Home</a><a href="catalog.html">Collection</a
+              ><a href="rent.html">Rent</a>
+            </nav>
+          </div>
+          <div>
+            <h4>Discover</h4>
+            <nav aria-label="Discover">
+              <a href="events.html">Inspiration</a><a href="about.html">Our story</a
+              ><a href="contact.html">Contact</a><a href="index.html#guestbook">Reviews</a>
+            </nav>
+          </div>
+          <div>
+            <h4>Your atelier</h4>
+            <nav aria-label="Account">
+              <a href="signup.html">Create an account</a><a href="login.html">Log in</a
+              ><a href="profile.html">Your wardrobe</a>
+            </nav>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© <span id="year">2026</span> MASQUERADE &amp; MOON · THE COSTUME ATELIER</span
+          ><span>CONCEPT STORE · RENTAL PREVIEWS ONLY</span>
+        </div>
+      </div>
+    </footer>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <dialog id="look-dialog" class="modal" aria-label="Costume details">
+      <button class="modal-close" id="close-dialog" type="button" aria-label="Close details">×</button>
+      <div class="modal-inner" id="dialog-content"></div>
+    </dialog>
+  </body>
+</html>
