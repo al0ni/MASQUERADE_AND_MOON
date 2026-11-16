@@ -7,7 +7,7 @@
 <body><a class="skip-link" href="#main">Skip to content</a><div class="announcement">AN INVITATION TO BECOME SOMEONE ELSE · THE ATELIER IS OPEN</div>
 <header class="header"><div class="header-inner wrap"><button class="icon-button menu-button" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" type="button">☰</button>
 <a class="brand" href="index.html" aria-label="Masquerade and Moon homepage">MASQUERADE<span>&amp;</span>MOON</a>
-<nav class="main-nav" aria-label="Main navigation"><a href="index.html" aria-current="page">Home</a><a href="catalog.html">Collection</a><a href="rent.html">Rent</a><a href="events.html">Inspiration</a><a href="about.html">Our story</a><a href="contact.html">Contact</a></nav>
+<nav class="main-nav" aria-label="Main navigation"><a href="index.html" aria-current="page">Home</a><a href="catalog.html">Collection</a><a href="rent.html">Rent</a><a href="events.html">Inspiration</a><a href="about.html">Our story</a><a href="contact.html">Contact</a><a href="index.html#guestbook">Reviews</a></nav>
 <div class="header-actions"><a class="account-link" id="account-link" href="login.html">Account ↗</a><button class="icon-button" type="button" id="theme-toggle" aria-label="Switch color theme">☼</button></div></div>
 <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile navigation" hidden><a href="index.html" aria-current="page">Home</a><a href="catalog.html">Collection</a><a href="rent.html">Rent</a><a href="events.html">Inspiration</a><a href="about.html">Our story</a><a href="contact.html">Contact</a><a id="mobile-account-link" href="login.html">Account / Log in</a><a href="profile.html">My wardrobe</a></nav></header>
 <main id="main">
@@ -46,10 +46,44 @@
   <div class="muse-shell"><div class="muse-copy"><p class="eyebrow" id="daily-muse-date">TODAY'S EDIT</p><p class="muse-kicker">THE DAILY REVEAL <span aria-hidden="true">✧</span></p><h3 id="daily-muse-name">An unexpected character</h3><p id="daily-muse-copy">Discover today's featured look.</p><div class="cta-row"><button id="daily-muse-explore" type="button" class="btn" data-action="details" data-id="1">Meet your muse ↗</button><a class="btn outline" id="daily-muse-link" href="catalog.html">Plan this look</a></div></div><div class="muse-image"><img id="daily-muse-image" src="images/item-1.jpg" alt="Today's featured costume"></div></div>
 </section>
 <section id="recently-viewed" class="section wrap" hidden><div class="section-head"><div><p class="eyebrow">JUST FOR YOU</p><h2>Recently admired.</h2></div><a href="catalog.html" class="text-link">Back to the wardrobe ↗</a></div><div id="recent-grid" class="product-grid"></div></section>
+
+<section class="section wrap" id="guestbook" aria-labelledby="guestbook-heading">
+  <div class="section-head">
+    <div><p class="eyebrow">06 / THE GUESTBOOK</p><h2 id="guestbook-heading">Leave a little <em>magic.</em></h2></div>
+    <p>Every great story deserves to be remembered. Share a few words about your favorite look or your experience exploring the atelier.</p>
+  </div>
+  <div class="guestbook-layout">
+    <div class="guestbook-form-panel">
+      <p class="eyebrow">YOUR WORDS / YOUR STORY</p>
+      <h3>What did you think?</h3>
+      <p>We'd love to hear what made your visit memorable.</p>
+      <form id="review-form" novalidate>
+        <div class="form-field"><label for="review-name">Your display name</label><input class="control" id="review-name" name="name" type="text" placeholder="How should we call you?" autocomplete="name" aria-describedby="review-name-error"><div class="field-error" data-review-error="name" id="review-name-error" aria-live="polite"></div></div>
+        <div class="form-field"><label for="review-topic">What are you reviewing?</label><select class="control" id="review-topic" name="topic"><option value="atelier">My atelier experience</option></select></div>
+        <fieldset class="review-rating"><legend>Your rating</legend><div class="review-star-options" id="review-star-options" aria-label="Rating from one to five stars">
+          <label class="review-star"><input type="radio" name="rating" value="1" aria-label="1 star"><span aria-hidden="true">★</span></label>
+          <label class="review-star"><input type="radio" name="rating" value="2" aria-label="2 stars"><span aria-hidden="true">★</span></label>
+          <label class="review-star"><input type="radio" name="rating" value="3" aria-label="3 stars"><span aria-hidden="true">★</span></label>
+          <label class="review-star"><input type="radio" name="rating" value="4" aria-label="4 stars"><span aria-hidden="true">★</span></label>
+          <label class="review-star"><input type="radio" name="rating" value="5" aria-label="5 stars"><span aria-hidden="true">★</span></label>
+        </div><div class="field-error" data-review-error="rating" aria-live="polite"></div></fieldset>
+        <div class="form-field"><label for="review-comment">Your review</label><textarea class="control" id="review-comment" name="comment" rows="4" placeholder="Tell us about your experience, the costume that caught your eye, or what we could improve…" aria-describedby="review-comment-error"></textarea><div class="field-error" data-review-error="comment" id="review-comment-error" aria-live="polite"></div><span class="review-character-count" id="review-character-count">0 / 500 characters</span></div>
+        <button type="submit" class="btn review-submit">Leave my review ↗</button>
+        <div class="form-status" id="review-status" role="status" aria-live="polite"></div>
+      </form>
+      <p class="form-note">Demo guestbook: reviews are saved in your browser only. They are not published to other visitors or verified as purchases.</p>
+    </div>
+    <div class="guestbook-display">
+      <div class="guestbook-summary"><div><p class="eyebrow">NOTES FROM THE ATELIER</p><h3>From our visitors.</h3></div><div id="review-summary" class="guestbook-score" aria-live="polite">Your local guestbook</div></div>
+      <div class="guestbook-filters"><label for="review-sort">View reviews</label><select class="control" id="review-sort"><option value="newest">Most recent</option><option value="highest">Highest rated</option><option value="lowest">Lowest rated</option></select></div>
+      <div id="reviews-list" class="reviews-list" aria-live="polite"><div class="guestbook-empty"><h3>Be the first to leave a note.</h3><p>Your story begins right here.</p></div></div>
+    </div>
+  </div>
+</section>
 <section class="section wrap center"><p class="eyebrow">THE MOMENT BEGINS HERE</p><h2 class="narrow">Your next entrance deserves <em>an audience.</em></h2><p class="body-copy narrow">Browse the wardrobe, find your alter ego, save your favorites and preview a rental request.</p><div class="cta-row" style="justify-content:center"><a href="catalog.html" class="btn">Find your look ↗</a><a href="signup.html" class="btn outline">Join the atelier</a></div></section></main>
 <footer class="footer"><div class="wrap"><div class="footer-top"><div><a class="brand" href="index.html">MASQUERADE<span>&amp;</span>MOON</a><p>For the nights that deserve another story. Discover theatrical costumes, considered details, and a little mystery.</p></div>
 <div><h4>Explore</h4><nav aria-label="Explore"><a href="index.html">Home</a><a href="catalog.html">Collection</a><a href="rent.html">Rent</a></nav></div>
-<div><h4>Discover</h4><nav aria-label="Discover"><a href="events.html">Inspiration</a><a href="about.html">Our story</a><a href="contact.html">Contact</a></nav></div>
+<div><h4>Discover</h4><nav aria-label="Discover"><a href="events.html">Inspiration</a><a href="about.html">Our story</a><a href="contact.html">Contact</a><a href="index.html#guestbook">Reviews</a></nav></div>
 <div><h4>Your atelier</h4><nav aria-label="Account"><a href="signup.html">Create an account</a><a href="login.html">Log in</a><a href="profile.html">Your wardrobe</a></nav></div></div>
 <div class="footer-bottom"><span>© <span id="year">2026</span> MASQUERADE &amp; MOON · THE COSTUME ATELIER</span><span>CONCEPT STORE · RENTAL PREVIEWS ONLY</span></div></div></footer>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>

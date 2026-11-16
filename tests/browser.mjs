@@ -12,6 +12,27 @@ page.on('pageerror',error=>{throw new Error('Browser JavaScript error: '+error.m
 async function visit(route){const response=await page.goto(base+'/'+route,{waitUntil:'domcontentloaded'});verify(response?.status()===200,'HTTP error on '+route);}
 try{
   await visit('index.html');
+  verify(await page.locator('#review-form').count()===1,'Guestbook form missing on homepage');
+  await page.locator('#review-form button[type="submit"]').click();
+  verify((await page.locator('[data-review-error="name"]').textContent()).includes('display name'),'Guestbook name validation missing');
+  verify((await page.locator('[data-review-error="rating"]').textContent()).includes('rating'),'Guestbook star validation missing');
+  await page.locator('#review-name').fill('Aster Visitor');
+  await page.locator('#review-topic').selectOption('1');
+  await page.locator('#review-star-options .review-star').nth(4).click();
+  await page.locator('#review-comment').fill('A beautiful and theatrical costume collection with a lovely design.');
+  await page.locator('#review-form button[type="submit"]').click();
+  verify(await page.locator('#reviews-list .guestbook-review').count()===1,'Review was not rendered');
+  verify((await page.locator('#review-summary').textContent()).includes('5.0 / 5'),'Guestbook rating average missing');
+  verify((await page.locator('#review-status').textContent()).includes('saved on this device'),'Guestbook confirmation missing');
+  verify(await page.evaluate(()=>JSON.parse(localStorage.getItem('mm_final_reviews')||'[]').length===1),'Review was not stored in localStorage');
+  await visit('catalog.html');
+  await visit('index.html#guestbook');
+  verify(await page.locator('#reviews-list .guestbook-review').count()===1,'Review did not survive page navigation');
+  await page.locator('#review-sort').selectOption('highest');
+  await page.locator('#reviews-list [data-review-delete]').click();
+  verify(await page.locator('#reviews-list .guestbook-review').count()===0,'Delete review failed');
+  verify((await page.locator('#reviews-list').textContent()).includes('Your story could be the first'),'Empty guestbook state missing');
+
   verify(await page.locator('#featured-grid .product-card').count()===4,'Featured looks not rendered');
   verify(await page.locator('#quiz-options .quiz-option').count()===4,'Quiz not rendered');
   verify((await page.locator('#daily-muse-name').textContent()).trim()!=='An unexpected character','Daily muse not updated');

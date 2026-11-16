@@ -28,6 +28,7 @@ The 26 original local photographs were recompressed for the web: from approximat
 - Live costume search, category filtering, sorting, seven active category shortcuts, and saved-only filtering; persistent filter choices
 - **Alter Ego Ritual**: three-question interactive character finder with tailored results and a costume recommendation
 - **Tonight's Muse**: a rotating daily costume pick, with direct access to details and rental previews
+- **Guestbook / Reviews**: customers can rate the atelier or a specific costume (1–5 stars), write a comment, sort reviews and delete their locally saved entries. All review data is local to the current browser; no fake ratings, public reviews or backend sync are claimed.
 - Favorite looks across pages, accessible through account and catalog
 - Clickable product photos, related-look recommendations and locally saved recently viewed products
 - Nineteen pieces (costumes and statement accessories), with names and descriptions aligned to the photographs
@@ -48,6 +49,9 @@ Use a local HTTP server, for example `python -m http.server 8000`, and visit htt
 Run `node tests/smoke.mjs` to check all pages, local links, form settings and JavaScript syntax. To run browser acceptance tests, install Playwright (`npm install --no-save playwright@1.56.1` and `npx playwright install chromium`), serve the project with `python3 -m http.server 8000`, then run `node tests/browser.mjs`. A GitHub Actions workflow on the final project branch executes both suites, including responsive viewport checks.
 
 ## Defense / verification checklist
+
+The **Reviews** link in the site navigation opens the homepage guestbook. Try submitting an empty review to see inline errors, then select stars, enter a name and comment, save, reload, sort and delete. Reviews are deliberately stored only on this device because the project has no backend.
+
 1. Navigate all pages via desktop and mobile menus.
 2. Switch theme and navigate to a different page; verify persistence.
 3. Try the three-question Alter Ego Ritual on the homepage and see your costume result; return to view Tonight's Muse.
