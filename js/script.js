@@ -392,11 +392,11 @@
     if(user)name.value=user.name;
     topic.innerHTML='<option value="atelier">My atelier experience</option>'+
       PRODUCTS.map(product=>'<option value="'+product.id+'">'+escapeHTML(product.name)+'</option>').join('');
-    const radioButtons=$('input[name="rating"]',form);
+    const radioButtons=Array.from(form.querySelectorAll('input[name="rating"]'));
     const updateStars=()=>{
       const checked=form.querySelector('input[name="rating"]:checked');
       const chosen=checked?Number(checked.value):0;
-      $('.review-star',form).forEach((label,index)=>label.classList.toggle('selected',index<chosen));
+      Array.from(form.querySelectorAll('.review-star')).forEach((label,index)=>label.classList.toggle('selected',index<chosen));
     };
     radioButtons.forEach(input=>input.addEventListener('change',updateStars));
     const counter=$('#review-character-count');
@@ -413,7 +413,7 @@
     });
     form.addEventListener('submit',event=>{
       event.preventDefault();
-      $('[data-review-error]',form).forEach(node=>node.textContent='');
+      Array.from(form.querySelectorAll('[data-review-error]')).forEach(node=>node.textContent='');
       const status=$('#review-status');status.textContent='';
       const displayName=name.value.trim();
       const comment=textArea.value.trim();
