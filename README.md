@@ -33,11 +33,11 @@ The 26 original local photographs were recompressed for the web: from approximat
 - Clickable product photos, related-look recommendations and locally saved recently viewed products
 - Nineteen pieces (costumes and statement accessories), with names and descriptions aligned to the photographs
 - Accessible costume detail dialog with links to the rental preview form
-- Signup/login with JavaScript validation, visible inline errors and local account storage
+- Signup/login with JavaScript validation, visible inline errors, show/hide password controls and local account storage
 - Passwords are stored as **salted SHA-256 digests**, not plaintext. This is still **a client-side demonstration, not production-grade authentication**. Browser-local data and session state are not secure against someone with access to the same device.
 - Rental previews stored in localStorage; listed in the user profile if the email matches
 - Contact form validated and saved locally (not sent to a mailbox)
-- Museum API uses async/await, loading indicator, error message and retry
+- Museum API uses async/await, a 12-second timeout, loading indicator, image fallback, error message and retry
 - Accessible inputs/labels, focus styles, semantic landmarks, reduced-motion support
 - No fake live business, payments, order submission or actual reservations
 
@@ -46,7 +46,7 @@ Use a local HTTP server, for example `python -m http.server 8000`, and visit htt
 
 ## Automated verification
 
-Run `node tests/smoke.mjs` to check all pages, local links, form settings and JavaScript syntax. To run browser acceptance tests, install Playwright (`npm install --no-save playwright@1.56.1` and `npx playwright install chromium`), serve the project with `python3 -m http.server 8000`, then run `node tests/browser.mjs`. A GitHub Actions workflow on the final project branch executes both suites, including responsive viewport checks.
+Run `node tests/smoke.mjs` to verify pages, local assets, form settings and JavaScript syntax. For browser checks, install dependencies with `npm install --no-save playwright@1.56.1 @axe-core/playwright@4.10.2` and `npx playwright install chromium`; start `python3 -m http.server 8000` and run `node tests/browser.mjs` followed by `node tests/audit.mjs`. The audit tests 10 viewport widths from 320 to 1920 pixels, checks local image decoding, and scans all nine pages in both themes against WCAG accessibility rules. `node tests/api-live.mjs` probes the actual museum API and explains transient service failures. GitHub Actions runs these checks automatically on a pull request.
 
 ## Defense / verification checklist
 
@@ -56,13 +56,13 @@ The **Reviews** link in the site navigation opens the homepage guestbook. Try su
 2. Switch theme and navigate to a different page; verify persistence.
 3. Try the three-question Alter Ego Ritual on the homepage and see your costume result; return to view Tonight's Muse.
 4. Search for `Crimson`, filter `Gothic`, sort by price, save a look, then filter to saved only.
-4. Create a test account using name, valid email, phone and strong password. Try invalid data first and verify inline errors.
-5. Log out, attempt an incorrect password, then log in successfully.
-6. Create a rental preview with a future event date. Open profile and verify the saved request.
-7. Check contact validation, then save a demo message.
-8. Open Inspiration and verify live museum artwork, or use retry/error state if API is unavailable.
-9. Test Chrome DevTools responsive widths at 375, 768, 1024 and 1440 pixels.
-10. Verify every page and image through the published GitHub Pages address.
+5. Create a test account using name, valid email, phone and strong password. Try invalid data first and verify inline errors.
+6. Log out, attempt an incorrect password, then log in successfully.
+7. Create a rental preview with a future event date. Open profile and verify the saved request.
+8. Check contact validation, then save a demo message.
+9. Open Inspiration and verify live museum artwork, or use retry/error state if API is unavailable.
+10. Test responsive widths from 320 to 1920 pixels and inspect both light and dark themes.
+11. Verify every page and image through the published GitHub Pages address.
 
 ## Privacy and limitations
 No backend is present. All account, favorite, form and request data remains on the same browser/device and may disappear if site storage is cleared. **Never use a real personal password**. The website is a fictional demonstration and does not process actual rental bookings, payments, or customer support requests.

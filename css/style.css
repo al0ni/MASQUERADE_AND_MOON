@@ -24,7 +24,7 @@ details{border-bottom:1px solid var(--line);padding:20px 0}summary{cursor:pointe
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 
 
-/* The Alter Ego Ritual: three questions, one character reveal. */
+
 .ritual-section{background:var(--surface);border-block:1px solid var(--line)}
 .quiz-shell{display:grid;grid-template-columns:0.82fr 1.18fr;min-height:595px;border:1px solid var(--line);background:var(--bg)}
 .quiz-visual{position:relative;overflow:hidden;min-height:460px;background:#301e28;color:#fff}
@@ -69,7 +69,7 @@ details{border-bottom:1px solid var(--line);padding:20px 0}summary{cursor:pointe
 .product-photo img{transform:scale(1.105)}.product-card:hover .product-photo img{transform:scale(1.16)}.product-photo::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04);pointer-events:none}
 
 
-/* The curated atelier edit: real controls and considered photographic framing */
+
 .hero-img{object-position:58% 43%}
 .product-photo{background:#2c2526}
 .product-photo img{filter:saturate(.87) contrast(1.035) brightness(.96)}
@@ -94,7 +94,7 @@ details{border-bottom:1px solid var(--line);padding:20px 0}summary{cursor:pointe
 @media(prefers-reduced-motion:reduce){.photo-open::after{transition:none}}
 
 
-/* Compact account dashboard: useful information is visible above the fold. */
+
 .profile-main{padding-top:clamp(32px,5vw,65px);padding-bottom:clamp(65px,8vw,110px)}
 .profile-dashboard-head{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:40px;min-height:235px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:28px;margin-bottom:24px}
 .profile-dashboard-intro{min-width:0}
@@ -161,7 +161,7 @@ details{border-bottom:1px solid var(--line);padding:20px 0}summary{cursor:pointe
 }
 
 
-/* The Guestbook: an interactive, browser-local visitor review experience. */
+
 .guestbook-layout{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:22px;align-items:start}
 .guestbook-form-panel{padding:clamp(25px,4vw,50px);background:var(--surface);border:1px solid var(--line)}
 .guestbook-form-panel>h3{font-size:clamp(35px,3.6vw,55px);margin:9px 0 12px}
@@ -224,3 +224,15 @@ details{border-bottom:1px solid var(--line);padding:20px 0}summary{cursor:pointe
   .guestbook-filters select{width:155px}
 }
 @media(prefers-reduced-motion:reduce){.review-star span{transition:none}}
+
+.password-input-wrap{position:relative;width:100%}
+.password-input-wrap .control{padding-right:86px}
+.password-toggle{position:absolute;right:9px;top:50%;transform:translateY(-50%);border:1px solid var(--line);background:var(--surface2);color:var(--text);font-size:11px;min-width:60px;padding:8px 9px;letter-spacing:.06em}
+.password-toggle:hover{border-color:var(--accent);color:var(--accent)}
+.password-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.archive-card img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:var(--surface2)}
+.archive-card h3{overflow-wrap:anywhere}
+.form-status{overflow-wrap:anywhere}
+.main-nav a[aria-current="page"]{border-bottom:1px solid var(--accent)}
+@media(max-width:420px){.brand{font-size:19px}.page-cover{padding:55px 0 48px}.header-inner{gap:5px}.guestbook-review-top{flex-wrap:wrap}.guestbook-review-top .guestbook-date{margin-left:auto}}
+@media(max-width:340px){.header-inner>.brand{font-size:15px}.header-actions{gap:2px}.icon-button{width:34px;height:34px}}

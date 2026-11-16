@@ -77,6 +77,12 @@ try{
   verify(true,'All product photos load successfully');
 
   await visit('signup.html');
+  verify(await page.locator('.password-toggle').count()===2,'Signup password visibility buttons missing');
+  await page.locator('#signup-form [name=password]').fill('TestPassword9!');
+  await page.locator('.password-toggle').first().click();
+  verify(await page.locator('#signup-form [name=password]').getAttribute('type')==='text','Show password failed');
+  await page.locator('.password-toggle').first().click();
+  verify(await page.locator('#signup-form [name=password]').getAttribute('type')==='password','Hide password failed');
   await page.locator('#signup-form button[type=submit]').click();
   verify(await page.locator('[data-error-for=name]').isVisible(),'Empty signup error missing');
   const email='atelier.'+Date.now()+'@example.com';
@@ -94,7 +100,7 @@ try{
   const profileBounds=await page.locator('.profile-dashboard-head').boundingBox();
   verify(profileBounds&&profileBounds.y<260,'Profile content starts too far down the page');
   verify(await page.locator('.header-actions [aria-label="View saved looks"]').count()===0,'Redundant header heart still visible');
-  // Capture the account dashboard in both layouts for visual review.
+
   await page.screenshot({path:'profile-desktop.png',fullPage:true});
   await page.setViewportSize({width:375,height:812});
   await page.screenshot({path:'profile-mobile.png',fullPage:true});
@@ -151,7 +157,7 @@ try{
       if(dims.w>dims.v+2){const offenders=await page.evaluate(()=>[...document.querySelectorAll('body *')].filter(el=>el.getBoundingClientRect().right>innerWidth+3&&getComputedStyle(el).position!=='absolute').slice(0,8).map(el=>({tag:el.tagName,id:el.id,cls:el.className?.toString().slice(0,45),right:Math.round(el.getBoundingClientRect().right)})));console.error('Overflow elements:',JSON.stringify(offenders));}verify(dims.w<=dims.v+2,'Horizontal overflow at '+width+'px on '+file+' ('+dims.w+' > '+dims.v+')');
     }
   }
-  // Export two visual snapshots only after the functional tests pass.
+
   await page.evaluate(()=>localStorage.setItem('mm_final_theme',JSON.stringify('dark')));
   for(const [width,height,file] of [[1440,900,'preview-desktop.png'],[375,812,'preview-mobile.png']]){
     await page.setViewportSize({width,height});
@@ -160,7 +166,7 @@ try{
     await page.waitForTimeout(900);
     await page.screenshot({path:file,fullPage:true});
   }
-  // Screenshot the full catalog, not just the homepage.
+
   for(const [width,height,file] of [[1440,900,'catalog-desktop.png'],[375,812,'catalog-mobile.png']]){
     await page.setViewportSize({width,height});
     await visit('catalog.html');

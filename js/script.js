@@ -1,6 +1,5 @@
 'use strict';
 (() => {
-  // A small, curated inventory. Every item uses a real file in /images.
   const PRODUCTS = [
     {id:1,name:'The Crimson Countess',category:'medieval',label:'Royal',price:12000,detail:'An entrance made for grand halls and dramatic stories.',includes:'Crimson gown · flowing sleeves',image:'images/item-1.jpg'},
     {id:2,name:'Moonlit Knight',category:'medieval',label:'Medieval',price:14000,detail:'Armor, winter light, and the promise of an epic adventure.',includes:'Knight-inspired ensemble · cloak',image:'images/item-2.jpg'},
@@ -12,7 +11,7 @@
     {id:8,name:'Snow Queen',category:'winter',label:'Winter',price:15000,detail:'An ice-blue silhouette made for a wintry fairytale.',includes:'Ice-blue dress · cape',image:'images/item-8.jpg'},
     {id:9,name:'Forest Elf',category:'winter',label:'Fantasy',price:9500,detail:'A delicate woodland look with a touch of magic.',includes:'Green fantasy dress · accessories',image:'images/item-9.jpg'},
     {id:10,name:'Burgundy Reverie',category:'gothic',label:'Gothic',price:11000,detail:'A rich velvet silhouette for a romantic evening after dark.',includes:'Burgundy evening gown',image:'images/item-10.jpg'},
-    {id:11,name:'The Phantom',category:'halloween',label:'Halloween',price:12500,detail:'A mysterious presence, dressed entirely in shadow.',includes:'Black cloak · hat · gloves',image:'images/item-11.jpg'},
+    {id:11,name:'The Phantom',category:'halloween',label:'Halloween',price:12500,detail:'A mysterious presence, dressed entirely in shadow.',includes:'Black cloak · white mask · gloves',image:'images/item-11.jpg'},
     {id:12,name:'The Gilded Mask',category:'accessories',label:'Accessory',price:6500,detail:'A minimal golden mask that transforms any outfit.',includes:'Metallic gold mask',image:'images/item-12.jpg'},
     {id:13,name:'The Sunburst Masque',category:'accessories',label:'Accessory',price:7200,detail:'Theater and Venetian glamour in one elaborate face piece.',includes:'Decorative sunburst mask',image:'images/about-main.jpg'},
     {id:14,name:'The Shadow Visitor',category:'halloween',label:'Halloween',price:10500,detail:'A dark, unsettling character from a midnight tale.',includes:'Nosferatu-inspired character styling',image:'images/cat-dracula.jpg'},
@@ -20,7 +19,7 @@
     {id:16,name:'Venetian Reverie',category:'masquerade',label:'Masquerade',price:14900,detail:'Old-world carnival romance in embroidered, theatrical costume.',includes:'Venetian carnival-inspired ensemble',image:'images/catalog-bg.jpg'},
     {id:17,name:'Saffron Empress',category:'medieval',label:'Royal',price:14500,detail:'A golden-yellow gown that brings every room to life.',includes:'Yellow statement gown',image:'images/event-img-3.jpg'},
     {id:18,name:'Midnight Tiara',category:'accessories',label:'Accessory',price:3900,detail:'A sparkling finishing touch for a royal-inspired look.',includes:'Silver statement tiara',image:'images/rent-bg.jpg'},
-    {id:19,name:'Golden Whisper',category:'accessories',label:'Accessory',price:2900,detail:'A subtle gold detail to complete a masquerade mood.',includes:'Gold accessory styling piece',image:'images/event-img-2.jpg'}
+    {id:19,name:'Gilded Ribbons',category:'accessories',label:'Accessory',price:2900,detail:'A golden finishing touch for an enchanting masquerade look.',includes:'Golden decorative ribbons · styling accents',image:'images/event-img-2.jpg'}
   ];
   const $ = (selector,root=document) => root.querySelector(selector);
   const $$ = (selector,root=document) => [...root.querySelectorAll(selector)];
@@ -28,7 +27,8 @@
   const put = (key,value) => {try {localStorage.setItem('mm_final_'+key,JSON.stringify(value));return true;}catch{return false;}};
   const escapeHTML = value => String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
   const money = price => '₸ '+Number(price).toLocaleString('en-US');
-  const currentUser = () => {const email=get('session',null);const users=get('users',[]);return Array.isArray(users)?users.find(user=>user.email===email)||null:null;};
+  const getUsers = () => {const users=get('users',[]);return Array.isArray(users)?users.filter(user=>user&&typeof user.email==='string'):[];};
+  const currentUser = () => {const email=get('session',null);return getUsers().find(user=>user.email===email)||null;};
   const favoriteIds = () => {const ids=get('favorites',[]);return Array.isArray(ids)?ids.map(Number).filter(id=>PRODUCTS.some(item=>item.id===id)):[];};
   let toastTimer;
   function toast(message) {const node=$('#toast');if(!node)return;node.textContent=message;node.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>node.classList.remove('visible'),3000);}
@@ -114,7 +114,7 @@
     const dialog=$('#look-dialog');if(dialog){$('#close-dialog').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();});}
     renderFeatured();initCatalog();renderRecent();
   }
-  const validEmail=value=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(value).trim());
+  const validEmail=value=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(value).trim())&&String(value).trim().length<=254;
   const validPhone=value=>{const digits=String(value).replace(/\D/g,'');return digits.length>=10&&digits.length<=15&&/^\+?[\d\s()\-]+$/.test(value);};
   const validPassword=value=>String(value).length>=8&&/[A-Z]/.test(value)&&/[a-z]/.test(value)&&/\d/.test(value)&&/[^\w\s]/.test(value);
   function formValue(form,name){return (form.elements.namedItem(name)?.value||'').trim();}
@@ -135,6 +135,28 @@
     return !firstInvalid;
   }
   function status(form,message){const node=$('.form-status',form);if(node){node.textContent=message;node.hidden=false;node.setAttribute('role','status');}}
+  function initPasswordVisibility(){
+    $('input[type="password"]').forEach(input=>{
+      const wrapper=document.createElement('div');
+      wrapper.className='password-input-wrap';
+      const button=document.createElement('button');
+      button.type='button';
+      button.className='password-toggle';
+      button.textContent='Show';
+      button.setAttribute('aria-label','Show password');
+      button.setAttribute('aria-pressed','false');
+      input.parentNode.insertBefore(wrapper,input);
+      wrapper.append(input,button);
+      button.addEventListener('click',()=>{
+        const showing=input.type==='text';
+        input.type=showing?'password':'text';
+        button.textContent=showing?'Show':'Hide';
+        button.setAttribute('aria-label',showing?'Show password':'Hide password');
+        button.setAttribute('aria-pressed',String(!showing));
+      });
+    });
+  }
+
   function setupSignup(){
     const form=$('#signup-form');if(!form)return;
     const password=form.elements.namedItem('password');password.addEventListener('input',()=>{
@@ -145,7 +167,7 @@
       event.preventDefault();clearErrors(form);
       const rules=[['name',v=>v.length>=2,'Enter your name (at least 2 characters).'],['email',validEmail,'Enter a valid email address.'],['phone',validPhone,'Use 10–15 digits, optionally with + and spaces.'],['password',validPassword,'Use 8+ characters, uppercase, lowercase, number and symbol.'],['confirm',v=>v===form.elements.namedItem('password').value,'Passwords must match.']];
       if(!validate(form,rules))return;
-      const users=get('users',[]);if(!Array.isArray(users)){status(form,'Local data could not be read. Try another browser.');return;}
+      const users=getUsers();
       const email=formValue(form,'email').toLowerCase();if(users.some(u=>u.email===email)){setError(form,'email','An account already exists with this email.');form.elements.namedItem('email').focus();return;}
       if(!globalThis.crypto?.subtle){status(form,'Secure sign-up requires HTTPS or localhost. Please open the hosted site.');return;}
       const button=$('button[type=submit]',form);button.disabled=true;button.textContent='Creating account…';
@@ -168,7 +190,7 @@
       event.preventDefault();clearErrors(form);
       if(!validate(form,[['email',validEmail,'Enter a valid email address.'],['password',validPassword,'Enter a password with 8+ characters, uppercase, lowercase, number and symbol.']]))return;
       const email=formValue(form,'email').toLowerCase();
-      const user=(get('users',[])||[]).find(u=>u.email===email);
+      const user=getUsers().find(u=>u.email===email);
       if(!user){setError(form,'email','No local account matches this email.');return;}
       try{
         const hash=await hashPassword(form.elements.namedItem('password').value,user.salt);
@@ -269,17 +291,46 @@
     }));
   }
   async function loadArchive(){
-    const grid=$('#archive-grid'),loading=$('#archive-loading'),error=$('#archive-error'),retry=$('#archive-retry');if(!grid)return;
-    grid.innerHTML='';loading.hidden=false;error.hidden=true;retry.hidden=true;
+    const grid=$('#archive-grid'),loading=$('#archive-loading'),error=$('#archive-error'),retry=$('#archive-retry');
+    if(!grid)return;
+    grid.replaceChildren();
+    loading.hidden=false;error.hidden=true;retry.hidden=true;
+    const controller=new AbortController();
+    const timeout=setTimeout(()=>controller.abort(),12000);
     try{
-      const response=await fetch('https://api.artic.edu/api/v1/artworks/search?q=mask&limit=100&fields=id,title,image_id,is_public_domain,artist_display,date_display');
-      if(!response.ok)throw new Error('The museum could not be reached.');
-      const json=await response.json(),items=(Array.isArray(json.data)?json.data:[]).filter(item=>item.is_public_domain&&item.image_id&&/^[a-z0-9-]+$/i.test(item.image_id)).slice(0,6);
-      if(!items.length)throw new Error('No artworks could be loaded today.');
-      const base=/^https:\/\/www\.artic\.edu\/iiif\/2$/.test(json.config?.iiif_url||'')?json.config.iiif_url:'https://www.artic.edu/iiif/2';
-      grid.innerHTML=items.map(item=>'<a class="archive-card" target="_blank" rel="noopener noreferrer" href="https://www.artic.edu/artworks/'+Number(item.id)+'"><img src="'+escapeHTML(base+'/'+item.image_id+'/full/600,/0/default.jpg')+'" loading="lazy" alt="'+escapeHTML(item.title)+'"><div><p class="eyebrow">ART INSTITUTE OF CHICAGO</p><h3>'+escapeHTML(item.title)+'</h3><p>'+escapeHTML(item.date_display||item.artist_display||'Historic inspiration')+'</p></div></a>').join('');
-    }catch(e){error.textContent='The live museum archive is unavailable right now. You can still explore our costume collection.';error.hidden=false;retry.hidden=false;}
-    finally{loading.hidden=true;}
+      const params=new URLSearchParams({
+        q:'mask',
+        limit:'50',
+        fields:'id,title,image_id,is_public_domain,artist_display,date_display'
+      });
+      const response=await fetch('https://api.artic.edu/api/v1/artworks/search?'+params.toString(),{signal:controller.signal});
+      if(!response.ok)throw new Error('Museum response '+response.status);
+      const json=await response.json();
+      const items=(Array.isArray(json.data)?json.data:[])
+        .filter(item=>item.is_public_domain===true&&item.image_id&&/^[a-z0-9-]+$/i.test(item.image_id)&&Number.isInteger(item.id))
+        .slice(0,6);
+      if(!items.length)throw new Error('No eligible artworks returned');
+      const base='https://www.artic.edu/iiif/2';
+      grid.innerHTML=items.map(item=>{
+        const title=escapeHTML(item.title||'Untitled artwork');
+        const imageUrl=base+'/'+item.image_id+'/full/600,/0/default.jpg';
+        const details=escapeHTML(item.artist_display||item.date_display||'Historical inspiration');
+        return '<a class="archive-card" href="https://www.artic.edu/artworks/'+item.id+'" target="_blank" rel="noopener noreferrer">'+
+          '<img src="'+imageUrl+'" alt="'+title+'" loading="lazy" decoding="async" width="600" height="450">'+
+          '<div><p class="eyebrow">ART INSTITUTE OF CHICAGO</p><h3>'+title+'</h3><p>'+details+'</p></div></a>';
+      }).join('');
+      $$('img',grid).forEach(image=>image.addEventListener('error',()=>{
+        if(image.dataset.fallback)return;
+        image.dataset.fallback='true';
+        image.src='images/about-main.jpg';
+        image.alt='Masquerade-inspired image for an artwork whose picture is temporarily unavailable';
+      },{once:true}));
+    }catch{
+      error.textContent='The live museum collection is unavailable right now. Please try again or explore the costume collection.';
+      error.hidden=false;retry.hidden=false;
+    }finally{
+      clearTimeout(timeout);loading.hidden=true;
+    }
   }
   function initArchive(){if(!$('#archive-grid'))return;$('#archive-retry')?.addEventListener('click',loadArchive);loadArchive();}
 
@@ -344,8 +395,6 @@
     $('#daily-muse-explore').dataset.id=String(pick.id);
   }
 
-
-  // This guestbook is a browser-local demonstration, never a public review feed.
   function getReviews(){
     const items=get('reviews',[]);
     return Array.isArray(items)?items.filter(item=>item&&typeof item.id==='string'&&Number.isInteger(item.rating)&&item.rating>=1&&item.rating<=5).slice(0,60):[];
@@ -451,6 +500,6 @@
 
   window.addEventListener('storage',event=>{if(event.key?.startsWith('mm_final_')){updateHeader();updateCards();if(event.key==='mm_final_reviews')renderGuestbook();}});
   document.addEventListener('DOMContentLoaded',()=>{
-    initializeTheme();initializeNavigation();updateHeader();initProducts();initAlterEgo();initDailyMuse();setupSignup();setupLogin();initRental();initContact();renderProfile();initArchive();initGuestbook();
+    initializeTheme();initializeNavigation();updateHeader();initProducts();initAlterEgo();initDailyMuse();initPasswordVisibility();setupSignup();setupLogin();initRental();initContact();renderProfile();initArchive();initGuestbook();
   });
 })();
