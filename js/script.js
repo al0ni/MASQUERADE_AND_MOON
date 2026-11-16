@@ -599,7 +599,7 @@
     }
   }
   function initPasswordVisibility() {
-    $('input[type="password"]').forEach((input) => {
+    document.querySelectorAll('input[type="password"]').forEach((input) => {
       const wrapper = document.createElement('div');
       wrapper.className = 'password-input-wrap';
       const button = document.createElement('button');
