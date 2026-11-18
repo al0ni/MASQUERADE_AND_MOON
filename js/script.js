@@ -267,7 +267,7 @@
       topic: '1',
       name: 'Alua',
       image: 'images/reviews/alua-storybook.webp',
-      comment: 'Great service, excellent quality, and the costume looks exactly like the photos! Absolutely loved it!',
+      comment: 'The blue velvet bodice and golden skirt look beautiful together. The full skirt makes this a fun fairytale photoshoot look.',
       demo: true
     },
     {
