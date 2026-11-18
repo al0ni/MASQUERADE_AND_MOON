@@ -12,7 +12,8 @@ const pages = [
   'contact.html',
   'signup.html',
   'login.html',
-  'profile.html'
+  'profile.html',
+  'product.html?id=1'
 ];
 const widths = [320, 360, 375, 390, 768, 820, 1024, 1280, 1440, 1920];
 const browser = await chromium.launch({ headless: true, args: ['--no-sandbox'] });

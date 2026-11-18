@@ -7,7 +7,8 @@ A responsive concept website for browsing theatrical costumes, choosing a look f
 | Page | Purpose |
 | --- | --- |
 | `index.html` | Home, six collections, featured costumes, rental guide and reviews |
-| `catalog.html` | Search, category filtering, sorting, favorites and costume details |
+| `catalog.html` | Search, category filtering, sorting, favorites and costume previews |
+| `product.html?id=...` | Individual costume details, photo reviews and review form |
 | `rent.html` | Rental information and a validated rental-request form |
 | `events.html` | Event inspiration and live museum artworks from a public API |
 | `about.html` | About the concept and collection |
@@ -27,7 +28,7 @@ A responsive concept website for browsing theatrical costumes, choosing a look f
 - Passwords are stored as salted SHA-256 hashes instead of plain text.
 - A profile page that shows stored user details, favorites and demo rental requests.
 - Custom validation with visible messages for required fields, email, password complexity, telephone numbers and event dates.
-- A review form with star ratings, review sorting, local saving and deletion. There are no fabricated ratings.
+- Review forms on individual costume pages with star ratings, custom validation and local saving. Three example photo captions (Alua, Molya, shaslyk) are labeled as demo content, not verified customer ratings. The homepage guestbook remains available. There are no fabricated star ratings.
 - The Metropolitan Museum of Art public API for historic artwork on the Inspiration page. The site shows a loading state, a retry button, an error message and verified local images that remain visible when the API is unavailable.
 - Hover transitions, accessible focus states and reduced-motion support.
 

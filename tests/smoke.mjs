@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 
-const pages = ['index.html', 'catalog.html', 'rent.html', 'events.html', 'about.html', 'contact.html', 'signup.html', 'login.html', 'profile.html'];
+const pages = ['index.html', 'catalog.html', 'rent.html', 'events.html', 'about.html', 'contact.html', 'signup.html', 'login.html', 'profile.html', 'product.html'];
 const code = fs.readFileSync('js/script.js', 'utf8');
 const stylesheet = fs.readFileSync('css/style.css', 'utf8');
 let links = 0;
