@@ -8,7 +8,7 @@ This guide is for the team presentation, not for the customer-facing website. Sp
 
 **What to say (simple English):**
 
-> Hello. This is Masquerade & Moon, our responsive costume atelier website. It helps people explore costumes for themed parties, balls and photoshoots. It has nine connected pages and 24 costumes. We built it with HTML, CSS and vanilla JavaScript. The design uses the same fonts, colors and navigation across all pages.
+> Hello. This is Masquerade & Moon, our responsive costume atelier website. It helps people explore costumes for themed parties, balls and photoshoots. It has ten connected HTML pages, including a shared detail page for all costumes and 24 costumes. We built it with HTML, CSS and vanilla JavaScript. The design uses the same fonts, colors and navigation across all pages.
 
 > We used CSS Grid for the costume cards and Flexbox for navigation and other sections. Media queries change the layout for phones, tablets and computers. The catalog has live search, category filters, price sorting and a saved-only filter. We update the cards with JavaScript without refreshing the page.
 
