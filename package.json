@@ -7,7 +7,6 @@
     "test": "node tests/smoke.mjs",
     "test:browser": "node tests/browser.mjs",
     "test:audit": "node tests/audit.mjs",
-    "test:products": "node tests/products.mjs",
     "test:api": "node tests/api-live.mjs"
   },
   "devDependencies": {

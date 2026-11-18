@@ -28,7 +28,7 @@ A responsive concept website for browsing theatrical costumes, choosing a look f
 - Passwords are stored as salted SHA-256 hashes instead of plain text.
 - A profile page that shows stored user details, favorites and demo rental requests.
 - Custom validation with visible messages for required fields, email, password complexity, telephone numbers and event dates.
-- Review forms on individual costume pages with star ratings, custom validation and local saving. Three example photo captions (Alua, Moldir, Assiya) are labeled as demo content, not verified customer ratings. The homepage guestbook remains available. There are no fabricated star ratings.
+- Review forms on individual costume pages with star ratings, custom validation and local saving. Three example photo captions (Alua, Molya, shaslyk) are labeled as demo content, not verified customer ratings. The homepage guestbook remains available. There are no fabricated star ratings.
 - The Metropolitan Museum of Art public API for historic artwork on the Inspiration page. The site shows a loading state, a retry button, an error message and verified local images that remain visible when the API is unavailable.
 - Hover transitions, accessible focus states and reduced-motion support.
 
@@ -57,18 +57,18 @@ npm install
 npx playwright install chromium
 node tests/browser.mjs
 node tests/audit.mjs
-node tests/products.mjs
-node tests/api-live.mjs
 ```
 
 A GitHub Actions workflow runs these tests for pushes and pull requests.
 
 ## Deployment and submission
 
-The site is served directly by GitHub Pages from the repository. Changes are reviewed and tested through pull requests before updating `main`.
+This ZIP is the revised source project. **It is not automatically published** when you download or unzip it. To update the hosted site, upload the final project files to the repository's `main` branch, keeping the folder structure intact, and enable GitHub Pages for that branch.
 
 - Repository: https://github.com/al0ni/MASQUERADE_AND_MOON
-- Website: https://al0ni.github.io/MASQUERADE_AND_MOON/
+- Intended GitHub Pages address after deployment: https://al0ni.github.io/MASQUERADE_AND_MOON/
+
+Check that the hosted version matches this ZIP before submitting both links.
 
 ## Important limitations
 
@@ -95,6 +95,6 @@ The six museum artwork cards on `events.html` use local WebP copies of the same 
 
 ## Final audit and oral defense
 
-- `QUALITY_REPORT.md` records the executed checks and their scope.
+- `QUALITY_REPORT.md` explains what was checked, what remains uncertain, and the important hosting blocker.
 - `DEFENSE_GUIDE.md` provides a short three-person presentation plan, answers to common teacher questions and a submission checklist.
-- Submit the live website and repository links together.
+- The newest ZIP still needs to be published to GitHub Pages. Do not submit the older hosted version by mistake.

@@ -41,7 +41,7 @@ for (const image of images) {
   assert(fs.existsSync(image), 'Missing costume photograph: ' + image);
   pictures++;
 }
-for (const file of ['images/reviews/alua-storybook.webp', 'images/reviews/moldir-ballgown.webp', 'images/reviews/assiya-phantom.webp']) {
+for (const file of ['images/reviews/alua-storybook.webp', 'images/reviews/molya-ballgown.webp', 'images/reviews/shaslyk-phantom.webp']) {
   assert(fs.existsSync(file), 'Missing review photo: ' + file);
 }
 assert(!code.includes('SEED_REVIEWS'), 'Remove hardcoded testimonials');

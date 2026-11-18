@@ -16,7 +16,7 @@ const pages = [
   'product.html?id=1'
 ];
 const widths = [320, 360, 375, 390, 768, 820, 1024, 1280, 1440, 1920];
-const browser = await chromium.launch({ headless: true, channel: process.env.TEST_BROWSER_CHANNEL || undefined, args: ['--no-sandbox'] });
+const browser = await chromium.launch({ headless: true, args: ['--no-sandbox'] });
 const context = await browser.newContext({
   viewport: { width: 1440, height: 900 },
   reducedMotion: 'reduce'

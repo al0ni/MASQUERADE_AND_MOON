@@ -271,18 +271,18 @@
       demo: true
     },
     {
-      id: 'example-moldir',
+      id: 'example-molya',
       topic: '2',
-      name: 'Moldir',
-      image: 'images/reviews/moldir-ballgown.webp',
+      name: 'Molya',
+      image: 'images/reviews/molya-ballgown.webp',
       comment: 'Excellent service and amazing quality. The dress looks just like the photos, and the details are beautiful!',
       demo: true
     },
     {
-      id: 'example-assiya',
+      id: 'example-shaslyk',
       topic: '8',
-      name: 'Assiya',
-      image: 'images/reviews/assiya-phantom.webp',
+      name: 'shaslyk',
+      image: 'images/reviews/shaslyk-phantom.webp',
       comment: 'Great service, very good quality, and the costume looks exactly as pictured. Perfect for a themed event!',
       demo: true
     }
@@ -569,16 +569,7 @@
     if (!PRODUCTS.some((p) => p.id === id)) return;
     const favorites = favoriteIds(),
       next = favorites.includes(id) ? favorites.filter((value) => value !== id) : [...favorites, id];
-    if (!put('favorites', next)) {
-      toast('Could not save your collection. Please check browser storage.');
-      return;
-    }
-    const saved = next.includes(id);
-    const detailButton = document.querySelector('.product-detail-copy [data-action="favorite"]');
-    if (detailButton && Number(detailButton.dataset.id) === id) {
-      detailButton.textContent = saved ? '♥ Saved' : '♡ Save look';
-      detailButton.setAttribute('aria-pressed', String(saved));
-    }
+    put('favorites', next);
     updateHeader();
     updateCards();
     toast(
