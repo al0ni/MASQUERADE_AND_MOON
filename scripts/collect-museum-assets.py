@@ -32,7 +32,7 @@ for host, obj, term in candidates:
     if obj in seen or sum(i['term']==term for i in selected)>=3: continue
     seen.add(obj)
     try:
-        r=session.get(host+'/objects/'+str(obj), timeout=15)
+        r=session.get('https://collectionapi.metmuseum.org/public/collection/v1/objects/'+str(obj), timeout=15)
         if not r.ok: continue
         item=r.json()
         image=item.get('primaryImageSmall') or item.get('primaryImage')
