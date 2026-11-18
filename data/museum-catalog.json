@@ -1,0 +1,56 @@
+[
+  {
+    "id": 159244,
+    "title": "Dress",
+    "date": "ca. 1855",
+    "creator": "American",
+    "image": "images/museum/met-159244.webp",
+    "url": "https://www.metmuseum.org/art/collection/search/159244",
+    "type": "DRESS"
+  },
+  {
+    "id": 159482,
+    "title": "Dress",
+    "date": "1886–88",
+    "creator": "American",
+    "image": "images/museum/met-159482.webp",
+    "url": "https://www.metmuseum.org/art/collection/search/159482",
+    "type": "DRESS"
+  },
+  {
+    "id": 65723,
+    "title": "Costume",
+    "date": "19th century",
+    "creator": "Japan",
+    "image": "images/museum/met-65723.webp",
+    "url": "https://www.metmuseum.org/art/collection/search/65723",
+    "type": "COSTUME"
+  },
+  {
+    "id": 112525,
+    "title": "Costume",
+    "date": "1850–1900",
+    "creator": "",
+    "image": "images/museum/met-112525.webp",
+    "url": "https://www.metmuseum.org/art/collection/search/112525",
+    "type": "COSTUME"
+  },
+  {
+    "id": 22739,
+    "title": "Mask",
+    "date": "dated 1745",
+    "creator": "Myōchin Muneakira",
+    "image": "images/museum/met-22739.webp",
+    "url": "https://www.metmuseum.org/art/collection/search/22739",
+    "type": "MASK"
+  },
+  {
+    "id": 310350,
+    "title": "Mask",
+    "date": "19th century",
+    "creator": "Romkun, Breri, or Igana people",
+    "image": "images/museum/met-310350.webp",
+    "url": "https://www.metmuseum.org/art/collection/search/310350",
+    "type": "MASK"
+  }
+]

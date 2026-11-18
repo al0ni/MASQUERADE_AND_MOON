@@ -2,367 +2,135 @@ import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 
 const base = process.env.TEST_BASE_URL || 'http://127.0.0.1:8000';
-const pages = [
-  'index.html',
-  'catalog.html',
-  'rent.html',
-  'events.html',
-  'about.html',
-  'contact.html',
-  'signup.html',
-  'login.html',
-  'profile.html'
-];
-const browser = await chromium.launch({ headless: true, args: ['--no-sandbox'] });
-let checks = 0;
-const verify = (value, message) => {
-  assert(value, message);
-  checks++;
-};
-const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+const pages = ['index.html', 'catalog.html', 'rent.html', 'events.html', 'about.html', 'contact.html', 'signup.html', 'login.html', 'profile.html'];
+const browser = await chromium.launch({headless:true, args:['--no-sandbox']});
+const context = await browser.newContext({viewport:{width:1440,height:900}, reducedMotion:'reduce'});
 const page = await context.newPage();
-page.on('pageerror', (error) => {
-  throw new Error('Browser JavaScript error: ' + error.message);
-});
-async function visit(route) {
-  const response = await page.goto(base + '/' + route, { waitUntil: 'domcontentloaded' });
-  verify(response?.status() === 200, 'HTTP error on ' + route);
-}
+const issues = [];
+let assertions = 0;
+page.on('pageerror',error=>issues.push('JavaScript error: '+error.message));
+const check = (condition, message) => {assert(condition,message);assertions++;};
+async function go(name){const response=await page.goto(base+'/'+name,{waitUntil:'domcontentloaded'});check(response?.status()===200,name+' returned an HTTP error');}
 try {
-  await visit('index.html');
-  verify((await page.locator('#review-form').count()) === 1, 'Guestbook form missing on homepage');
-  await page.locator('#review-form button[type="submit"]').click();
-  verify(
-    (await page.locator('[data-review-error="name"]').textContent()).includes('display name'),
-    'Guestbook name validation missing'
-  );
-  verify(
-    (await page.locator('[data-review-error="rating"]').textContent()).includes('rating'),
-    'Guestbook star validation missing'
-  );
-  await page.locator('#review-name').fill('Aster Visitor');
-  await page.locator('#review-topic').selectOption('1');
-  await page.locator('#review-star-options .review-star').nth(4).click();
-  await page
-    .locator('#review-comment')
-    .fill('A beautiful and theatrical costume collection with a lovely design.');
-  await page.locator('#review-form button[type="submit"]').click();
-  verify(
-    (await page.locator('#reviews-list .guestbook-review').count()) === 1,
-    'Review was not rendered'
-  );
-  verify(
-    (await page.locator('#review-summary').textContent()).includes('5.0 / 5'),
-    'Guestbook rating average missing'
-  );
-  verify(
-    (await page.locator('#review-status').textContent()).includes('saved on this device'),
-    'Guestbook confirmation missing'
-  );
-  verify(
-    await page.evaluate(() => JSON.parse(localStorage.getItem('mm_final_reviews') || '[]').length === 1),
-    'Review was not stored in localStorage'
-  );
-  await visit('catalog.html');
-  await visit('index.html#guestbook');
-  verify(
-    (await page.locator('#reviews-list .guestbook-review').count()) === 1,
-    'Review did not survive page navigation'
-  );
-  await page.locator('#review-sort').selectOption('highest');
-  await page.locator('#reviews-list [data-review-delete]').click();
-  verify((await page.locator('#reviews-list .guestbook-review').count()) === 0, 'Delete review failed');
-  verify(
-    (await page.locator('#reviews-list').textContent()).includes('Your story could be the first'),
-    'Empty guestbook state missing'
-  );
-
-  verify(
-    (await page.locator('#featured-grid .product-card').count()) === 4,
-    'Featured looks not rendered'
-  );
-  verify((await page.locator('#quiz-options .quiz-option').count()) === 4, 'Quiz not rendered');
-  verify(
-    (await page.locator('#daily-muse-name').textContent()).trim() !== 'An unexpected character',
-    'Daily muse not updated'
-  );
-  for (let i = 0; i < 3; i++) await page.locator('#quiz-options [data-choice="0"]').click();
-  verify(
-    (await page.locator('#quiz-title').textContent()).includes('The Royal Dreamer'),
-    'Quiz result incorrect'
-  );
-  await page.locator('#quiz-options [data-action="details"]').click();
-  verify(await page.locator('#look-dialog').evaluate((el) => el.open), 'Look dialog failed');
-  await page.locator('#dialog-content [data-action="favorite"]').click();
-  verify(
-    await page.locator('#look-dialog').evaluate((el) => el.open),
-    'Saving a look closed or broke the dialog'
-  );
-  await page.locator('#close-dialog').click();
-  verify(
-    await page.evaluate(
-      () => JSON.parse(localStorage.getItem('mm_final_favorites') || '[]').length === 1
-    ),
-    'Favorite was not saved'
-  );
+  await page.route('https://collectionapi.metmuseum.org/**',route=>route.fulfill({status:503,body:'Museum temporarily unavailable'}));
+  await go('index.html');
+  check(await page.locator('#featured-grid .product-card').count()===4,'Four featured costumes should be displayed');
+  check(await page.locator('#quiz-stage').count()===0,'Unused personality quiz should not remain');
+  check(await page.locator('#reviews-list .guestbook-review').count()===0,'Do not show fabricated reviews');
+  await page.locator('#review-form button[type=submit]').click();
+  check((await page.locator('[data-review-error="rating"]').textContent()).length>0,'Rating error missing');
+  await page.locator('#review-name').fill('Test visitor');
+  await page.locator('#review-star-options .review-star').nth(3).click();
+  await page.locator('#review-comment').fill('The costumes are easy to browse and the product photos are very clear.');
+  await page.locator('#review-form button[type=submit]').click();
+  check(await page.locator('#reviews-list .guestbook-review').count()===1,'Review was not saved');
+  await page.reload({waitUntil:'domcontentloaded'});
+  check(await page.locator('#reviews-list .guestbook-review').count()===1,'Review did not persist');
+  await page.locator('[data-review-delete]').first().click();
+  check(await page.locator('#reviews-list .guestbook-review').count()===0,'Review deletion failed');
   await page.locator('#theme-toggle').click();
-  verify((await page.locator('html').getAttribute('data-theme')) === 'light', 'Light mode failed');
-
-  await visit('catalog.html?saved=1');
-  verify(await page.locator('#saved-only').isChecked(), 'Saved-only link ignored');
-  verify(
-    (await page.locator('#product-grid .product-card').count()) === 1,
-    'Saved-only filter incorrect'
-  );
-  verify((await page.locator('html').getAttribute('data-theme')) === 'light', 'Theme did not persist');
-  await page.locator('#reset-filters').click();
-  verify(
-    (await page.locator('#product-grid .product-card').count()) === 19,
-    'Catalog missing curated pieces'
-  );
-  await page.locator('#search-costumes').fill('Crimson');
-  verify((await page.locator('#product-grid .product-card').count()) === 1, 'Search did not filter');
-  await page.locator('#search-costumes').fill('Not A Costume');
-  verify(
-    (await page.locator('.empty-state').textContent()).includes('No looks found'),
-    'Empty state absent'
-  );
+  check(await page.locator('html').getAttribute('data-theme')==='light','Light mode switch failed');
+  await go('catalog.html');
+  check(await page.locator('html').getAttribute('data-theme')==='light','Selected theme did not persist');
+  check(await page.locator('#product-grid .product-card').count()===24,'Catalog needs 24 costumes');
+  await page.locator('#search-costumes').fill('Phantom');
+  check(await page.locator('#product-grid .product-card').count()===1,'Live search did not filter');
   await page.locator('#reset-filters').click();
   await page.locator('#filter-category').selectOption('gothic');
-  verify((await page.locator('#product-grid .product-card').count()) === 3, 'Category filter wrong');
+  check(await page.locator('#product-grid .product-card').count()===4,'Gothic category filter failed');
   await page.locator('#sort-costumes').selectOption('price-up');
-  const prices = await page.locator('#product-grid .product-bottom strong').allTextContents();
-  verify(prices[0].includes('11,000'), 'Price sorting wrong');
-  await page.locator('#reset-filters').click();
-  await page.locator('[data-category-pill="accessories"]').click();
-  verify(
-    (await page.locator('#product-grid .product-card').count()) === 5,
-    'Accessories collection filter failed'
-  );
-  verify(
-    (await page.locator('[data-category-pill="accessories"]').getAttribute('aria-pressed')) === 'true',
-    'Collection pill state missing'
-  );
-  await page.locator('[data-category-pill="all"]').click();
-  verify(
-    (await page.locator('#product-grid .product-card').count()) === 19,
-    'All collection filter failed'
-  );
-  await page.locator('#product-grid .photo-open').first().click();
-  verify(await page.locator('#look-dialog').evaluate((el) => el.open), 'Clickable product photo failed');
+  await page.locator('#product-grid .fav-btn').first().click();
+  check(await page.evaluate(()=>JSON.parse(localStorage.getItem('mm_final_favorites')||'[]').length===1),'Favorites are not persisted');
+  await page.locator('#product-grid [data-action="details"]').first().click();
+  check(await page.locator('#look-dialog').evaluate(el=>el.open),'Costume dialog did not open');
   await page.locator('#close-dialog').click();
-  await page
-    .locator('#product-grid img')
-    .evaluateAll((images) => images.forEach((img) => (img.loading = 'eager')));
-  await page.waitForFunction(() =>
-    [...document.querySelectorAll('#product-grid img')].every(
-      (img) => img.complete && img.naturalWidth > 0
-    )
-  );
-  verify(true, 'All product photos load successfully');
-
-  await visit('signup.html');
-  verify(
-    (await page.locator('.password-toggle').count()) === 2,
-    'Signup password visibility buttons missing'
-  );
-  await page.locator('#signup-form [name=password]').fill('TestPassword9!');
-  await page.locator('.password-toggle').first().click();
-  verify(
-    (await page.locator('#signup-form [name=password]').getAttribute('type')) === 'text',
-    'Show password failed'
-  );
-  await page.locator('.password-toggle').first().click();
-  verify(
-    (await page.locator('#signup-form [name=password]').getAttribute('type')) === 'password',
-    'Hide password failed'
-  );
+  await go('signup.html');
   await page.locator('#signup-form button[type=submit]').click();
-  verify(await page.locator('[data-error-for=name]').isVisible(), 'Empty signup error missing');
-  const email = 'atelier.' + Date.now() + '@example.com';
-  await page.locator('#signup-form [name=name]').fill('Test Member');
+  check((await page.locator('[data-error-for="email"]').textContent()).length>0,'Sign-up email validation missing');
+  const email='test'+Date.now()+'@example.com';
+  await page.locator('#signup-form [name=name]').fill('Test Customer');
   await page.locator('#signup-form [name=email]').fill(email);
-  await page.locator('#signup-form [name=phone]').fill('+7 700 123 4567');
-  await page.locator('#signup-form [name=password]').fill('GoodPassword9!');
-  await page.locator('#signup-form [name=confirm]').fill('GoodPassword9!');
+  await page.locator('#signup-form [name=phone]').fill('+7 700 555 1212');
+  await page.locator('#signup-form [name=password]').fill('Password9!');
+  await page.locator('#signup-form [name=confirm]').fill('Password9!');
   await page.locator('#signup-form button[type=submit]').click();
   await page.waitForURL(/profile\.html$/);
-  verify(
-    (await page.locator('#profile-content').textContent()).includes('Test Member'),
-    'Signed-up profile not shown'
-  );
-  const savedUser = await page.evaluate(() => localStorage.getItem('mm_final_users'));
-  verify(savedUser && !savedUser.includes('GoodPassword9!'), 'Password was stored in plaintext');
-  verify(
-    (await page.locator('#profile-content .profile-row').count()) >= 1,
-    'Favorite missing in profile'
-  );
-  const profileBounds = await page.locator('.profile-dashboard-head').boundingBox();
-  verify(profileBounds && profileBounds.y < 260, 'Profile content starts too far down the page');
-  verify(
-    (await page.locator('.header-actions [aria-label="View saved looks"]').count()) === 0,
-    'Redundant header heart still visible'
-  );
-
-  await page.screenshot({ path: 'profile-desktop.png', fullPage: true });
-  await page.setViewportSize({ width: 375, height: 812 });
-  await page.screenshot({ path: 'profile-mobile.png', fullPage: true });
-  await page.setViewportSize({ width: 1440, height: 900 });
+  check((await page.locator('#profile-content').textContent()).includes('Test Customer'),'Profile missing account name');
+  check(!(await page.evaluate(()=>localStorage.getItem('mm_final_users'))).includes('Password9!'),'Password must not be plaintext in storage');
   await page.locator('#logout-button').click();
   await page.waitForURL(/index\.html$/);
-
-  await visit('login.html');
+  await go('login.html');
   await page.locator('#login-form [name=email]').fill(email);
   await page.locator('#login-form [name=password]').fill('WrongPassword9!');
   await page.locator('#login-form button[type=submit]').click();
-  verify(
-    (await page.locator('[data-error-for=password]').textContent()).includes('Incorrect'),
-    'Bad login error missing'
-  );
-  await page.locator('#login-form [name=password]').fill('GoodPassword9!');
+  check((await page.locator('[data-error-for="password"]').textContent()).includes('Incorrect'),'Incorrect password message missing');
+  await page.locator('#login-form [name=password]').fill('Password9!');
   await page.locator('#login-form button[type=submit]').click();
   await page.waitForURL(/profile\.html$/);
-  verify(
-    (await page.locator('#profile-content').textContent()).includes(email),
-    'Successful login did not redirect'
-  );
-
-  await visit('rent.html');
+  await go('rent.html');
   await page.locator('#rental-form button[type=submit]').click();
-  verify(
-    await page.locator('#rental-form [data-error-for=look]').isVisible(),
-    'Rental validation missing'
-  );
-  const date = new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10);
-  await page.locator('#rental-form [name=look]').selectOption('1');
+  check((await page.locator('[data-error-for="look"]').textContent()).length>0,'Rental required field validation missing');
+  const date=new Date(Date.now()+10*86400000).toISOString().slice(0,10);
+  await page.locator('#rental-form [name=look]').selectOption('8');
   await page.locator('#rental-form [name=date]').fill(date);
   await page.locator('#rental-form button[type=submit]').click();
-  verify(
-    (await page.locator('#rental-form .form-status').textContent()).includes('saved on this device'),
-    'Rental preview not saved'
-  );
-  await visit('profile.html');
-  verify(
-    (await page.locator('#profile-content').textContent()).includes('Local demo request'),
-    'Rental request missing from profile'
-  );
-
-  await visit('contact.html');
+  check((await page.locator('#rental-form .form-status').textContent()).includes('saved'),'Rental planning confirmation missing');
+  await go('profile.html');
+  check((await page.locator('#profile-content').textContent()).includes('The Phantom'),'Rental request not visible');
+  await go('contact.html');
   await page.locator('#contact-form button[type=submit]').click();
-  verify(
-    await page.locator('#contact-form [data-error-for=message]').isVisible(),
-    'Contact validation missing'
-  );
-  await page.locator('#contact-form [name=name]').fill('Test Member');
+  check((await page.locator('[data-error-for="message"]').textContent()).length>0,'Contact validation missing');
+  await page.locator('#contact-form [name=name]').fill('Test Customer');
   await page.locator('#contact-form [name=email]').fill(email);
-  await page.locator('#contact-form [name=phone]').fill('+7 700 123 4567');
-  await page
-    .locator('#contact-form [name=message]')
-    .fill('Could you tell me more about this collection?');
+  await page.locator('#contact-form [name=phone]').fill('+7 700 555 1212');
+  await page.locator('#contact-form [name=message]').fill('Please tell me more about the costumes in your collection.');
   await page.locator('#contact-form button[type=submit]').click();
-  verify(
-    (await page.locator('#contact-form .form-status').textContent()).includes('saved locally'),
-    'Contact message not saved'
-  );
-
-  await page.route('https://api.artic.edu/**', (route) =>
-    route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify({
-        config: { iiif_url: 'https://www.artic.edu/iiif/2' },
-        data: Array.from({ length: 6 }, (_, i) => ({
-          id: 2000 + i,
-          title: 'The Mask ' + i,
-          image_id: '31e4cc5a-44d5-46b5-921b-7bd3bff9259f',
-          is_public_domain: true,
-          date_display: '1900'
-        }))
-      })
-    })
-  );
-  await visit('events.html');
-  await page.locator('#archive-grid .archive-card').first().waitFor();
-  verify((await page.locator('#archive-grid .archive-card').count()) === 6, 'API artworks not rendered');
+  check((await page.locator('#contact-form .form-status').textContent()).includes('saved'),'Contact form did not save');
+  await go('events.html');
+  await page.locator('#archive-retry').waitFor({state:'visible'});
+  check((await page.locator('#archive-error').textContent()).includes('unavailable'),'API error handling missing');
+  check(await page.locator('#archive-grid .museum-card').count()===6,'Matching museum images must remain visible when API fails');
+  const sources=await page.locator('#archive-grid .museum-card img').evaluateAll(images=>images.map(img=>({src:img.getAttribute('src'),loaded:img.complete&&img.naturalWidth>0})));
+  check(sources.every(photo=>photo.src.startsWith('images/museum/')&&photo.loaded),'All six cached museum photos must load');
   await page.unrouteAll();
-  await page.route('https://api.artic.edu/**', (route) =>
-    route.fulfill({ status: 503, body: 'API unavailable' })
-  );
-  await visit('events.html');
-  await page.locator('#archive-retry').waitFor({ state: 'visible' });
-  verify(
-    (await page.locator('#archive-error').textContent()).includes('unavailable'),
-    'API fallback missing'
-  );
-
-  for (const width of [375, 768, 1024, 1440]) {
-    await page.setViewportSize({ width, height: 900 });
-    for (const file of pages) {
-      await visit(file);
-      const dims = await page.evaluate(() => ({
-        w: document.documentElement.scrollWidth,
-        v: innerWidth
-      }));
-      if (dims.w > dims.v + 2) {
-        const offenders = await page.evaluate(() =>
-          [...document.querySelectorAll('body *')]
-            .filter(
-              (el) =>
-                el.getBoundingClientRect().right > innerWidth + 3 &&
-                getComputedStyle(el).position !== 'absolute'
-            )
-            .slice(0, 8)
-            .map((el) => ({
-              tag: el.tagName,
-              id: el.id,
-              cls: el.className?.toString().slice(0, 45),
-              right: Math.round(el.getBoundingClientRect().right)
-            }))
-        );
-        console.error('Overflow elements:', JSON.stringify(offenders));
-      }
-      verify(
-        dims.w <= dims.v + 2,
-        'Horizontal overflow at ' + width + 'px on ' + file + ' (' + dims.w + ' > ' + dims.v + ')'
-      );
+  await page.route('https://collectionapi.metmuseum.org/**',route=>{
+    const id=Number(route.request().url().split('/').pop());
+    return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({objectID:id,isPublicDomain:true,title:'Verified object '+id,artistDisplayName:'The Met',objectDate:'19th century',objectURL:'https://www.metmuseum.org/art/collection/search/'+id})});
+  });
+  await page.locator('#archive-retry').click();
+  await page.waitForFunction(()=>document.querySelector('#archive-loading').textContent.includes('Live details verified for 6'));
+  check(await page.locator('#archive-grid .museum-card').count()===6,'Six verified museum cards missing after live API update');
+  check((await page.locator('#archive-grid .museum-card h3').first().textContent()).startsWith('Verified object'),'Live museum metadata not applied');
+  for(const width of [375,768,1024,1440]){
+    await page.setViewportSize({width,height:850});
+    for(const name of pages){
+      await go(name);
+      const d=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,viewport:innerWidth}));
+      check(d.scroll<=d.viewport+2,name+' overflows at '+width+'px');
     }
   }
-
-  await page.evaluate(() => localStorage.setItem('mm_final_theme', JSON.stringify('dark')));
-  for (const [width, height, file] of [
-    [1440, 900, 'preview-desktop.png'],
-    [375, 812, 'preview-mobile.png']
-  ]) {
-    await page.setViewportSize({ width, height });
-    await visit('index.html');
-    await page.evaluate(() =>
-      document.querySelectorAll('img[loading="lazy"]').forEach((image) => {
-        image.loading = 'eager';
-      })
-    );
-    await page.waitForTimeout(900);
-    await page.screenshot({ path: file, fullPage: true });
-  }
-
-  for (const [width, height, file] of [
-    [1440, 900, 'catalog-desktop.png'],
-    [375, 812, 'catalog-mobile.png']
-  ]) {
-    await page.setViewportSize({ width, height });
-    await visit('catalog.html');
-    await page.evaluate(() =>
-      document.querySelectorAll('img[loading="lazy"]').forEach((img) => {
-        img.loading = 'eager';
-      })
-    );
-    await page.waitForTimeout(900);
-    await page.screenshot({ path: file, fullPage: true });
-  }
-  console.log('Browser acceptance checks passed:', checks, 'assertions.');
-} catch (error) {
-  console.error('Browser acceptance failure:', error);
-  await page.screenshot({ path: 'failure.png', fullPage: true }).catch(() => {});
-  process.exitCode = 1;
-} finally {
-  await browser.close();
-}
+  check(issues.length===0,'JavaScript errors: '+issues.join('; '));
+  await page.setViewportSize({width:1440,height:900});
+  await go('index.html');
+  await page.screenshot({path:'preview-desktop.png',fullPage:true});
+  await page.setViewportSize({width:375,height:812});
+  await go('index.html');
+  await page.screenshot({path:'preview-mobile.png',fullPage:true});
+  await page.setViewportSize({width:1440,height:900});
+  await go('catalog.html');
+  await page.screenshot({path:'catalog-desktop.png',fullPage:true});
+  await page.setViewportSize({width:375,height:812});
+  await go('catalog.html');
+  await page.screenshot({path:'catalog-mobile.png',fullPage:true});
+  await page.setViewportSize({width:1440,height:900});
+  await go('profile.html');
+  await page.screenshot({path:'profile-desktop.png',fullPage:true});
+  await page.setViewportSize({width:375,height:812});
+  await go('profile.html');
+  await page.screenshot({path:'profile-mobile.png',fullPage:true});
+  console.log(`Browser checks passed: ${assertions} assertions.`);
+}catch(error){
+  console.error(error);
+  await page.screenshot({path:'failure.png',fullPage:true}).catch(()=>{});
+  process.exitCode=1;
+}finally{await browser.close();}

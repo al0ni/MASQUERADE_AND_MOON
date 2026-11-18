@@ -1,16 +1,14 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta
-      name="description"
-      content="Browse 19 themed costumes and accessories with live search, filters, wishlists, and rental preview prices."
-    />
-    <meta name="theme-color" content="#100f0f" />
-    <link rel="icon" href="images/item-12.jpg" type="image/jpeg" />
-    <title>The collection | Masquerade &amp; Moon</title>
-    <script>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Browse themed costumes with live search, filters, wishlists, and rental preview prices." name="description"/>
+<meta content="#100f0f" name="theme-color"/>
+<link href="images/favicon.jpg" rel="icon" type="image/jpeg"/>
+<title>The collection | Masquerade &amp; Moon</title>
+<script>
       try {
         document.documentElement.dataset.theme =
           JSON.parse(localStorage.getItem('mm_final_theme')) === 'light' ? 'light' : 'dark';
@@ -18,175 +16,131 @@
         document.documentElement.dataset.theme = 'dark';
       }
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="css/style.css" />
-    <script src="js/script.js" defer></script>
-  </head>
-  <body>
-    <a class="skip-link" href="#main">Skip to content</a>
-    <div class="announcement">AN INVITATION TO BECOME SOMEONE ELSE · THE ATELIER IS OPEN</div>
-    <header class="header">
-      <div class="header-inner wrap">
-        <button
-          class="icon-button menu-button"
-          id="menu-toggle"
-          aria-label="Open menu"
-          aria-expanded="false"
-          aria-controls="mobile-menu"
-          type="button"
-        >
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="css/style.css" rel="stylesheet"/>
+<script defer="" src="js/script.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="announcement">COSTUMES FOR BALLS, PARTIES &amp; PHOTOSHOOTS · 24 CURATED LOOKS</div>
+<header class="header">
+<div class="header-inner wrap">
+<button aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu" class="icon-button menu-button" id="menu-toggle" type="button">
           ☰
         </button>
-        <a class="brand" href="index.html" aria-label="Masquerade and Moon homepage"
-          >MASQUERADE<span>&amp;</span>MOON</a
-        >
-        <nav class="main-nav" aria-label="Main navigation">
-          <a href="index.html">Home</a><a href="catalog.html" aria-current="page">Collection</a
-          ><a href="rent.html">Rent</a><a href="events.html">Inspiration</a
-          ><a href="about.html">Our story</a><a href="contact.html">Contact</a
-          ><a href="index.html#guestbook">Reviews</a>
-        </nav>
-        <div class="header-actions">
-          <a class="account-link" id="account-link" href="login.html">Account ↗</a
-          ><button class="icon-button" type="button" id="theme-toggle" aria-label="Switch color theme">
+<a aria-label="Masquerade and Moon homepage" class="brand" href="index.html">MASQUERADE<span>&amp;</span>MOON</a>
+<nav aria-label="Main navigation" class="main-nav">
+<a href="index.html">Home</a><a aria-current="page" href="catalog.html">Collection</a><a href="rent.html">Rent</a><a href="events.html">Inspiration</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="index.html#guestbook">Reviews</a>
+</nav>
+<div class="header-actions">
+<a class="account-link" href="login.html" id="account-link">Account ↗</a><button aria-label="Switch color theme" class="icon-button" id="theme-toggle" type="button">
             ☼
           </button>
-        </div>
-      </div>
-      <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile navigation" hidden>
-        <a href="index.html">Home</a><a href="catalog.html" aria-current="page">Collection</a
-        ><a href="rent.html">Rent</a><a href="events.html">Inspiration</a
-        ><a href="about.html">Our story</a><a href="contact.html">Contact</a
-        ><a id="mobile-account-link" href="login.html">Account / Log in</a
-        ><a href="profile.html">My wardrobe</a>
-      </nav>
-    </header>
-    <main id="main">
-      <section class="page-cover with-image">
-        <img class="cover-image" src="images/catalog-bg.jpg" alt="" aria-hidden="true" />
-        <div class="wrap">
-          <div class="breadcrumbs"><a href="index.html">Home</a> / The collection</div>
-          <p class="eyebrow" style="margin: 30px 0 0">The collection</p>
-          <h1>The <em>wardrobe.</em></h1>
-          <p class="body-copy">
-            Discover curated costume looks and statement accessories for nights worth remembering.
-          </p>
-        </div>
-      </section>
-      <section class="section wrap">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow">THE SIGNATURE EDIT · 19 PIECES</p>
-            <h2>Find your alter ego.</h2>
-          </div>
-          <p>
+</div>
+</div>
+<nav aria-label="Mobile navigation" class="mobile-menu" hidden="" id="mobile-menu">
+<a href="index.html">Home</a><a aria-current="page" href="catalog.html">Collection</a><a href="rent.html">Rent</a><a href="events.html">Inspiration</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="login.html" id="mobile-account-link">Account / Log in</a><a href="profile.html">My wardrobe</a>
+</nav>
+</header>
+<main id="main">
+<section class="page-cover with-image">
+<img alt="" aria-hidden="true" class="cover-image" src="images/catalog-bg.jpg"/>
+<div class="wrap">
+<div class="breadcrumbs"><a href="index.html">Home</a> / The collection</div>
+<p class="eyebrow" style="margin: 30px 0 0">The collection</p>
+<h1>The <em>wardrobe.</em></h1>
+<p class="body-copy">Browse 24 costumes for themed events, masquerades and photoshoots. Save favorites, compare prices and plan your rental.</p>
+</div>
+</section>
+<section class="section wrap">
+<div class="section-head">
+<div>
+<p class="eyebrow">THE SIGNATURE EDIT · <span data-product-count="">19</span> PIECES</p>
+<h2>Explore the collection.</h2>
+</div>
+<p>
             Search the wardrobe by name or mood. Filter by collection, order by price, or discover your
             saved looks.
           </p>
-        </div>
-        <div class="collection-pills" role="group" aria-label="Browse by collection">
-          <button type="button" data-category-pill="all" aria-pressed="true">All</button
-          ><button type="button" data-category-pill="medieval" aria-pressed="false">
-            Royal &amp; medieval</button
-          ><button type="button" data-category-pill="gothic" aria-pressed="false">Dark romance</button
-          ><button type="button" data-category-pill="winter" aria-pressed="false">Winter fantasy</button
-          ><button type="button" data-category-pill="halloween" aria-pressed="false">Halloween</button
-          ><button type="button" data-category-pill="masquerade" aria-pressed="false">Masquerade</button
-          ><button type="button" data-category-pill="accessories" aria-pressed="false">
-            Accessories
-          </button>
-        </div>
-        <div class="filters">
-          <div class="field">
-            <label for="search-costumes">Find a look</label
-            ><input
-              id="search-costumes"
-              class="control"
-              type="search"
-              placeholder="Try Crimson, Snow, Vampire…"
-              autocomplete="off"
-            />
-          </div>
-          <div class="field">
-            <label for="filter-category">Collection</label
-            ><select id="filter-category" class="control">
-              <option value="all">All collections</option>
-              <option value="medieval">Medieval &amp; royal</option>
-              <option value="gothic">Gothic romance</option>
-              <option value="winter">Winter fantasy</option>
-              <option value="halloween">Halloween</option>
-              <option value="masquerade">Masquerade</option>
-              <option value="accessories">Accessories</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="sort-costumes">Sort by</label
-            ><select id="sort-costumes" class="control">
-              <option value="curated">Curated edit</option>
-              <option value="price-up">Price: low to high</option>
-              <option value="price-down">Price: high to low</option>
-              <option value="name">Name: A to Z</option>
-            </select>
-          </div>
-          <div class="field" style="padding-bottom: 15px">
-            <label class="checkbox-label"><input id="saved-only" type="checkbox" /> Saved only ♡</label>
-          </div>
-        </div>
-        <div class="catalog-bar">
-          <span id="result-count" role="status" aria-live="polite">Showing 19 pieces</span
-          ><button id="reset-filters" type="button">Clear all filters ↗</button>
-        </div>
-        <div id="product-grid" class="product-grid"></div>
-      </section>
-      <section class="section wrap center" style="padding-top: 0">
-        <p class="eyebrow">A PERFECT FIT FOR THE MOMENT</p>
-        <h2>Borrow a character.<br /><em>Keep the memory.</em></h2>
-        <a href="rent.html" class="btn outline">Explore the rental process ↗</a>
-      </section>
-    </main>
-    <footer class="footer">
-      <div class="wrap">
-        <div class="footer-top">
-          <div>
-            <a class="brand" href="index.html">MASQUERADE<span>&amp;</span>MOON</a>
-            <p>
-              For the nights that deserve another story. Discover theatrical costumes, considered
-              details, and a little mystery.
-            </p>
-          </div>
-          <div>
-            <h4>Explore</h4>
-            <nav aria-label="Explore">
-              <a href="index.html">Home</a><a href="catalog.html">Collection</a
-              ><a href="rent.html">Rent</a>
-            </nav>
-          </div>
-          <div>
-            <h4>Discover</h4>
-            <nav aria-label="Discover">
-              <a href="events.html">Inspiration</a><a href="about.html">Our story</a
-              ><a href="contact.html">Contact</a><a href="index.html#guestbook">Reviews</a>
-            </nav>
-          </div>
-          <div>
-            <h4>Your atelier</h4>
-            <nav aria-label="Account">
-              <a href="signup.html">Create an account</a><a href="login.html">Log in</a
-              ><a href="profile.html">Your wardrobe</a>
-            </nav>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <span>© <span id="year">2026</span> MASQUERADE &amp; MOON · THE COSTUME ATELIER</span
-          ><span>CONCEPT STORE · RENTAL PREVIEWS ONLY</span>
-        </div>
-      </div>
-    </footer>
-    <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <dialog id="look-dialog" class="modal" aria-label="Costume details">
-      <button class="modal-close" id="close-dialog" type="button" aria-label="Close details">×</button>
-      <div class="modal-inner" id="dialog-content"></div>
-    </dialog>
-  </body>
+</div>
+<div aria-label="Browse by collection" class="collection-pills" role="group">
+<button aria-pressed="true" data-category-pill="all" type="button">All</button><button aria-pressed="false" data-category-pill="medieval" type="button">
+            Royal &amp; medieval</button><button aria-pressed="false" data-category-pill="gothic" type="button">Dark romance</button><button aria-pressed="false" data-category-pill="winter" type="button">Winter</button><button aria-pressed="false" data-category-pill="fantasy" type="button">Fantasy</button><button aria-pressed="false" data-category-pill="halloween" type="button">Halloween</button><button aria-pressed="false" data-category-pill="masquerade" type="button">Masquerade</button>
+</div>
+<div class="filters">
+<div class="field">
+<label for="search-costumes">Find a look</label><input autocomplete="off" class="control" id="search-costumes" placeholder="Try Crimson, Frost, Vampire…" type="search"/>
+</div>
+<div class="field">
+<label for="filter-category">Collection</label><select class="control" id="filter-category">
+<option value="all">All collections</option>
+<option value="medieval">Royal &amp; medieval</option>
+<option value="gothic">Dark romance</option>
+<option value="winter">Winter</option>
+<option value="fantasy">Fantasy</option>
+<option value="halloween">Halloween</option>
+<option value="masquerade">Masquerade</option>
+</select>
+</div>
+<div class="field">
+<label for="sort-costumes">Sort by</label><select class="control" id="sort-costumes">
+<option value="curated">Curated edit</option>
+<option value="price-up">Price: low to high</option>
+<option value="price-down">Price: high to low</option>
+<option value="name">Name: A to Z</option>
+</select>
+</div>
+<div class="field" style="padding-bottom: 15px">
+<label class="checkbox-label"><input id="saved-only" type="checkbox"/> Saved only ♡</label>
+</div>
+</div>
+<div class="catalog-bar">
+<span aria-live="polite" id="result-count" role="status">Showing all pieces</span><button id="reset-filters" type="button">Clear all filters ↗</button>
+</div>
+<div class="product-grid" id="product-grid"></div>
+</section>
+<section class="section wrap center" style="padding-top: 0">
+<p class="eyebrow">A PERFECT FIT FOR THE MOMENT</p>
+<h2>Find your next costume.</h2>
+<a class="btn outline" href="rent.html">Explore the rental process ↗</a>
+</section>
+</main>
+<footer class="footer">
+<div class="wrap">
+<div class="footer-top">
+<div>
+<a class="brand" href="index.html">MASQUERADE<span>&amp;</span>MOON</a>
+<p>Curated costumes for masquerades, themed events and photoshoots. Explore 24 looks and save your favorites.</p>
+</div>
+<div>
+<h4>Explore</h4>
+<nav aria-label="Explore">
+<a href="index.html">Home</a><a href="catalog.html">Collection</a><a href="rent.html">Rent</a>
+</nav>
+</div>
+<div>
+<h4>Discover</h4>
+<nav aria-label="Discover">
+<a href="events.html">Inspiration</a><a href="about.html">Our story</a><a href="contact.html">Contact</a><a href="index.html#guestbook">Reviews</a>
+</nav>
+</div>
+<div>
+<h4>Account</h4>
+<nav aria-label="Account">
+<a href="signup.html">Create an account</a><a href="login.html">Log in</a><a href="profile.html">Your wardrobe</a>
+</nav>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© <span id="year">2026</span> MASQUERADE &amp; MOON · THE COSTUME ATELIER</span><span>FRONT-END CONCEPT STORE · NO REAL BOOKINGS</span>
+</div>
+</div>
+</footer>
+<div aria-live="polite" class="toast" id="toast" role="status"></div>
+<dialog aria-label="Costume details" class="modal" id="look-dialog">
+<button aria-label="Close details" class="modal-close" id="close-dialog" type="button">×</button>
+<div class="modal-inner" id="dialog-content"></div>
+</dialog>
+</body>
 </html>

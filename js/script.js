@@ -1,199 +1,269 @@
 'use strict';
+
 (() => {
+  
   const PRODUCTS = [
     {
       id: 1,
-      name: 'The Crimson Countess',
+      name: 'The Storybook Princess',
       category: 'medieval',
-      label: 'Royal',
-      price: 12000,
-      detail: 'An entrance made for grand halls and dramatic stories.',
-      includes: 'Crimson gown · flowing sleeves',
-      image: 'images/item-1.jpg'
+      label: 'Fairytale',
+      price: 15500,
+      detail: 'A velvet-and-gold fairytale gown with puffed sleeves and a storybook white collar.',
+      includes: 'Royal-blue velvet bodice \u00b7 puffed sleeves \u00b7 golden satin skirt',
+      image: 'images/look-storybook-princess.jpg'
     },
     {
       id: 2,
-      name: 'Moonlit Knight',
+      name: 'The Midnight Ballgown',
       category: 'medieval',
-      label: 'Medieval',
-      price: 14000,
-      detail: 'Armor, winter light, and the promise of an epic adventure.',
-      includes: 'Knight-inspired ensemble · cloak',
-      image: 'images/item-2.jpg'
+      label: 'Fairytale',
+      price: 17500,
+      detail:
+        'A shimmering ice-blue ballgown with a lace-embroidered bodice, made for midnight at the palace.',
+      includes: 'Shimmer organza ballgown \u00b7 puffed sleeves \u00b7 satin opera gloves',
+      image: 'images/look-midnight-ballgown.jpg'
     },
     {
       id: 3,
-      name: 'Golden Court',
+      name: 'The Gilded Prince',
       category: 'medieval',
       label: 'Royal',
-      price: 16000,
-      detail: 'The warmth of candlelight captured in gold.',
-      includes: 'Gold gown · matching fan',
-      image: 'images/item-3.jpg'
+      price: 18500,
+      detail: 'A golden court coat for an entrance that silences the orchestra.',
+      includes:
+        'Gold brocade coat \u00b7 waistcoat \u00b7 velvet cape \u00b7 lace jabot \u00b7 gilded mask',
+      image: 'images/look-gilded-prince.jpg'
     },
     {
       id: 4,
-      name: 'The Night Count',
-      category: 'gothic',
-      label: 'Gothic',
-      price: 13500,
-      detail: 'An aristocratic shadow from the streets of the old city.',
-      includes: 'Tailored suit · burgundy waistcoat · cape',
-      image: 'images/item-4.jpg'
+      name: 'The Amber Empress',
+      category: 'medieval',
+      label: 'Royal',
+      price: 16500,
+      detail: 'A burnt-gold velvet gown with lace overlays and a jewelled crown mask.',
+      includes: 'Amber velvet gown \u00b7 gold lace sleeves \u00b7 crown mask',
+      image: 'images/look-amber-empress.jpg'
     },
     {
       id: 5,
-      name: 'The Haunted Bride',
-      category: 'halloween',
-      label: 'Halloween',
-      price: 13000,
-      detail: 'A dark bridal story with ghostly, theatrical details.',
-      includes: 'White bridal costume · veil',
-      image: 'images/item-5.jpg'
+      name: 'The Black Rose Widow',
+      category: 'gothic',
+      label: 'Dark romance',
+      price: 14500,
+      detail: 'Mourning lace, black velvet and a crown of roses: grief dressed as couture.',
+      includes: 'Black lace gown \u00b7 tulle veil \u00b7 black rose crown \u00b7 lace gloves',
+      image: 'images/look-black-rose-widow.jpg'
     },
     {
       id: 6,
-      name: 'Velvet Vampire',
+      name: 'The Lady Reaper',
       category: 'gothic',
-      label: 'Gothic',
-      price: 11500,
-      detail: 'Soft burgundy velvet, gothic romance, and a little danger.',
-      includes: 'Burgundy velvet gown · bell sleeves',
-      image: 'images/item-6.jpg'
+      label: 'Dark romance',
+      price: 15900,
+      detail: 'A hooded gown of lace and velvet, with an hourglass at the waist and time on her side.',
+      includes: 'Hooded black gown \u00b7 hourglass chain \u00b7 skeletal gloves \u00b7 scythe',
+      image: 'images/look-lady-reaper.jpg'
     },
     {
       id: 7,
-      name: 'The Blue Yule',
-      category: 'winter',
-      label: 'Winter',
-      price: 10000,
-      detail: 'An unconventional Santa-inspired costume in deep winter blue.',
-      includes: 'Festive blue suit · hat',
-      image: 'images/item-7.jpg'
+      name: 'The Bat Lord',
+      category: 'gothic',
+      label: 'Vampire',
+      price: 17900,
+      detail: 'A vampire aristocrat in oxblood brocade, bat-wing armour and ruby details.',
+      includes:
+        'Brocade waistcoat \u00b7 velvet cape \u00b7 bat mask \u00b7 bat-wing shoulders \u00b7 clawed gloves',
+      image: 'images/look-bat-lord.jpg'
     },
     {
       id: 8,
-      name: 'Snow Queen',
-      category: 'winter',
-      label: 'Winter',
-      price: 15000,
-      detail: 'An ice-blue silhouette made for a wintry fairytale.',
-      includes: 'Ice-blue dress · cape',
-      image: 'images/item-8.jpg'
+      name: 'The Phantom',
+      category: 'gothic',
+      label: 'Dark romance',
+      price: 12500,
+      detail: 'A mysterious presence, dressed entirely in shadow.',
+      includes: 'Black cape \u00b7 silver brocade waistcoat \u00b7 satin bow tie \u00b7 white half mask',
+      image: 'images/look-phantom.jpg'
     },
     {
       id: 9,
-      name: 'Forest Elf',
+      name: 'The Frost Empress',
       category: 'winter',
-      label: 'Fantasy',
-      price: 9500,
-      detail: 'A delicate woodland look with a touch of magic.',
-      includes: 'Green fantasy dress · accessories',
-      image: 'images/item-9.jpg'
+      label: 'Winter',
+      price: 18500,
+      detail: 'Snowflake lace, white fur and an ice-crystal crown for the ruler of endless winter.',
+      includes: 'Silver lace gown \u00b7 fur-trimmed cape \u00b7 ice crown \u00b7 beaded collar',
+      image: 'images/look-frost-empress.jpg'
     },
     {
       id: 10,
-      name: 'Burgundy Reverie',
-      category: 'gothic',
-      label: 'Gothic',
-      price: 11000,
-      detail: 'A rich velvet silhouette for a romantic evening after dark.',
-      includes: 'Burgundy evening gown',
-      image: 'images/item-10.jpg'
+      name: 'The Winter Prince',
+      category: 'winter',
+      label: 'Winter',
+      price: 15500,
+      detail: 'Sapphire velvet and soft white fur for a prince of the first snow.',
+      includes: 'Hooded velvet cape \u00b7 brocade waistcoat \u00b7 lace jabot \u00b7 velvet gloves',
+      image: 'images/look-winter-prince.jpg'
     },
     {
       id: 11,
-      name: 'The Phantom',
-      category: 'halloween',
-      label: 'Halloween',
-      price: 12500,
-      detail: 'A mysterious presence, dressed entirely in shadow.',
-      includes: 'Black cloak · white mask · gloves',
-      image: 'images/item-11.jpg'
+      name: 'The Yuletide Elf',
+      category: 'winter',
+      label: 'Festive',
+      price: 11500,
+      detail: 'Holly embroidery, a jingling cloak and a very long hat: Christmas, but make it theatre.',
+      includes: 'Green velvet coat \u00b7 red cape \u00b7 elf hat \u00b7 bell boots',
+      image: 'images/look-yuletide-elf.jpg'
     },
     {
       id: 12,
-      name: 'The Gilded Mask',
-      category: 'accessories',
-      label: 'Accessory',
-      price: 6500,
-      detail: 'A minimal golden mask that transforms any outfit.',
-      includes: 'Metallic gold mask',
-      image: 'images/item-12.jpg'
+      name: 'The Royal Reindeer',
+      category: 'winter',
+      label: 'Festive',
+      price: 13900,
+      detail: 'A woodland reindeer in a fur-trimmed royal cape, with bells and a scarlet scarf.',
+      includes: 'Reindeer suit with antlers \u00b7 velvet cape \u00b7 scarf \u00b7 bell collar',
+      image: 'images/look-royal-reindeer.jpg'
     },
     {
       id: 13,
-      name: 'The Sunburst Masque',
-      category: 'accessories',
-      label: 'Accessory',
-      price: 7200,
-      detail: 'Theater and Venetian glamour in one elaborate face piece.',
-      includes: 'Decorative sunburst mask',
-      image: 'images/about-main.jpg'
+      name: 'The Forest Sovereign',
+      category: 'fantasy',
+      label: 'Fantasy',
+      price: 17000,
+      detail:
+        'A velvet hooded cloak, oak-leaf shoulders and a golden laurel crown for the queen of the woods.',
+      includes:
+        'Hooded cloak \u00b7 leaf-embroidered corset \u00b7 leaf skirt \u00b7 laurel crown \u00b7 gloves',
+      image: 'images/look-forest-sovereign.jpg'
     },
     {
       id: 14,
-      name: 'The Shadow Visitor',
-      category: 'halloween',
-      label: 'Halloween',
-      price: 10500,
-      detail: 'A dark, unsettling character from a midnight tale.',
-      includes: 'Nosferatu-inspired character styling',
-      image: 'images/cat-dracula.jpg'
+      name: 'The Glade Fairy',
+      category: 'fantasy',
+      label: 'Fantasy',
+      price: 16000,
+      detail: 'Iridescent wings and pastel tulle, as if the dress had grown from flowers.',
+      includes:
+        'Fairy wings \u00b7 velvet corset gown \u00b7 sheer sleeves and gloves \u00b7 pearl necklace',
+      image: 'images/look-glade-fairy.jpg'
     },
     {
       id: 15,
-      name: 'The Armored Visor',
-      category: 'accessories',
-      label: 'Accessory',
-      price: 6900,
-      detail: 'A sculptural helmet for a knightly fantasy.',
-      includes: 'Decorative medieval-style helmet',
-      image: 'images/cat-medieval.jpg'
+      name: 'The Astral Sage',
+      category: 'fantasy',
+      label: 'Fantasy',
+      price: 16500,
+      detail: 'A starfield robe, a runic belt and a beard worth a thousand years.',
+      includes:
+        'Galaxy velvet robe \u00b7 constellation cloak \u00b7 runic belt \u00b7 long beard \u00b7 gloves',
+      image: 'images/look-astral-sage.jpg'
     },
     {
       id: 16,
-      name: 'Venetian Reverie',
-      category: 'masquerade',
-      label: 'Masquerade',
-      price: 14900,
-      detail: 'Old-world carnival romance in embroidered, theatrical costume.',
-      includes: 'Venetian carnival-inspired ensemble',
-      image: 'images/catalog-bg.jpg'
+      name: 'The Moonlit Sentinel',
+      category: 'fantasy',
+      label: 'Fantasy',
+      price: 18000,
+      detail: 'Silver moon armour and a starry navy cape for the knight who guards the night.',
+      includes:
+        'Moon-crest armour \u00b7 constellation cape \u00b7 crescent belt \u00b7 silver mask \u00b7 gloves',
+      image: 'images/look-moonlit-sentinel.jpg'
     },
     {
       id: 17,
-      name: 'Saffron Empress',
-      category: 'medieval',
-      label: 'Royal',
-      price: 14500,
-      detail: 'A golden-yellow gown that brings every room to life.',
-      includes: 'Yellow statement gown',
-      image: 'images/event-img-3.jpg'
+      name: 'The Ashen Bride',
+      category: 'halloween',
+      label: 'Halloween',
+      price: 13000,
+      detail: 'A ghostly bride in dusty lace, thorned roses and a veil of ash.',
+      includes: 'Distressed lace gown \u00b7 long veil \u00b7 dark rose crown \u00b7 lace mask',
+      image: 'images/look-ashen-bride.jpg'
     },
     {
       id: 18,
-      name: 'Midnight Tiara',
-      category: 'accessories',
-      label: 'Accessory',
-      price: 3900,
-      detail: 'A sparkling finishing touch for a royal-inspired look.',
-      includes: 'Silver statement tiara',
-      image: 'images/rent-bg.jpg'
+      name: 'The Hollow Wraith',
+      category: 'halloween',
+      label: 'Halloween',
+      price: 14000,
+      detail: 'A hooded spectre in torn velvet and chains, hiding behind a horned mask.',
+      includes:
+        'Hooded velvet cloak \u00b7 horned mask \u00b7 tattered layers \u00b7 clawed gloves \u00b7 chain belt',
+      image: 'images/look-hollow-wraith.jpg'
     },
     {
       id: 19,
-      name: 'Gilded Ribbons',
-      category: 'accessories',
-      label: 'Accessory',
-      price: 2900,
-      detail: 'A golden finishing touch for an enchanting masquerade look.',
-      includes: 'Golden decorative ribbons · styling accents',
-      image: 'images/event-img-2.jpg'
+      name: 'The Red Balloon Clown',
+      category: 'halloween',
+      label: 'Halloween',
+      price: 12000,
+      detail: 'A grey carnival clown with red pompoms, one red balloon and a very bad feeling.',
+      includes:
+        'Grey satin clown suit \u00b7 ruffled collar \u00b7 red pompoms \u00b7 balloon \u00b7 lace-up boots',
+      image: 'images/look-red-balloon-clown.jpg'
+    },
+    {
+      id: 20,
+      name: 'The Velvet Harlequin',
+      category: 'halloween',
+      label: 'Halloween',
+      price: 14500,
+      detail: 'A diamond-patterned court jester in burgundy velvet behind a grinning porcelain mask.',
+      includes:
+        'Jester hat with tassels \u00b7 porcelain mask \u00b7 harlequin tunic \u00b7 velvet cape \u00b7 jingle shoes',
+      image: 'images/look-velvet-harlequin.jpg'
+    },
+    {
+      id: 21,
+      name: 'The Venetian Duchess',
+      category: 'masquerade',
+      label: 'Masquerade',
+      price: 19500,
+      detail:
+        'Velvet, brocade and gold lace beneath a starlit veil: the Carnival of Venice, reimagined.',
+      includes:
+        'Velvet ballgown \u00b7 brocade skirt \u00b7 feathered mask \u00b7 crown \u00b7 starlit veil \u00b7 lace gloves',
+      image: 'images/look-venetian-duchess.jpg'
+    },
+    {
+      id: 22,
+      name: 'The Crimson Masquerade',
+      category: 'masquerade',
+      label: 'Masquerade',
+      price: 15500,
+      detail: 'Burgundy velvet, black lace and gold embroidery for the last dance of the night.',
+      includes: 'Velvet gown \u00b7 black lace overskirt \u00b7 lace sleeves \u00b7 crimson mask',
+      image: 'images/look-crimson-masquerade.jpg'
+    },
+    {
+      id: 23,
+      name: 'The Midnight Butterfly',
+      category: 'masquerade',
+      label: 'Masquerade',
+      price: 16900,
+      detail: 'Sapphire velvet and a silver butterfly mask that looks ready to take flight.',
+      includes:
+        'Sapphire velvet gown \u00b7 black lace layers \u00b7 butterfly mask \u00b7 feather \u00b7 lace gloves',
+      image: 'images/look-midnight-butterfly.jpg'
+    },
+    {
+      id: 24,
+      name: "The Doge's Shadow",
+      category: 'masquerade',
+      label: 'Masquerade',
+      price: 17500,
+      detail:
+        'A Venetian nobleman behind a gilded long-nose mask, in burgundy brocade and a tricorn hat.',
+      includes:
+        'Tricorn hat \u00b7 long-nose mask \u00b7 brocade coat \u00b7 breeches \u00b7 velvet cape \u00b7 lace jabot',
+      image: 'images/look-doges-shadow.jpg'
     }
   ];
+  
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+
   const get = (key, fallback) => {
     try {
       const value = JSON.parse(localStorage.getItem('mm_final_' + key));
@@ -202,6 +272,7 @@
       return fallback;
     }
   };
+
   const put = (key, value) => {
     try {
       localStorage.setItem('mm_final_' + key, JSON.stringify(value));
@@ -210,16 +281,19 @@
       return false;
     }
   };
+
   const escapeHTML = (value) =>
     String(value ?? '').replace(
       /[&<>"']/g,
       (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]
     );
   const money = (price) => '₸ ' + Number(price).toLocaleString('en-US');
+
   const getUsers = () => {
     const users = get('users', []);
-    return Array.isArray(users) ? users.filter((user) => user && typeof user.email === 'string') : [];
+    return Array.isArray(users) ? users.filter((user) => user && typeof user.email === 'string' && typeof user.salt === 'string' && typeof user.passwordHash === 'string') : [];
   };
+
   const currentUser = () => {
     const email = get('session', null);
     return getUsers().find((user) => user.email === email) || null;
@@ -239,6 +313,7 @@
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => node.classList.remove('visible'), 3000);
   }
+
   function updateHeader() {
     const account = $('#account-link'),
       mobile = $('#mobile-account-link');
@@ -253,6 +328,7 @@
       mobile.textContent = currentUser() ? 'My profile' : 'Account / Log in';
     }
   }
+
   function initializeTheme() {
     const theme = get('theme', 'dark');
     document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
@@ -303,6 +379,7 @@
     const year = $('#year');
     if (year) year.textContent = String(new Date().getFullYear());
   }
+
   function cardMarkup(product) {
     const saved = favoriteIds().includes(product.id);
     return (
@@ -316,7 +393,7 @@
       product.image +
       '" alt="' +
       escapeHTML(product.name) +
-      '" width="460" height="575" loading="lazy"></button><span class="product-tag">' +
+      '" width="600" height="800" loading="lazy"></button><span class="product-tag">' +
       escapeHTML(product.label) +
       '</span><button class="fav-btn" type="button" data-action="favorite" data-id="' +
       product.id +
@@ -342,10 +419,11 @@
   function renderFeatured() {
     const container = $('#featured-grid');
     if (container)
-      container.innerHTML = [1, 6, 8, 17]
+      container.innerHTML = [1, 6, 10, 24]
         .map((id) => cardMarkup(PRODUCTS.find((item) => item.id === id)))
         .join('');
   }
+  
   function renderCatalog() {
     const container = $('#product-grid');
     if (!container) return;
@@ -392,6 +470,7 @@
     if (location.search) history.replaceState(null, '', location.pathname);
     renderCatalog();
   }
+  
   function initCatalog() {
     if (!$('#product-grid')) return;
     const params = new URLSearchParams(location.search),
@@ -440,11 +519,16 @@
     syncPills();
     renderCatalog();
   }
+
+  function renderProductCounts() {
+    $$('[data-product-count]').forEach((node) => (node.textContent = String(PRODUCTS.length)));
+  }
   function updateCards() {
     if ($('#product-grid')) renderCatalog();
     if ($('#featured-grid')) renderFeatured();
     if ($('#profile-favorites')) renderProfile();
   }
+
   function toggleFavorite(id) {
     if (!PRODUCTS.some((p) => p.id === id)) return;
     const favorites = favoriteIds(),
@@ -458,11 +542,26 @@
         : 'Look removed from your saved collection.'
     );
   }
+
   function showDetails(id) {
     const product = PRODUCTS.find((p) => p.id === id),
       modal = $('#look-dialog');
     if (!product || !modal) return;
     const saved = favoriteIds().includes(id);
+    const note = getReviews().find((review) => String(review.topic) === String(id));
+    const noteMarkup = note
+      ? '<blockquote class="modal-review">' +
+        '<span aria-label="' +
+        note.rating +
+        ' out of 5 stars">' +
+        '★'.repeat(note.rating) +
+        '☆'.repeat(5 - note.rating) +
+        '</span><p>“' +
+        escapeHTML(note.comment) +
+        '”</p><cite>— ' +
+        escapeHTML(note.name) +
+        '</cite></blockquote>'
+      : '';
     const related = PRODUCTS.filter((p) => p.category === product.category && p.id !== id).slice(0, 2);
     const suggestions = related.length
       ? '<div class="modal-related"><span class="eyebrow">YOU MIGHT ALSO LOVE</span>' +
@@ -500,6 +599,7 @@
       '">' +
       (saved ? '♥ Saved' : '♡ Save look') +
       '</button></div>' +
+      noteMarkup +
       suggestions +
       '</div>';
     const visited = get('visited', []);
@@ -552,12 +652,15 @@
     initCatalog();
     renderRecent();
   }
+  
   const validEmail = (value) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(value).trim()) && String(value).trim().length <= 254;
+
   const validPhone = (value) => {
     const digits = String(value).replace(/\D/g, '');
     return digits.length >= 10 && digits.length <= 15 && /^\+?[\d\s()\-]+$/.test(value);
   };
+
   const validPassword = (value) =>
     String(value).length >= 8 &&
     /[A-Z]/.test(value) &&
@@ -579,6 +682,7 @@
     const status = $('.form-status', form);
     if (status) status.textContent = '';
   }
+  
   function validate(form, rules) {
     let firstInvalid = null;
     for (const [name, test, message] of rules) {
@@ -642,7 +746,7 @@
       event.preventDefault();
       clearErrors(form);
       const rules = [
-        ['name', (v) => v.length >= 2, 'Enter your name (at least 2 characters).'],
+        ['name', (v) => v.length >= 2 && v.length <= 80, 'Enter your name (2–80 characters).'],
         ['email', validEmail, 'Enter a valid email address.'],
         ['phone', validPhone, 'Use 10–15 digits, optionally with + and spaces.'],
         ['password', validPassword, 'Use 8+ characters, uppercase, lowercase, number and symbol.'],
@@ -651,7 +755,7 @@
       if (!validate(form, rules)) return;
       const users = getUsers();
       const email = formValue(form, 'email').toLowerCase();
-      if (users.some((u) => u.email === email)) {
+      if (users.some((u) => u.email?.toLowerCase() === email)) {
         setError(form, 'email', 'An account already exists with this email.');
         form.elements.namedItem('email').focus();
         return;
@@ -675,19 +779,22 @@
           createdAt: new Date().toISOString()
         };
         if (!put('users', [...users, user]) || !put('session', email)) throw Error('Storage is blocked');
-        location.href = 'profile.html';
       } catch {
         status(form, 'Could not save this account on your device. Check storage permissions.');
         button.disabled = false;
         button.textContent = 'Create my account →';
+        return;
       }
+      location.href = 'profile.html';
     });
   }
+
   async function hashPassword(password, salt) {
     const raw = new TextEncoder().encode(salt + ':' + password);
     const digest = await crypto.subtle.digest('SHA-256', raw);
     return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, '0')).join('');
   }
+
   function setupLogin() {
     const form = $('#login-form');
     if (!form) return;
@@ -706,7 +813,7 @@
       )
         return;
       const email = formValue(form, 'email').toLowerCase();
-      const user = getUsers().find((u) => u.email === email);
+      const user = getUsers().find((u) => u.email?.toLowerCase() === email);
       if (!user) {
         setError(form, 'email', 'No local account matches this email.');
         return;
@@ -718,12 +825,14 @@
           return;
         }
         if (!put('session', email)) throw Error('Storage is blocked');
-        location.href = 'profile.html';
       } catch {
         status(form, 'Unable to sign in. Please open the HTTPS hosted site and enable local storage.');
+        return;
       }
+      location.href = 'profile.html';
     });
   }
+
   function initRental() {
     const form = $('#rental-form');
     if (!form) return;
@@ -747,7 +856,7 @@
       clearErrors(form);
       const rules = [
         ['look', (v) => PRODUCTS.some((p) => String(p.id) === v), 'Select a costume.'],
-        ['name', (v) => v.length >= 2, 'Enter your name.'],
+        ['name', (v) => v.length >= 2 && v.length <= 80, 'Enter your name (2–80 characters).'],
         ['email', validEmail, 'Enter a valid email address.'],
         ['phone', validPhone, 'Use 10–15 digits, optionally with + and spaces.'],
         [
@@ -816,10 +925,10 @@
       clearErrors(form);
       if (
         !validate(form, [
-          ['name', (v) => v.length >= 2, 'Enter your name.'],
+          ['name', (v) => v.length >= 2 && v.length <= 80, 'Enter your name (2–80 characters).'],
           ['email', validEmail, 'Enter a valid email address.'],
           ['phone', validPhone, 'Use 10–15 digits, optionally with + and spaces.'],
-          ['message', (v) => v.length >= 15, 'Write at least 15 characters.']
+          ['message', (v) => v.length >= 15 && v.length <= 2000, 'Write between 15 and 2,000 characters.']
         ])
       )
         return;
@@ -849,6 +958,7 @@
       toast('Message saved on this device.');
     });
   }
+
   function renderProfile() {
     const panel = $('#profile-content');
     if (!panel) return;
@@ -856,11 +966,13 @@
     if (!user) {
       panel.innerHTML =
         '<div class="profile-guest">' +
-        '<div class="profile-guest-copy"><p class="eyebrow">A PRIVATE LITTLE UNIVERSE</p><h1>Your own <em>wardrobe.</em></h1>' +
-        '<p class="body-copy">A space for every character you love. Create an account to keep your saved looks and rental previews together.</p>' +
+        '<div class="profile-guest-copy"><p class="eyebrow">YOUR ACCOUNT</p><h1>Your saved <em>looks.</em></h1>' +
+        '<p class="body-copy">Create a local account to save favorite costumes and view your rental planning requests.</p>' +
         '<div class="cta-row"><a class="btn" href="signup.html">Create an account ↗</a><a class="btn outline" href="login.html">Log in</a></div>' +
-        '<p class="form-note">This is a demo account stored only in your browser.</p></div>' +
-        '<div class="profile-guest-photo"><img src="images/item-12.jpg" alt="Masquerade costume from the collection"></div></div>';
+        '<p class="form-note">Demo account details are stored only in this browser.</p></div>' +
+        '<div class="profile-guest-photo"><img src="' +
+        PRODUCTS[21].image +
+        '" alt="A costume from the collection"></div></div>';
       return;
     }
     const saved = favoriteIds()
@@ -871,7 +983,7 @@
       (req) => req.email === user.email
     );
     const firstName = user.name.trim().split(' ')[0];
-    const picture = saved[0]?.image || 'images/item-1.jpg';
+    const picture = saved[0]?.image || PRODUCTS[21].image;
     const savedMarkup = saved.length
       ? saved
           .map(
@@ -898,7 +1010,7 @@
               ' from saved looks">Remove</button></div>'
           )
           .join('')
-      : '<div class="profile-empty"><p>No saved looks yet. Find a character you love and tap the heart on its card.</p>' +
+      : '<div class="profile-empty"><p>No saved looks yet. Browse the collection and select the heart on a costume card.</p>' +
         '<a class="btn outline" href="catalog.html">Explore the collection ↗</a></div>';
     const requestMarkup = requests.length
       ? requests
@@ -906,7 +1018,7 @@
             const product = PRODUCTS.find((item) => item.id === req.look);
             return (
               '<div class="profile-row"><img src="' +
-              escapeHTML(product?.image || 'images/item-1.jpg') +
+              escapeHTML(product?.image || PRODUCTS[0].image) +
               '" alt="" loading="lazy">' +
               '<div class="profile-row-info"><strong>' +
               escapeHTML(product?.name || 'Costume') +
@@ -920,14 +1032,14 @@
             );
           })
           .join('')
-      : '<div class="profile-empty"><p>No rental previews saved yet. Find an occasion worth dressing up for.</p>' +
+      : '<div class="profile-empty"><p>You have no rental previews saved yet.</p>' +
         '<a class="text-link" href="rent.html">Plan a look ↗</a></div>';
     panel.innerHTML =
       '<div class="profile-dashboard-head"><div class="profile-dashboard-intro">' +
-      '<p class="eyebrow">THE INNER CIRCLE / YOUR ACCOUNT</p><h1>Welcome, <em>' +
+      '<p class="eyebrow">MY ACCOUNT</p><h1>Welcome, <em>' +
       escapeHTML(firstName) +
       '.</em></h1>' +
-      '<p>Your characters, saved stories, and plans — all in one place.</p>' +
+      '<p>Your saved costumes and rental requests in one place.</p>' +
       '<div class="profile-shortcuts"><a href="#saved-section"><strong>' +
       saved.length +
       '</strong> saved looks ↓</a>' +
@@ -937,7 +1049,7 @@
       '<div class="profile-dashboard-art"><img src="' +
       escapeHTML(picture) +
       '" alt="A featured look from the wardrobe">' +
-      '<span>THE ART OF BECOMING</span></div></div>' +
+      '<span>THE COSTUME COLLECTION</span></div></div>' +
       '<div class="profile-sections"><section class="profile-panel profile-details">' +
       '<p class="eyebrow">YOUR DETAILS</p><h2>My account.</h2><dl>' +
       '<dt>Full name</dt><dd>' +
@@ -950,7 +1062,7 @@
       escapeHTML(user.phone) +
       '</dd></dl>' +
       '<button type="button" class="profile-logout" id="logout-button">Log out ↗</button>' +
-      '<p class="form-note">This is a local demo account. Data stays in this browser.</p></section>' +
+      '<p class="form-note">Account data is stored only in this browser.</p></section>' +
       '<section class="profile-panel" id="saved-section"><div class="profile-panel-head">' +
       '<div><p class="eyebrow">YOUR COLLECTION</p><h2>Saved looks.</h2></div>' +
       '<a class="text-link" href="catalog.html">Browse all ↗</a></div>' +
@@ -978,255 +1090,154 @@
       })
     );
   }
+  
+  const museumCollection = [
+    {
+      "id": 159244,
+      "title": "Dress",
+      "date": "ca. 1855",
+      "creator": "American",
+      "image": "images/museum/met-159244.webp",
+      "url": "https://www.metmuseum.org/art/collection/search/159244",
+      "type": "DRESS"
+    },
+    {
+      "id": 159482,
+      "title": "Dress",
+      "date": "1886–88",
+      "creator": "American",
+      "image": "images/museum/met-159482.webp",
+      "url": "https://www.metmuseum.org/art/collection/search/159482",
+      "type": "DRESS"
+    },
+    {
+      "id": 65723,
+      "title": "Costume",
+      "date": "19th century",
+      "creator": "Japan",
+      "image": "images/museum/met-65723.webp",
+      "url": "https://www.metmuseum.org/art/collection/search/65723",
+      "type": "COSTUME"
+    },
+    {
+      "id": 112525,
+      "title": "Costume",
+      "date": "1850–1900",
+      "creator": "",
+      "image": "images/museum/met-112525.webp",
+      "url": "https://www.metmuseum.org/art/collection/search/112525",
+      "type": "COSTUME"
+    },
+    {
+      "id": 22739,
+      "title": "Mask",
+      "date": "dated 1745",
+      "creator": "Myōchin Muneakira",
+      "image": "images/museum/met-22739.webp",
+      "url": "https://www.metmuseum.org/art/collection/search/22739",
+      "type": "MASK"
+    },
+    {
+      "id": 310350,
+      "title": "Mask",
+      "date": "19th century",
+      "creator": "Romkun, Breri, or Igana people",
+      "image": "images/museum/met-310350.webp",
+      "url": "https://www.metmuseum.org/art/collection/search/310350",
+      "type": "MASK"
+    }
+  ];
+
+  function museumCard(item) {
+    const title = escapeHTML(item.title);
+    const type = escapeHTML(item.type);
+    const description = escapeHTML([item.creator, item.date].filter(Boolean).join(' · '));
+    return '<a class="archive-card museum-card" href="' + escapeHTML(item.url) +
+      '" target="_blank" rel="noopener noreferrer" data-museum-id="' + item.id + '">' +
+      '<div class="museum-artwork"><img src="' + escapeHTML(item.image) +
+      '" alt="' + title + ' — artwork from The Metropolitan Museum of Art" loading="lazy" decoding="async" width="600" height="700"></div>' +
+      '<div class="museum-card-copy"><p class="eyebrow">THE MET COLLECTION · ' + type +
+      '</p><h3>' + title + '</h3><p data-museum-description>' + description + '</p></div></a>';
+  }
+
   async function loadArchive() {
-    const grid = $('#archive-grid'),
-      loading = $('#archive-loading'),
-      error = $('#archive-error'),
-      retry = $('#archive-retry');
+    const grid = $('#archive-grid');
+    const loading = $('#archive-loading');
+    const error = $('#archive-error');
+    const retry = $('#archive-retry');
     if (!grid) return;
-    grid.replaceChildren();
-    loading.hidden = false;
+
+    grid.innerHTML = museumCollection.map(museumCard).join('');
     error.hidden = true;
     retry.hidden = true;
+    loading.hidden = false;
+    loading.textContent = 'Checking live collection details…';
+
+    $$('.museum-card img', grid).forEach(image => {
+      image.addEventListener('error', () => {
+        image.closest('.museum-card')?.remove();
+        if (!grid.querySelector('.museum-card')) {
+          error.textContent = 'Artwork photographs could not be loaded. Please reload the page.';
+          error.hidden = false;
+        }
+      }, { once: true });
+    });
+
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 12000);
+    const timeout = setTimeout(() => controller.abort(), 10000);
     try {
-      const params = new URLSearchParams({
-        q: 'mask',
-        limit: '50',
-        fields: 'id,title,image_id,is_public_domain,artist_display,date_display'
+      const updated = await Promise.allSettled(museumCollection.map(async item => {
+        const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/objects/' + item.id, {
+          signal: controller.signal
+        });
+        if (!response.ok) throw new Error('Museum HTTP ' + response.status);
+        const details = await response.json();
+        if (Number(details.objectID) !== item.id || !details.isPublicDomain) {
+          throw new Error('Artwork metadata does not match the image');
+        }
+        return {
+          id: item.id,
+          title: typeof details.title === 'string' && details.title ? details.title : item.title,
+          creator: details.artistDisplayName || details.culture || item.creator,
+          date: details.objectDate || item.date,
+          url: details.objectURL?.startsWith('https://www.metmuseum.org/') ? details.objectURL : item.url
+        };
+      }));
+
+      let successes = 0;
+      updated.forEach((result, i) => {
+        if (result.status !== 'fulfilled') return;
+        const data = result.value;
+        const card = grid.querySelector('[data-museum-id="' + data.id + '"]');
+        if (!card) return;
+        card.querySelector('h3').textContent = data.title;
+        card.querySelector('[data-museum-description]').textContent = [data.creator, data.date].filter(Boolean).join(' · ');
+        card.href = data.url;
+        card.querySelector('img').alt = data.title + ' — artwork from The Metropolitan Museum of Art';
+        successes++;
       });
-      const response = await fetch('https://api.artic.edu/api/v1/artworks/search?' + params.toString(), {
-        signal: controller.signal
-      });
-      if (!response.ok) throw new Error('Museum response ' + response.status);
-      const json = await response.json();
-      const items = (Array.isArray(json.data) ? json.data : [])
-        .filter(
-          (item) =>
-            item.is_public_domain === true &&
-            item.image_id &&
-            /^[a-z0-9-]+$/i.test(item.image_id) &&
-            Number.isInteger(item.id)
-        )
-        .slice(0, 6);
-      if (!items.length) throw new Error('No eligible artworks returned');
-      const base = 'https://www.artic.edu/iiif/2';
-      grid.innerHTML = items
-        .map((item) => {
-          const title = escapeHTML(item.title || 'Untitled artwork');
-          const imageUrl = base + '/' + item.image_id + '/full/600,/0/default.jpg';
-          const details = escapeHTML(
-            item.artist_display || item.date_display || 'Historical inspiration'
-          );
-          return (
-            '<a class="archive-card" href="https://www.artic.edu/artworks/' +
-            item.id +
-            '" target="_blank" rel="noopener noreferrer">' +
-            '<img src="' +
-            imageUrl +
-            '" alt="' +
-            title +
-            '" loading="lazy" decoding="async" width="600" height="450">' +
-            '<div><p class="eyebrow">ART INSTITUTE OF CHICAGO</p><h3>' +
-            title +
-            '</h3><p>' +
-            details +
-            '</p></div></a>'
-          );
-        })
-        .join('');
-      $$('img', grid).forEach((image) =>
-        image.addEventListener(
-          'error',
-          () => {
-            if (image.dataset.fallback) return;
-            image.dataset.fallback = 'true';
-            image.src = 'images/about-main.jpg';
-            image.alt =
-              'Masquerade-inspired image for an artwork whose picture is temporarily unavailable';
-          },
-          { once: true }
-        )
-      );
+      if (successes === 0) throw new Error('No live museum records available');
+      loading.textContent = 'Live details verified for ' + successes + ' of ' + museumCollection.length + ' artworks.';
+      if (successes < museumCollection.length) {
+        error.textContent = 'Some museum updates are unavailable. Matching photographs and saved details remain visible.';
+        error.hidden = false;
+        retry.hidden = false;
+      }
     } catch {
-      error.textContent =
-        'The live museum collection is unavailable right now. Please try again or explore the costume collection.';
+      error.textContent = 'Live museum updates are unavailable. Showing the saved collection with matching artwork photographs.';
       error.hidden = false;
       retry.hidden = false;
+      loading.textContent = '';
+      loading.hidden = true;
     } finally {
       clearTimeout(timeout);
-      loading.hidden = true;
     }
   }
+
   function initArchive() {
     if (!$('#archive-grid')) return;
     $('#archive-retry')?.addEventListener('click', loadArchive);
     loadArchive();
-  }
-
-  function initAlterEgo() {
-    const root = $('#quiz-stage');
-    if (!root) return;
-    const questions = [
-      {
-        title: 'Where does your story begin?',
-        prompt: 'Choose the world you would disappear into.',
-        choices: [
-          ['A candlelit royal ballroom', 'medieval'],
-          ['A castle after midnight', 'gothic'],
-          ['An enchanted winter garden', 'winter'],
-          ['A secret masked celebration', 'masquerade']
-        ]
-      },
-      {
-        title: 'Pick your signature detail.',
-        prompt: 'The little thing that makes the character yours.',
-        choices: [
-          ['A golden crown', 'medieval'],
-          ['A dramatic velvet cape', 'gothic'],
-          ['A shimmer of silver', 'winter'],
-          ['An ornate, mysterious mask', 'masquerade']
-        ]
-      },
-      {
-        title: 'What should they remember?',
-        prompt: 'Every unforgettable night leaves an impression.',
-        choices: [
-          ['The grand entrance', 'medieval'],
-          ['The beautiful mystery', 'gothic'],
-          ['The impossible magic', 'winter'],
-          ['The delicious secret', 'masquerade']
-        ]
-      }
-    ];
-    const titles = {
-      medieval: 'The Royal Dreamer',
-      gothic: 'The Midnight Romantic',
-      winter: 'The Winter Enchanter',
-      masquerade: 'The Beautiful Enigma'
-    };
-    const descriptions = {
-      medieval: 'An old-soul heroine with a flair for grand entrances and golden details.',
-      gothic: 'You belong to candlelight, velvet and the stories whispered after midnight.',
-      winter: 'There is a certain kind of magic in your quiet, otherworldly presence.',
-      masquerade: 'No one quite knows the whole story. That is your greatest charm.'
-    };
-    let step = 0,
-      answers = [];
-    const label = $('#quiz-step'),
-      title = $('#quiz-title'),
-      prompt = $('#quiz-prompt'),
-      options = $('#quiz-options'),
-      bar = $('#quiz-progress-fill'),
-      back = $('#quiz-back'),
-      visual = $('#quiz-visual-img'),
-      caption = $('#quiz-visual-caption'),
-      restart = $('#quiz-restart');
-    function showQuestion() {
-      const q = questions[step];
-      label.textContent = '0' + (step + 1) + ' / 03';
-      title.textContent = q.title;
-      prompt.textContent = q.prompt;
-      options.hidden = false;
-      options.innerHTML = q.choices
-        .map(
-          (c, i) =>
-            '<button type="button" class="quiz-option" data-choice="' +
-            i +
-            '"><span>0' +
-            (i + 1) +
-            '</span>' +
-            escapeHTML(c[0]) +
-            '<b aria-hidden="true">↗</b></button>'
-        )
-        .join('');
-      bar.style.width = (step / 3) * 100 + '%';
-      back.hidden = step === 0;
-      restart.hidden = true;
-      visual.src = 'images/cat-' + (['medieval', 'dracula', 'winter'][step] || 'medieval') + '.jpg';
-      visual.alt = 'Atmospheric costume collection';
-      caption.textContent = 'THE ART OF BECOMING';
-    }
-    function showResult() {
-      const totals = { medieval: 0, gothic: 0, winter: 0, masquerade: 0 };
-      answers.forEach((value) => {
-        totals[value]++;
-      });
-      const category = answers
-        .slice()
-        .reverse()
-        .reduce(
-          (winner, value) => (totals[value] > totals[winner] ? value : winner),
-          answers[answers.length - 1]
-        );
-      const found = PRODUCTS.filter((p) => p.category === category);
-      const pick = found[(new Date().getDate() + answers.length) % found.length];
-      put('quizResult', { productId: pick.id, category, date: new Date().toISOString() });
-      label.textContent = 'YOUR ALTER EGO / REVEALED';
-      title.textContent = titles[category];
-      prompt.textContent = descriptions[category];
-      options.innerHTML =
-        '<div class="quiz-answer"><span class="eyebrow">YOUR SIGNATURE LOOK</span><h4>' +
-        escapeHTML(pick.name) +
-        '</h4><p>' +
-        escapeHTML(pick.detail) +
-        '</p><div class="cta-row"><button type="button" class="btn" data-action="details" data-id="' +
-        pick.id +
-        '">Explore your look ↗</button><button type="button" class="btn outline" data-action="favorite" data-id="' +
-        pick.id +
-        '">♡ Save this look</button></div></div>';
-      bar.style.width = '100%';
-      visual.src = pick.image;
-      visual.alt = pick.name + ' costume';
-      caption.textContent = 'YOUR STORY STARTS HERE';
-      back.hidden = true;
-      restart.hidden = false;
-    }
-    options.addEventListener('click', (event) => {
-      const choice = event.target.closest('[data-choice]');
-      if (!choice) return;
-      const index = Number(choice.dataset.choice);
-      answers[step] = questions[step].choices[index][1];
-      step++;
-      if (step === questions.length) showResult();
-      else showQuestion();
-    });
-    back.addEventListener('click', () => {
-      if (step > 0) {
-        step--;
-        answers = answers.slice(0, step);
-        showQuestion();
-      }
-    });
-    restart.addEventListener('click', () => {
-      step = 0;
-      answers = [];
-      showQuestion();
-    });
-    showQuestion();
-  }
-  function initDailyMuse() {
-    const node = $('#daily-muse');
-    if (!node) return;
-    const day = Math.floor((Date.now() - new Date().getTimezoneOffset() * 60000) / 86400000);
-    const dailyLooks = PRODUCTS.filter((product) => product.category !== 'accessories');
-    const pick = dailyLooks[day % dailyLooks.length];
-    const label = $('#daily-muse-date');
-    if (label)
-      label.textContent = new Date().toLocaleDateString('en-US', {
-        weekday: 'long',
-        month: 'long',
-        day: 'numeric'
-      });
-    const picture = $('#daily-muse-image');
-    picture.src = pick.image;
-    picture.alt = pick.name + ' — today’s featured costume';
-    $('#daily-muse-name').textContent = pick.name;
-    $('#daily-muse-copy').textContent = pick.detail;
-    const link = $('#daily-muse-link');
-    link.href = 'rent.html?look=' + pick.id;
-    $('#daily-muse-explore').dataset.id = String(pick.id);
   }
 
   function getReviews() {
@@ -1239,11 +1250,17 @@
               typeof item.id === 'string' &&
               Number.isInteger(item.rating) &&
               item.rating >= 1 &&
-              item.rating <= 5
+              item.rating <= 5 &&
+              typeof item.name === 'string' &&
+              typeof item.comment === 'string' &&
+              item.name.length <= 60 &&
+              item.comment.length <= 550
           )
           .slice(0, 60)
       : [];
   }
+
+
   function renderGuestbook() {
     const list = $('#reviews-list');
     if (!list) return;
@@ -1255,22 +1272,23 @@
     const summary = $('#review-summary');
     if (summary) {
       const count = reviews.length;
-      if (!count) summary.textContent = 'No reviews on this device yet';
+      if (!count) summary.textContent = 'No reviews saved in this browser';
       else {
         const average = reviews.reduce((sum, item) => sum + item.rating, 0) / count;
         summary.textContent =
-          average.toFixed(1) + ' / 5 · ' + count + ' local ' + (count === 1 ? 'review' : 'reviews');
+          average.toFixed(1) + ' / 5 · ' + count + (count === 1 ? ' review' : ' reviews');
       }
     }
     if (!reviews.length) {
       list.innerHTML =
-        '<div class="guestbook-empty"><span class="guestbook-empty-mark" aria-hidden="true">✧</span><h3>Your story could be the first.</h3><p>No reviews have been saved on this device yet. Share what you think of the atelier.</p></div>';
+        '<div class="guestbook-empty"><span class="guestbook-empty-mark" aria-hidden="true">✧</span><h3>No reviews yet.</h3><p>Be the first to leave a review in this browser.</p></div>';
       return;
     }
     list.innerHTML = reviews
       .map((review) => {
         const product = PRODUCTS.find((item) => String(item.id) === String(review.topic));
-        const subject = product ? product.name : 'Atelier experience';
+        const subject =
+          product ? product.name : 'Atelier experience';
         const date = new Date(review.createdAt);
         const dateLabel = Number.isNaN(date.getTime())
           ? 'Recently'
@@ -1298,11 +1316,13 @@
           escapeHTML(review.id) +
           '" aria-label="Delete review by ' +
           escapeHTML(review.name) +
-          '">Delete</button></div></article>'
+          '">Delete</button>' +
+          '</div></article>'
         );
       })
       .join('');
   }
+
   function initGuestbook() {
     const form = $('#review-form');
     if (!form) return;
@@ -1393,12 +1413,13 @@
       counter.textContent = '0 / 500 characters';
       counter.classList.remove('over-limit');
       renderGuestbook();
-      status.textContent = 'Review saved on this device. Thank you for sharing your story.';
-      toast('Your review was added to your local guestbook.');
+      status.textContent = 'Review saved on this device. Thank you for your feedback.';
+      toast('Your review has been saved on this device.');
     });
     renderGuestbook();
   }
 
+  
   window.addEventListener('storage', (event) => {
     if (event.key?.startsWith('mm_final_')) {
       updateHeader();
@@ -1409,10 +1430,9 @@
   document.addEventListener('DOMContentLoaded', () => {
     initializeTheme();
     initializeNavigation();
+    renderProductCounts();
     updateHeader();
     initProducts();
-    initAlterEgo();
-    initDailyMuse();
     initPasswordVisibility();
     setupSignup();
     setupLogin();

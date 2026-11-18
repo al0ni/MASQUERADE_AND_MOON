@@ -1,16 +1,14 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta
-      name="description"
-      content="Sign into your browser-local Masquerade & Moon account to revisit your saved costumes."
-    />
-    <meta name="theme-color" content="#100f0f" />
-    <link rel="icon" href="images/item-12.jpg" type="image/jpeg" />
-    <title>Log in | Masquerade &amp; Moon</title>
-    <script>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Sign into your browser-local Masquerade &amp; Moon account to revisit your saved costumes." name="description"/>
+<meta content="#100f0f" name="theme-color"/>
+<link href="images/favicon.jpg" rel="icon" type="image/jpeg"/>
+<title>Log in | Masquerade &amp; Moon</title>
+<script>
       try {
         document.documentElement.dataset.theme =
           JSON.parse(localStorage.getItem('mm_final_theme')) === 'light' ? 'light' : 'dark';
@@ -18,147 +16,106 @@
         document.documentElement.dataset.theme = 'dark';
       }
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="css/style.css" />
-    <script src="js/script.js" defer></script>
-  </head>
-  <body>
-    <a class="skip-link" href="#main">Skip to content</a>
-    <div class="announcement">AN INVITATION TO BECOME SOMEONE ELSE · THE ATELIER IS OPEN</div>
-    <header class="header">
-      <div class="header-inner wrap">
-        <button
-          class="icon-button menu-button"
-          id="menu-toggle"
-          aria-label="Open menu"
-          aria-expanded="false"
-          aria-controls="mobile-menu"
-          type="button"
-        >
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="css/style.css" rel="stylesheet"/>
+<script defer="" src="js/script.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="announcement">COSTUMES FOR BALLS, PARTIES &amp; PHOTOSHOOTS · 24 CURATED LOOKS</div>
+<header class="header">
+<div class="header-inner wrap">
+<button aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu" class="icon-button menu-button" id="menu-toggle" type="button">
           ☰
         </button>
-        <a class="brand" href="index.html" aria-label="Masquerade and Moon homepage"
-          >MASQUERADE<span>&amp;</span>MOON</a
-        >
-        <nav class="main-nav" aria-label="Main navigation">
-          <a href="index.html">Home</a><a href="catalog.html">Collection</a><a href="rent.html">Rent</a
-          ><a href="events.html">Inspiration</a><a href="about.html">Our story</a
-          ><a href="contact.html">Contact</a><a href="index.html#guestbook">Reviews</a>
-        </nav>
-        <div class="header-actions">
-          <a class="account-link" id="account-link" href="login.html">Account ↗</a
-          ><button class="icon-button" type="button" id="theme-toggle" aria-label="Switch color theme">
+<a aria-label="Masquerade and Moon homepage" class="brand" href="index.html">MASQUERADE<span>&amp;</span>MOON</a>
+<nav aria-label="Main navigation" class="main-nav">
+<a href="index.html">Home</a><a href="catalog.html">Collection</a><a href="rent.html">Rent</a><a href="events.html">Inspiration</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="index.html#guestbook">Reviews</a>
+</nav>
+<div class="header-actions">
+<a class="account-link" href="login.html" id="account-link">Account ↗</a><button aria-label="Switch color theme" class="icon-button" id="theme-toggle" type="button">
             ☼
           </button>
-        </div>
-      </div>
-      <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile navigation" hidden>
-        <a href="index.html">Home</a><a href="catalog.html">Collection</a><a href="rent.html">Rent</a
-        ><a href="events.html">Inspiration</a><a href="about.html">Our story</a
-        ><a href="contact.html">Contact</a
-        ><a id="mobile-account-link" href="login.html">Account / Log in</a
-        ><a href="profile.html">My wardrobe</a>
-      </nav>
-    </header>
-    <main id="main">
-      <div class="auth-layout">
-        <aside class="auth-art">
-          <img src="images/item-6.jpg" alt="A burgundy velvet costume editorial" />
-          <div>
-            <p class="eyebrow-light">RETURN TO THE ATELIER</p>
-            <h2>Welcome back to your other world.</h2>
-          </div>
-        </aside>
-        <section class="auth-form-wrap">
-          <div>
-            <p class="eyebrow">THE INNER CIRCLE</p>
-            <h1>Welcome <em>back.</em></h1>
-            <p>Sign in to your locally saved account and return to your collection.</p>
-            <form id="login-form" novalidate>
-              <div class="form-grid">
-                <div class="form-field full">
-                  <label for="field-email">Email address</label
-                  ><input
-                    class="control"
-                    id="field-email"
-                    name="email"
-                    type="text"
-                    placeholder="you@example.com"
-                    autocomplete="email"
-                    aria-describedby="error-email"
-                  />
-                  <div class="field-error" id="error-email" data-error-for="email"></div>
-                </div>
-                <div class="form-field full">
-                  <label for="field-password">Password</label
-                  ><input
-                    class="control"
-                    id="field-password"
-                    name="password"
-                    type="password"
-                    placeholder="Enter your password"
-                    autocomplete="new-password"
-                    aria-describedby="error-password"
-                  />
-                  <div class="field-error" id="error-password" data-error-for="password"></div>
-                </div>
-                <div class="full">
-                  <button type="submit" class="btn" style="width: 100%">Enter the atelier ↗</button>
-                  <div class="form-status" aria-live="polite"></div>
-                </div>
-              </div>
-            </form>
-            <p class="auth-switch">
+</div>
+</div>
+<nav aria-label="Mobile navigation" class="mobile-menu" hidden="" id="mobile-menu">
+<a href="index.html">Home</a><a href="catalog.html">Collection</a><a href="rent.html">Rent</a><a href="events.html">Inspiration</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="login.html" id="mobile-account-link">Account / Log in</a><a href="profile.html">My wardrobe</a>
+</nav>
+</header>
+<main id="main">
+<div class="auth-layout">
+<aside class="auth-art">
+<img alt="Black and burgundy gothic costume" src="images/look-bat-lord.jpg"/>
+<div>
+<p class="eyebrow-light">RETURN TO THE ATELIER</p>
+<h2>Your saved costumes, all in one place.</h2>
+</div>
+</aside>
+<section class="auth-form-wrap">
+<div>
+<p class="eyebrow">THE INNER CIRCLE</p>
+<h1>Welcome <em>back.</em></h1>
+<p>Sign in to your locally saved account and return to your collection.</p>
+<form id="login-form" novalidate="">
+<div class="form-grid">
+<div class="form-field full">
+<label for="field-email">Email address</label><input aria-describedby="error-email" autocomplete="email" class="control" id="field-email" name="email" placeholder="you@example.com" type="text"/>
+<div class="field-error" data-error-for="email" id="error-email"></div>
+</div>
+<div class="form-field full">
+<label for="field-password">Password</label><input aria-describedby="error-password" autocomplete="new-password" class="control" id="field-password" name="password" placeholder="Enter your password" type="password"/>
+<div class="field-error" data-error-for="password" id="error-password"></div>
+</div>
+<div class="full">
+<button class="btn" style="width: 100%" type="submit">Enter the atelier ↗</button>
+<div aria-live="polite" class="form-status"></div>
+</div>
+</div>
+</form>
+<p class="auth-switch">
               New to Masquerade &amp; Moon? <a href="signup.html">Create an account →</a>
-            </p>
-            <p class="form-note">This account exists only on the browser where you created it.</p>
-          </div>
-        </section>
-      </div>
-    </main>
-    <footer class="footer">
-      <div class="wrap">
-        <div class="footer-top">
-          <div>
-            <a class="brand" href="index.html">MASQUERADE<span>&amp;</span>MOON</a>
-            <p>
-              For the nights that deserve another story. Discover theatrical costumes, considered
-              details, and a little mystery.
-            </p>
-          </div>
-          <div>
-            <h4>Explore</h4>
-            <nav aria-label="Explore">
-              <a href="index.html">Home</a><a href="catalog.html">Collection</a
-              ><a href="rent.html">Rent</a>
-            </nav>
-          </div>
-          <div>
-            <h4>Discover</h4>
-            <nav aria-label="Discover">
-              <a href="events.html">Inspiration</a><a href="about.html">Our story</a
-              ><a href="contact.html">Contact</a><a href="index.html#guestbook">Reviews</a>
-            </nav>
-          </div>
-          <div>
-            <h4>Your atelier</h4>
-            <nav aria-label="Account">
-              <a href="signup.html">Create an account</a><a href="login.html">Log in</a
-              ><a href="profile.html">Your wardrobe</a>
-            </nav>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <span>© <span id="year">2026</span> MASQUERADE &amp; MOON · THE COSTUME ATELIER</span
-          ><span>CONCEPT STORE · RENTAL PREVIEWS ONLY</span>
-        </div>
-      </div>
-    </footer>
-    <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <dialog id="look-dialog" class="modal" aria-label="Costume details">
-      <button class="modal-close" id="close-dialog" type="button" aria-label="Close details">×</button>
-      <div class="modal-inner" id="dialog-content"></div>
-    </dialog>
-  </body>
+</p>
+<p class="form-note">This account exists only on the browser where you created it.</p>
+</div>
+</section>
+</div>
+</main>
+<footer class="footer">
+<div class="wrap">
+<div class="footer-top">
+<div>
+<a class="brand" href="index.html">MASQUERADE<span>&amp;</span>MOON</a>
+<p>Curated costumes for masquerades, themed events and photoshoots. Explore 24 looks and save your favorites.</p>
+</div>
+<div>
+<h4>Explore</h4>
+<nav aria-label="Explore">
+<a href="index.html">Home</a><a href="catalog.html">Collection</a><a href="rent.html">Rent</a>
+</nav>
+</div>
+<div>
+<h4>Discover</h4>
+<nav aria-label="Discover">
+<a href="events.html">Inspiration</a><a href="about.html">Our story</a><a href="contact.html">Contact</a><a href="index.html#guestbook">Reviews</a>
+</nav>
+</div>
+<div>
+<h4>Account</h4>
+<nav aria-label="Account">
+<a href="signup.html">Create an account</a><a href="login.html">Log in</a><a href="profile.html">Your wardrobe</a>
+</nav>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© <span id="year">2026</span> MASQUERADE &amp; MOON · THE COSTUME ATELIER</span><span>FRONT-END CONCEPT STORE · NO REAL BOOKINGS</span>
+</div>
+</div>
+</footer>
+<div aria-live="polite" class="toast" id="toast" role="status"></div>
+<dialog aria-label="Costume details" class="modal" id="look-dialog">
+<button aria-label="Close details" class="modal-close" id="close-dialog" type="button">×</button>
+<div class="modal-inner" id="dialog-content"></div>
+</dialog>
+</body>
 </html>
