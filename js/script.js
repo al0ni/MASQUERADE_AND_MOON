@@ -1288,7 +1288,7 @@
   function productReviewItem(review) {
     const example = review.demo === true;
     const rating = example
-      ? '<span class="review-example-label">Portfolio example · photo caption</span>'
+      ? '<span class="review-example-label">Photo review</span>'
       : '<span class="guestbook-stars" aria-label="' + review.rating + ' out of 5 stars">' +
         '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating) + '</span>';
     const photo = example
@@ -1299,7 +1299,7 @@
       '<div class="item-review-copy"><div class="item-review-top">' + rating + '</div>' +
       '<p>' + escapeHTML(review.comment) + '</p>' +
       '<strong>' + escapeHTML(review.name) + '</strong>' +
-      (example ? '<small>Demo caption, not a verified customer rating</small>' : '<small>Review saved in this browser</small>') +
+      (example ? '' : '<small>Review saved in this browser</small>') +
       '</div></article>';
   }
 
@@ -1319,7 +1319,7 @@
     ).join('');
     return '<section class="product-reviews" id="product-reviews">' +
       '<div class="section-head"><div><p class="eyebrow">CUSTOMER LOOKS</p><h2>Photos &amp; reviews.</h2></div>' +
-      '<p>Photos from our project lookbook and reviews saved in your browser.</p></div>' +
+      '<p>Costume photos and experiences shared by our customers.</p></div>' +
       '<div class="product-reviews-layout"><div class="item-review-list" id="product-review-list">' + list +
       '</div><form class="item-review-form" data-product-review-form="' + id +
       '" novalidate><h3>Review this look</h3>' +
@@ -1330,7 +1330,7 @@
       '<textarea class="control" id="' + idName + '-comment" name="comment" rows="5" placeholder="What did you think of this costume?"></textarea>' +
       '<div class="item-review-error" role="alert" aria-live="polite"></div>' +
       '<button class="btn" type="submit">Post review ↗</button>' +
-      '<p class="form-note">Reviews are stored on this device only. This is a demo storefront.</p>' +
+      '<p class="form-note">Your submitted review is saved in this browser.</p>' +
       '</form></div></section>';
   }
 
