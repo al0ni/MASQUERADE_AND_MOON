@@ -2,8 +2,8 @@ import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 
 const base = process.env.TEST_BASE_URL || 'http://127.0.0.1:8000';
-const pages = ['index.html', 'catalog.html', 'rent.html', 'events.html', 'about.html', 'contact.html', 'signup.html', 'login.html', 'profile.html'];
-const browser = await chromium.launch({headless:true, args:['--no-sandbox']});
+const pages = ['index.html', 'catalog.html', 'rent.html', 'events.html', 'about.html', 'contact.html', 'signup.html', 'login.html', 'profile.html', 'product.html?id=1', 'product.html?id=2', 'product.html?id=8'];
+const browser = await chromium.launch({headless:true, channel:process.env.TEST_BROWSER_CHANNEL || undefined, args:['--no-sandbox']});
 const context = await browser.newContext({viewport:{width:1440,height:900}, reducedMotion:'reduce'});
 const page = await context.newPage();
 const issues = [];
@@ -50,10 +50,10 @@ try {
   check((await page.locator('#product-reviews').textContent()).includes('Great service, excellent quality'),'Alua review text missing');
   await go('product.html?id=2');
   check((await page.locator('.product-detail-copy h1').textContent()).includes('Midnight Ballgown'),'Midnight Ballgown product not shown');
-  check(await page.locator('img[src="images/reviews/molya-ballgown.webp"]').count()===1,'Molya review photo missing');
+  check(await page.locator('img[src="images/reviews/moldir-ballgown.webp"]').count()===1,'Moldir review photo missing');
   await go('product.html?id=8');
   check((await page.locator('.product-detail-copy h1').textContent()).includes('Phantom'),'Phantom product not shown');
-  check(await page.locator('img[src="images/reviews/shaslyk-phantom.webp"]').count()===1,'shaslyk review photo missing');
+  check(await page.locator('img[src="images/reviews/assiya-phantom.webp"]').count()===1,'Assiya review photo missing');
   await page.locator('[data-product-review-form] button[type=submit]').click();
   check((await page.locator('.item-review-error').textContent()).includes('display name'),'Product review name validation missing');
   await page.locator('[data-product-review-form] [name=name]').fill('Test customer');
@@ -113,7 +113,7 @@ try {
   await page.locator('#archive-retry').waitFor({state:'visible'});
   check((await page.locator('#archive-error').textContent()).includes('unavailable'),'API error handling missing');
   check(await page.locator('#archive-grid .museum-card').count()===6,'Matching museum images must remain visible when API fails');
-  const sources=await page.locator('#archive-grid .museum-card img').evaluateAll(images=>images.map(img=>({src:img.getAttribute('src'),loaded:img.complete&&img.naturalWidth>0})));
+  const sources=await page.locator('#archive-grid .museum-card img').evaluateAll(async images=>{await Promise.all(images.map(img=>{img.loading='eager';return img.decode().catch(()=>{});}));return images.map(img=>({src:img.getAttribute('src'),loaded:img.complete&&img.naturalWidth>0}));});
   check(sources.every(photo=>photo.src.startsWith('images/museum/')&&photo.loaded),'All six cached museum photos must load');
   await page.unrouteAll();
   await page.route('https://collectionapi.metmuseum.org/**',route=>{
@@ -151,6 +151,11 @@ try {
   await page.setViewportSize({width:375,height:812});
   await go('profile.html');
   await page.screenshot({path:'profile-mobile.png',fullPage:true});
+  await page.setViewportSize({width:1440,height:900});
+  await go('product.html?id=1');
+  await page.screenshot({path:'product-desktop.png',fullPage:true});
+  await page.setViewportSize({width:375,height:812});
+  await page.screenshot({path:'product-mobile.png',fullPage:true});
   console.log(`Browser checks passed: ${assertions} assertions.`);
 }catch(error){
   console.error(error);
