@@ -267,7 +267,7 @@
       topic: '1',
       name: 'Alua',
       image: 'images/reviews/alua-storybook.webp',
-      comment: 'The blue velvet bodice and golden skirt look beautiful together. The full skirt makes this a fun fairytale photoshoot look.',
+      comment: 'Great service, excellent quality, and the costume looks exactly like the photos! Absolutely loved it!',
       demo: true
     },
     {
@@ -275,7 +275,7 @@
       topic: '2',
       name: 'Molya',
       image: 'images/reviews/molya-ballgown.webp',
-      comment: 'The pale blue gown and long gloves create a classic ball look. The delicate fabric looks especially lovely in photos.',
+      comment: 'Excellent service and amazing quality. The dress looks just like the photos, and the details are beautiful!',
       demo: true
     },
     {
@@ -283,7 +283,7 @@
       topic: '8',
       name: 'shaslyk',
       image: 'images/reviews/shaslyk-phantom.webp',
-      comment: 'The dark cape, silver waistcoat and white half-mask make a striking costume for a themed photoshoot.',
+      comment: 'Great service, very good quality, and the costume looks exactly as pictured. Perfect for a themed event!',
       demo: true
     }
   ];
@@ -1591,7 +1591,7 @@
     if (event.key?.startsWith('mm_final_')) {
       updateHeader();
       updateCards();
-      if (event.key === 'mm_final_reviews') renderGuestbook();
+      if (event.key === 'mm_final_reviews') { renderGuestbook(); renderProductPage(); }
     }
   });
   document.addEventListener('DOMContentLoaded', () => {
