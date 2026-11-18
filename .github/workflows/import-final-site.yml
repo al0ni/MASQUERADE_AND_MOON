@@ -38,8 +38,13 @@ jobs:
           assert len(list((source / 'images/museum').glob('*.webp'))) == 6
           print('Validated 9-page website, 24 costumes and 6 museum images.')
           PY
+          mkdir -p /tmp/preserved-workflows
+          cp -a .github/workflows/. /tmp/preserved-workflows/
           find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
           cp -a /tmp/site-import/MASQUERADE_AND_MOON/. .
+          rm -rf .github/workflows
+          mkdir -p .github/workflows
+          cp -a /tmp/preserved-workflows/. .github/workflows/
           node --check js/script.js
           node tests/smoke.mjs
           git config user.name "github-actions[bot]"
