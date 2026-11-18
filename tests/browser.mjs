@@ -64,6 +64,7 @@ try {
   await page.reload({waitUntil:'domcontentloaded'});
   check((await page.locator('#product-reviews').textContent()).includes('Test customer'),'Product review did not persist');
   await go('catalog.html');
+  await page.locator('#reset-filters').click();
   check(await page.locator('.review-card-teaser').count()===3,'Product review teasers should appear for three photo examples');
 
   await go('signup.html');
