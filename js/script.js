@@ -260,7 +260,34 @@
       image: 'images/look-doges-shadow.jpg'
     }
   ];
-  
+
+  const SHOWCASE_REVIEWS = [
+    {
+      id: 'example-alua',
+      topic: '1',
+      name: 'Alua',
+      image: 'images/reviews/alua-storybook.webp',
+      comment: 'Great service, excellent quality, and the costume looks exactly like the photos! Absolutely loved it!',
+      demo: true
+    },
+    {
+      id: 'example-molya',
+      topic: '2',
+      name: 'Molya',
+      image: 'images/reviews/molya-ballgown.webp',
+      comment: 'The pale blue gown and long gloves create a classic ball look. The delicate fabric looks especially lovely in photos.',
+      demo: true
+    },
+    {
+      id: 'example-shaslyk',
+      topic: '8',
+      name: 'shaslyk',
+      image: 'images/reviews/shaslyk-phantom.webp',
+      comment: 'The dark cape, silver waistcoat and white half-mask make a striking costume for a themed photoshoot.',
+      demo: true
+    }
+  ];
+
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
@@ -382,6 +409,15 @@
 
   function cardMarkup(product) {
     const saved = favoriteIds().includes(product.id);
+    const photoReview = showcaseReview(product.id);
+    const teaser = photoReview
+      ? '<a class="review-card-teaser" href="product.html?id=' + product.id +
+        '#product-reviews"><img src="' + photoReview.image + '" alt="Photo shared by ' +
+        escapeHTML(photoReview.name) + '" loading="lazy"><span><strong>' +
+        escapeHTML(photoReview.name) +
+        '</strong><small>View photo &amp; reviews ↗</small></span></a>'
+      : '<a class="review-card-link" href="product.html?id=' + product.id +
+        '#product-reviews">See &amp; write reviews ↗</a>';
     return (
       '<article class="product-card" data-id="' +
       product.id +
@@ -413,7 +449,7 @@
       money(product.price) +
       ' / 3 days</strong><button type="button" data-action="details" data-id="' +
       product.id +
-      '">Explore look ↗</button></div></div></article>'
+      '">Explore look ↗</button></div>' + teaser + '</div></article>'
     );
   }
   function renderFeatured() {
@@ -548,20 +584,7 @@
       modal = $('#look-dialog');
     if (!product || !modal) return;
     const saved = favoriteIds().includes(id);
-    const note = getReviews().find((review) => String(review.topic) === String(id));
-    const noteMarkup = note
-      ? '<blockquote class="modal-review">' +
-        '<span aria-label="' +
-        note.rating +
-        ' out of 5 stars">' +
-        '★'.repeat(note.rating) +
-        '☆'.repeat(5 - note.rating) +
-        '</span><p>“' +
-        escapeHTML(note.comment) +
-        '”</p><cite>— ' +
-        escapeHTML(note.name) +
-        '</cite></blockquote>'
-      : '';
+    const noteMarkup = productReviewMarkup(id, true);
     const related = PRODUCTS.filter((p) => p.category === product.category && p.id !== id).slice(0, 2);
     const suggestions = related.length
       ? '<div class="modal-related"><span class="eyebrow">YOU MIGHT ALSO LOVE</span>' +
@@ -600,6 +623,8 @@
       (saved ? '♥ Saved' : '♡ Save look') +
       '</button></div>' +
       noteMarkup +
+      '<a class="modal-full-review-link" href="product.html?id=' + id +
+      '#product-reviews">See all photos &amp; leave a review ↗</a>' +
       suggestions +
       '</div>';
     const visited = get('visited', []);
@@ -1240,6 +1265,148 @@
     loadArchive();
   }
 
+
+  function showcaseReview(id) {
+    return SHOWCASE_REVIEWS.find(item => Number(item.topic) === Number(id)) || null;
+  }
+
+  function productReviews(id) {
+    const local = getReviews().filter(item => Number(item.topic) === Number(id));
+    const examples = SHOWCASE_REVIEWS.filter(item => Number(item.topic) === Number(id));
+    return [...examples, ...local];
+  }
+
+  function productReviewItem(review) {
+    const example = review.demo === true;
+    const rating = example
+      ? '<span class="review-example-label">Portfolio example · photo caption</span>'
+      : '<span class="guestbook-stars" aria-label="' + review.rating + ' out of 5 stars">' +
+        '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating) + '</span>';
+    const photo = example
+      ? '<img class="product-review-photo" src="' + review.image + '" alt="Costume photo shared by ' +
+        escapeHTML(review.name) + '" loading="lazy">'
+      : '';
+    return '<article class="item-review">' + photo +
+      '<div class="item-review-copy"><div class="item-review-top">' + rating + '</div>' +
+      '<p>' + escapeHTML(review.comment) + '</p>' +
+      '<strong>' + escapeHTML(review.name) + '</strong>' +
+      (example ? '<small>Demo caption, not a verified customer rating</small>' : '<small>Review saved in this browser</small>') +
+      '</div></article>';
+  }
+
+  function productReviewMarkup(id, compact = false) {
+    const reviews = productReviews(id);
+    const list = reviews.length
+      ? reviews.slice(0, compact ? 2 : 60).map(productReviewItem).join('')
+      : '<p class="review-empty">No reviews for this costume yet. Share your experience below.</p>';
+    if (compact) {
+      return '<section class="modal-reviews"><h3>Photos &amp; reviews</h3><div class="item-review-list">' +
+        list + '</div></section>';
+    }
+    const idName = 'item-review-' + id;
+    const ratingOptions = [1, 2, 3, 4, 5].map(value =>
+      '<label class="item-rating-star"><input type="radio" name="rating" value="' + value +
+      '" aria-label="' + value + (value === 1 ? ' star' : ' stars') + '"><span aria-hidden="true">★</span></label>'
+    ).join('');
+    return '<section class="product-reviews" id="product-reviews">' +
+      '<div class="section-head"><div><p class="eyebrow">CUSTOMER LOOKS</p><h2>Photos &amp; reviews.</h2></div>' +
+      '<p>Photos from our project lookbook and reviews saved in your browser.</p></div>' +
+      '<div class="product-reviews-layout"><div class="item-review-list" id="product-review-list">' + list +
+      '</div><form class="item-review-form" data-product-review-form="' + id +
+      '" novalidate><h3>Review this look</h3>' +
+      '<label for="' + idName + '-name">Display name</label>' +
+      '<input class="control" id="' + idName + '-name" name="name" type="text" placeholder="Your name" autocomplete="name">' +
+      '<fieldset><legend>Your rating</legend><div class="item-rating-options">' + ratingOptions +
+      '</div></fieldset><label for="' + idName + '-comment">Your review</label>' +
+      '<textarea class="control" id="' + idName + '-comment" name="comment" rows="5" placeholder="What did you think of this costume?"></textarea>' +
+      '<div class="item-review-error" role="alert" aria-live="polite"></div>' +
+      '<button class="btn" type="submit">Post review ↗</button>' +
+      '<p class="form-note">Reviews are stored on this device only. This is a demo storefront.</p>' +
+      '</form></div></section>';
+  }
+
+  function renderProductPage() {
+    const root = $('#product-detail-root');
+    if (!root) return;
+    const id = Number(new URLSearchParams(location.search).get('id'));
+    const product = PRODUCTS.find(item => item.id === id);
+    if (!product) {
+      root.innerHTML = '<div class="empty-state"><h1>Look not found.</h1><p>Choose a costume from our collection.</p><a class="btn" href="catalog.html">Browse the collection ↗</a></div>';
+      document.title = 'Look not found | Masquerade & Moon';
+      return;
+    }
+    document.title = product.name + ' | Masquerade & Moon';
+    const related = PRODUCTS.filter(item => item.id !== id && item.category === product.category).slice(0, 3);
+    const saved = favoriteIds().includes(id);
+    const reviewCount = productReviews(id).filter(review => !review.demo).length;
+    root.innerHTML =
+      '<div class="breadcrumbs"><a href="index.html">Home</a> / <a href="catalog.html">Collection</a> / ' +
+      escapeHTML(product.name) + '</div>' +
+      '<div class="product-detail-layout"><div class="product-detail-visual">' +
+      '<img src="' + product.image + '" alt="' + escapeHTML(product.name) + ' costume"></div>' +
+      '<div class="product-detail-copy"><p class="eyebrow">' + escapeHTML(product.label) + ' / THE COLLECTION</p>' +
+      '<h1>' + escapeHTML(product.name) + '</h1><p class="body-copy">' + escapeHTML(product.detail) + '</p>' +
+      '<h2 class="detail-price">' + money(product.price) + '<small> / 3 days</small></h2>' +
+      '<p class="form-note">Illustrative rental price. No real orders are processed.</p>' +
+      '<div class="detail-includes"><strong>What’s included</strong><p>' + escapeHTML(product.includes) + '</p></div>' +
+      '<div class="cta-row"><a class="btn" href="rent.html?look=' + id + '">Plan a rental ↗</a>' +
+      '<button class="btn outline" type="button" data-action="favorite" data-id="' + id + '">' +
+      (saved ? '♥ Saved' : '♡ Save look') + '</button></div>' +
+      '<a class="detail-review-jump" href="#product-reviews">Photos &amp; reviews · ' +
+      (reviewCount + SHOWCASE_REVIEWS.filter(review => Number(review.topic) === id).length) + ' ↘</a>' +
+      '</div></div>' + productReviewMarkup(id) +
+      '<section class="product-related"><p class="eyebrow">MORE FROM THE COLLECTION</p><h2>Similar looks.</h2>' +
+      '<div class="product-grid">' + related.map(cardMarkup).join('') + '</div></section>';
+  }
+
+  function initProductReviewForm() {
+    document.addEventListener('submit', event => {
+      const form = event.target.closest('[data-product-review-form]');
+      if (!form) return;
+      event.preventDefault();
+      const id = Number(form.dataset.productReviewForm);
+      if (!PRODUCTS.some(product => product.id === id)) return;
+      const name = form.elements.namedItem('name').value.trim();
+      const comment = form.elements.namedItem('comment').value.trim();
+      const selected = form.querySelector('input[name="rating"]:checked');
+      const error = form.querySelector('.item-review-error');
+      error.textContent = '';
+      if (name.length < 2 || name.length > 50) {
+        error.textContent = 'Enter a display name between 2 and 50 characters.';
+        form.elements.namedItem('name').focus();
+        return;
+      }
+      if (!selected) {
+        error.textContent = 'Choose a rating from 1 to 5 stars.';
+        form.querySelector('input[name="rating"]').focus();
+        return;
+      }
+      if (comment.length < 15 || comment.length > 500) {
+        error.textContent = 'Write a review between 15 and 500 characters.';
+        form.elements.namedItem('comment').focus();
+        return;
+      }
+      const newReview = {
+        id: crypto.randomUUID?.() || String(Date.now()) + '-' + Math.floor(Math.random() * 10000),
+        name,
+        topic: String(id),
+        rating: Number(selected.value),
+        comment,
+        createdAt: new Date().toISOString()
+      };
+      if (!put('reviews', [newReview, ...getReviews()].slice(0, 60))) {
+        error.textContent = 'Could not save the review. Please check browser storage.';
+        return;
+      }
+      renderProductPage();
+      updateCards();
+      renderGuestbook();
+      toast('Your review was saved on this device.');
+      const section = $('#product-reviews');
+      section?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
   function getReviews() {
     const items = get('reviews', []);
     return Array.isArray(items)
@@ -1433,6 +1600,8 @@
     renderProductCounts();
     updateHeader();
     initProducts();
+    renderProductPage();
+    initProductReviewForm();
     initPasswordVisibility();
     setupSignup();
     setupLogin();
