@@ -2883,6 +2883,7 @@ details p {
 }
 
 .item-rating-star span {
+  pointer-events: none;
   color: var(--muted);
   font-size: 30px;
   display: block;
