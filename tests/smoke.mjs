@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 
-const pages = ['index.html', 'catalog.html', 'rent.html', 'events.html', 'about.html', 'contact.html', 'signup.html', 'login.html', 'profile.html'];
+const pages = ['index.html', 'catalog.html', 'rent.html', 'events.html', 'about.html', 'contact.html', 'signup.html', 'login.html', 'profile.html', 'product.html'];
 const code = fs.readFileSync('js/script.js', 'utf8');
 const stylesheet = fs.readFileSync('css/style.css', 'utf8');
 let links = 0;
@@ -33,12 +33,16 @@ for (const filename of pages) {
 const ids = [...code.matchAll(/\bid:\s*(\d+),\s*\n\s*name:/g)].map(m => Number(m[1]));
 assert.equal(ids.length, 24, 'Expected exactly 24 costumes');
 assert.equal(new Set(ids).size, 24, 'Duplicate product IDs');
-const images = [...code.matchAll(/\bimage:\s*['"](images\/[^'"\s]+)['"]/g)].map(m => m[1]);
+const productData = code.slice(code.indexOf('const PRODUCTS = ['), code.indexOf('const SHOWCASE_REVIEWS = ['));
+const images = [...productData.matchAll(/\bimage:\s*['"](images\/[^'"\s]+)['"]/g)].map(m => m[1]);
 assert.equal(images.length, 24, 'Every costume needs a photograph');
 assert.equal(new Set(images).size, 24, 'Each costume should have a unique main photo');
 for (const image of images) {
   assert(fs.existsSync(image), 'Missing costume photograph: ' + image);
   pictures++;
+}
+for (const file of ['images/reviews/alua-storybook.webp', 'images/reviews/molya-ballgown.webp', 'images/reviews/shaslyk-phantom.webp']) {
+  assert(fs.existsSync(file), 'Missing review photo: ' + file);
 }
 assert(!code.includes('SEED_REVIEWS'), 'Remove hardcoded testimonials');
 assert(!code.includes('initAlterEgo'), 'Remove unused costume personality quiz');
