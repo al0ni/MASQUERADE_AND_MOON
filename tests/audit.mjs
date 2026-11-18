@@ -16,13 +16,16 @@ const pages = [
 ];
 const widths = [320, 360, 375, 390, 768, 820, 1024, 1280, 1440, 1920];
 const browser = await chromium.launch({ headless: true, args: ['--no-sandbox'] });
-const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
+const context = await browser.newContext({
+  viewport: { width: 1440, height: 900 },
+  reducedMotion: 'reduce'
+});
 const page = await context.newPage();
 const failures = [];
 let tested = 0;
 
 try {
-  await page.route('https://api.artic.edu/**', (route) =>
+  await page.route('https://collectionapi.metmuseum.org/**', (route) =>
     route.fulfill({ status: 503, body: 'Temporarily unavailable' })
   );
   for (const width of widths) {
@@ -32,14 +35,14 @@ try {
       assert.equal(response.status(), 200, name + ' failed to load');
       const result = await page.evaluate(async () => {
         for (const img of document.images)
-          if (!img.currentSrc.includes('artic.edu')) img.loading = 'eager';
+          if (!img.currentSrc.includes('collectionapi.metmuseum.org')) img.loading = 'eager';
         await Promise.all(
           [...document.images]
-            .filter((img) => !img.currentSrc.includes('artic.edu'))
+            .filter((img) => !img.currentSrc.includes('collectionapi.metmuseum.org'))
             .map((img) => img.decode().catch(() => {}))
         );
         const broken = [...document.images]
-          .filter((img) => !img.currentSrc.includes('artic.edu') && (!img.naturalWidth || !img.complete))
+          .filter((img) => !img.currentSrc.includes('collectionapi.metmuseum.org') && (!img.naturalWidth || !img.complete))
           .map((img) => img.currentSrc);
         return {
           documentWidth: document.documentElement.scrollWidth,
