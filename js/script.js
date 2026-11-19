@@ -268,6 +268,7 @@
       name: 'Alua',
       image: 'images/reviews/alua-storybook.webp',
       comment: 'Great service, excellent quality, and the costume looks exactly like the photos! Absolutely loved it!',
+      rating: 5,
       demo: true
     },
     {
@@ -276,6 +277,7 @@
       name: 'Moldir',
       image: 'images/reviews/moldir-ballgown.webp',
       comment: 'Excellent service and amazing quality. The dress looks just like the photos, and the details are beautiful!',
+      rating: 5,
       demo: true
     },
     {
@@ -284,6 +286,7 @@
       name: 'Assiya',
       image: 'images/reviews/assiya-phantom.webp',
       comment: 'Great service, very good quality, and the costume looks exactly as pictured. Perfect for a themed event!',
+      rating: 5,
       demo: true
     }
   ];
@@ -1288,7 +1291,7 @@
   function productReviewItem(review) {
     const example = review.demo === true;
     const rating = example
-      ? '<span class="review-example-label">Photo review</span>'
+      ? '<span class="guestbook-stars" aria-label="5 out of 5 stars">★★★★★</span>'
       : '<span class="guestbook-stars" aria-label="' + review.rating + ' out of 5 stars">' +
         '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating) + '</span>';
     const photo = example

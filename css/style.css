@@ -42,7 +42,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: "DM Sans", Arial, sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.7;
   transition:
     background 0.35s,
@@ -128,7 +128,7 @@ p {
 .tiny,
 .eyebrow-light {
   font-family: "DM Sans", Arial, sans-serif;
-  font-size: 11px !important;
+  font-size: 14px !important;
   letter-spacing: 0.23em;
   text-transform: uppercase;
   font-weight: 700;
@@ -177,7 +177,7 @@ p {
   border: 1px solid var(--accent);
   background: var(--accent);
   color: var(--contrast);
-  font-size: 11px;
+  font-size: 14px;
   letter-spacing: 0.17em;
   text-transform: uppercase;
   font-weight: 700;
@@ -214,7 +214,7 @@ p {
   color: #161112;
 }
 .text-link {
-  font-size: 11px;
+  font-size: 14px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   font-weight: 700;
@@ -239,7 +239,7 @@ p {
   text-align: center;
   min-height: 28px;
   padding: 5px 18px;
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
 }
@@ -272,7 +272,7 @@ p {
 }
 .brand small {
   font-family: "DM Sans", Arial, sans-serif;
-  font-size: 8px;
+  font-size: 14px;
   letter-spacing: 0.27em;
   font-weight: 700;
   display: block;
@@ -286,7 +286,7 @@ p {
   gap: clamp(15px, 2.1vw, 35px);
 }
 .main-nav a {
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -325,7 +325,7 @@ p {
   border-color: var(--accent);
 }
 .account-link {
-  font-size: 10px;
+  font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.13em;
   font-weight: 700;
@@ -400,7 +400,7 @@ p {
   right: 2.5%;
   top: 46%;
   writing-mode: vertical-rl;
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.34em;
   opacity: 0.75;
 }
@@ -411,7 +411,7 @@ p {
   right: 0;
   display: flex;
   justify-content: space-between;
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.2em;
   color: #d4c7b6;
   text-transform: uppercase;
@@ -423,7 +423,7 @@ p {
   gap: 10px;
   padding-block: 19px;
   text-align: center;
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--muted);
@@ -488,7 +488,7 @@ p {
   position: absolute;
   top: 21px;
   left: 22px;
-  font-size: 10px;
+  font-size: 14px;
   color: #f5ecdf;
   letter-spacing: 0.2em;
 }
@@ -507,7 +507,7 @@ p {
   color: #e7d4c2;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  font-size: 10px;
+  font-size: 14px;
 }
 .collection-info .arrow {
   float: right;
@@ -544,7 +544,7 @@ p {
   background: rgba(21, 18, 18, 0.78);
   color: #e5caa8;
   padding: 7px 10px;
-  font-size: 9px;
+  font-size: 14px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -576,7 +576,7 @@ p {
   margin: 0 0 3px;
 }
 .product-meta p {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.5;
   margin: 0 0 13px;
   min-height: 18px;
@@ -588,7 +588,7 @@ p {
   gap: 8px;
 }
 .product-bottom strong {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--text);
 }
@@ -598,7 +598,7 @@ p {
   border-bottom: 1px solid var(--accent);
   color: var(--accent);
   padding: 5px 0;
-  font-size: 10px;
+  font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-weight: 700;
@@ -687,7 +687,7 @@ p {
   color: #e5d6c9;
 }
 .breadcrumbs {
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.13em;
   text-transform: uppercase;
   color: var(--accent);
@@ -711,7 +711,7 @@ p {
 }
 .field label,
 .form-field label {
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   font-weight: 700;
@@ -744,7 +744,7 @@ textarea.control {
   gap: 10px;
   align-items: center;
   color: var(--text);
-  font-size: 12px;
+  font-size: 14px;
   cursor: pointer;
 }
 .checkbox-label input {
@@ -761,7 +761,7 @@ textarea.control {
   padding: 20px 0 28px;
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: 12px;
+  font-size: 14px;
 }
 .catalog-bar button {
   padding: 5px 0;
@@ -771,7 +771,7 @@ textarea.control {
   color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  font-size: 10px;
+  font-size: 14px;
 }
 .empty-state {
   grid-column: 1/-1;
@@ -855,7 +855,7 @@ textarea.control {
   grid-column: 1/-1;
 }
 .field-error {
-  font-size: 12px;
+  font-size: 14px;
   color: #e6a1a4;
   min-height: 0;
 }
@@ -869,7 +869,7 @@ textarea.control {
   border-color: #d56d76 !important;
 }
 .form-note {
-  font-size: 12px;
+  font-size: 14px;
   margin: 17px 0;
 }
 .form-status {
@@ -877,7 +877,7 @@ textarea.control {
   margin-top: 20px;
   border: 1px solid var(--accent);
   color: var(--text);
-  font-size: 13px;
+  font-size: 14px;
 }
 .form-status:empty {
   display: none;
@@ -952,7 +952,7 @@ textarea.control {
   margin: 0 0 6px;
 }
 .archive-card p {
-  font-size: 12px;
+  font-size: 14px;
   margin: 0;
 }
 .loading {
@@ -1027,14 +1027,14 @@ textarea.control {
 }
 .auth-switch {
   margin-top: 25px;
-  font-size: 13px;
+  font-size: 14px;
 }
 .auth-switch a {
   color: var(--accent);
   text-decoration: underline;
 }
 .password-hint {
-  font-size: 11px;
+  font-size: 14px;
   margin: 4px 0 0;
 }
 .profile-grid {
@@ -1051,7 +1051,7 @@ textarea.control {
   font-size: 42px;
 }
 .profile-panel dt {
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--accent);
@@ -1086,7 +1086,7 @@ textarea.control {
   background: transparent;
   color: var(--text);
   padding: 9px;
-  font-size: 11px;
+  font-size: 14px;
 }
 .profile-panel + .profile-panel {
   margin-top: 25px;
@@ -1145,7 +1145,7 @@ details p {
   color: #a89b91;
   max-width: 320px;
   margin: 25px 0 0;
-  font-size: 13px;
+  font-size: 14px;
 }
 .footer nav {
   display: flex;
@@ -1153,7 +1153,7 @@ details p {
   gap: 13px;
 }
 .footer nav a {
-  font-size: 13px;
+  font-size: 14px;
   color: #c6b9ad;
 }
 .footer nav a:hover {
@@ -1166,7 +1166,7 @@ details p {
   justify-content: space-between;
   gap: 25px;
   flex-wrap: wrap;
-  font-size: 11px;
+  font-size: 14px;
   color: #9b8d85;
   letter-spacing: 0.07em;
 }
@@ -1184,7 +1184,7 @@ details p {
   padding: 16px 20px;
   max-width: min(400px, calc(100vw - 32px));
   color: var(--text);
-  font-size: 13px;
+  font-size: 14px;
   opacity: 0;
   transform: translateY(15px);
   pointer-events: none;
@@ -1266,7 +1266,7 @@ details p {
     gap: 13px;
   }
   .main-nav a {
-    font-size: 9px;
+    font-size: 14px;
   }
   .header-actions {
     gap: 8px;
@@ -1307,7 +1307,7 @@ details p {
   }
   .mobile-menu a {
     display: block;
-    font-size: 12px;
+    font-size: 14px;
     letter-spacing: 0.13em;
     text-transform: uppercase;
     padding: 13px 0;
@@ -1367,7 +1367,7 @@ details p {
     width: min(calc(100% - 32px), var(--wrap));
   }
   .announcement {
-    font-size: 8px;
+    font-size: 14px;
     letter-spacing: 0.1em;
   }
   .brand {
@@ -1400,7 +1400,7 @@ details p {
     display: none;
   }
   .hero-bottom {
-    font-size: 8px;
+    font-size: 14px;
     gap: 10px;
   }
   .hero-copy {
@@ -1415,7 +1415,7 @@ details p {
   .ticker {
     grid-template-columns: 1fr 1fr;
     padding-block: 12px;
-    font-size: 8px;
+    font-size: 14px;
   }
   .ticker span::before {
     margin-right: 5px;
@@ -1440,7 +1440,7 @@ details p {
     font-size: 28px;
   }
   .collection-info small {
-    font-size: 8px;
+    font-size: 14px;
   }
   .product-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1450,7 +1450,7 @@ details p {
     font-size: 23px;
   }
   .product-meta p {
-    font-size: 11px;
+    font-size: 14px;
   }
   .product-bottom {
     align-items: flex-start;
@@ -1458,7 +1458,7 @@ details p {
     gap: 4px;
   }
   .product-tag {
-    font-size: 8px;
+    font-size: 14px;
     top: 10px;
     left: 9px;
   }
@@ -1694,7 +1694,7 @@ details p {
   background: linear-gradient(transparent, rgba(18, 13, 18, 0.82));
   color: #fff;
   letter-spacing: 0.16em;
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 700;
   text-align: center;
   opacity: 0;
@@ -1730,7 +1730,7 @@ details p {
   border: 1px solid var(--line);
   padding: 11px 18px;
   min-height: 42px;
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.13em;
   text-transform: uppercase;
   font-weight: 700;
@@ -1764,7 +1764,7 @@ details p {
 }
 .modal-review cite {
   font-style: normal;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted, var(--text));
 }
 .modal-related {
@@ -1785,7 +1785,7 @@ details p {
   text-align: left;
   padding: 5px 0;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
 }
 .modal-related button:hover {
   color: var(--accent);
@@ -1807,7 +1807,7 @@ details p {
   .collection-pills button {
     flex: 0 0 auto;
     padding: 10px 12px;
-    font-size: 9px;
+    font-size: 14px;
   }
   .photo-open::after {
     display: none;
@@ -1816,7 +1816,7 @@ details p {
     font-size: 22px;
   }
   .product-card .product-bottom button {
-    font-size: 9px;
+    font-size: 14px;
   }
   .hero-img {
     object-position: 67% center;
@@ -1865,7 +1865,7 @@ details p {
   margin-top: 25px;
 }
 .profile-shortcuts a {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
   border-bottom: 1px solid var(--accent);
   padding-bottom: 4px;
@@ -1901,7 +1901,7 @@ details p {
   bottom: 16px;
   left: 18px;
   color: #fff;
-  font-size: 9px;
+  font-size: 14px;
   letter-spacing: 0.17em;
   font-weight: 700;
 }
@@ -1934,7 +1934,7 @@ details p {
   border-bottom: 1px solid currentColor;
   cursor: pointer;
   margin-top: 20px;
-  font-size: 11px;
+  font-size: 14px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   padding: 0 0 5px;
@@ -1984,19 +1984,19 @@ details p {
 .profile-row-info small {
   display: block;
   margin-top: 3px;
-  font-size: 11px;
+  font-size: 14px;
   color: var(--muted);
 }
 .profile-row-info a {
   display: inline-block;
   margin-top: 4px;
   color: var(--accent);
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 .profile-main .profile-row button {
-  font-size: 11px;
+  font-size: 14px;
   border: 1px solid var(--line);
   padding: 9px 12px;
   cursor: pointer;
@@ -2012,7 +2012,7 @@ details p {
   padding: 15px 0 5px;
 }
 .profile-empty p {
-  font-size: 13px;
+  font-size: 14px;
   max-width: 440px;
 }
 .profile-empty .btn {
@@ -2081,7 +2081,7 @@ details p {
     font-size: clamp(3.5rem, 12vw, 5rem);
   }
   .profile-dashboard-intro p {
-    font-size: 13px;
+    font-size: 14px;
   }
   .profile-dashboard-art {
     display: none;
@@ -2099,7 +2099,7 @@ details p {
   }
   .profile-main .profile-row button {
     padding: 8px;
-    font-size: 10px;
+    font-size: 14px;
   }
   .profile-panel-head {
     align-items: start;
@@ -2143,7 +2143,7 @@ details p {
   margin: 9px 0 12px;
 }
 .guestbook-form-panel > p:not(.eyebrow) {
-  font-size: 13px;
+  font-size: 14px;
   margin-bottom: 23px;
 }
 .guestbook-form-panel .form-field {
@@ -2151,7 +2151,7 @@ details p {
 }
 .guestbook-form-panel .form-field label,
 .review-rating legend {
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   font-weight: 700;
@@ -2214,7 +2214,7 @@ details p {
   outline-offset: 2px;
 }
 .review-character-count {
-  font-size: 11px;
+  font-size: 14px;
   color: var(--muted);
   align-self: flex-end;
 }
@@ -2244,7 +2244,7 @@ details p {
   margin: 7px 0 0;
 }
 .guestbook-score {
-  font-size: 11px;
+  font-size: 14px;
   letter-spacing: 0.05em;
   color: var(--accent);
   text-align: right;
@@ -2261,7 +2261,7 @@ details p {
   margin-bottom: 12px;
 }
 .guestbook-filters label {
-  font-size: 10px;
+  font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   font-weight: 700;
@@ -2300,7 +2300,7 @@ details p {
 }
 .guestbook-date {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 14px;
   white-space: nowrap;
 }
 .guestbook-review-text {
@@ -2317,13 +2317,13 @@ details p {
   padding-top: 14px;
 }
 .guestbook-review-bottom strong {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text);
   display: block;
   line-height: 1.4;
 }
 .guestbook-review-bottom small {
-  font-size: 11px;
+  font-size: 14px;
   color: var(--muted);
   display: block;
 }
@@ -2331,7 +2331,7 @@ details p {
   color: var(--accent);
   border: 0;
   background: none;
-  font-size: 10px;
+  font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   padding: 8px;
@@ -2365,7 +2365,7 @@ details p {
 }
 .guestbook-empty p {
   max-width: 360px;
-  font-size: 13px;
+  font-size: 14px;
 }
 @media (min-width: 881px) and (max-width: 1210px) {
   .header-inner {
@@ -2389,7 +2389,7 @@ details p {
   }
   .mobile-menu a {
     display: block;
-    font-size: 12px;
+    font-size: 14px;
     letter-spacing: 0.13em;
     text-transform: uppercase;
     padding: 13px 0;
@@ -2447,7 +2447,7 @@ details p {
   border: 1px solid var(--line);
   background: var(--surface2);
   color: var(--text);
-  font-size: 11px;
+  font-size: 14px;
   min-width: 60px;
   padding: 8px 9px;
   letter-spacing: 0.06em;
@@ -2495,7 +2495,7 @@ details p {
 }
 @media (max-width: 340px) {
   .header-inner > .brand {
-    font-size: 15px;
+    font-size: 16px;
   }
   .header-actions {
     gap: 2px;
@@ -2560,7 +2560,7 @@ details p {
   padding: 18px 20px 22px;
 }
 .museum-card .eyebrow {
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.13em;
 }
 .museum-card h3 {
@@ -2569,7 +2569,7 @@ details p {
   margin: 8px 0;
 }
 .museum-card [data-museum-description] {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--muted);
   line-height: 1.6;
   margin: 0;
@@ -2577,14 +2577,14 @@ details p {
 #archive-loading:not([hidden]) {
   padding: 12px 0 20px;
   text-align: left;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.06em;
   color: var(--muted);
 }
 #archive-error:not([hidden]) {
   padding: 16px 0;
   text-align: left;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.6;
   color: var(--muted);
 }
@@ -2621,14 +2621,14 @@ details p {
 }
 
 .review-card-teaser strong {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
 }
 
 .review-card-teaser small,
 .review-card-link {
   color: var(--accent);
-  font-size: 11px;
+  font-size: 14px;
   letter-spacing: .02em;
 }
 
@@ -2659,7 +2659,7 @@ details p {
 
 .modal-full-review-link {
   color: var(--accent);
-  font-size: 12px;
+  font-size: 14px;
   text-decoration: underline;
   text-underline-offset: 4px;
   display: inline-block;
@@ -2730,21 +2730,21 @@ details p {
 
 .detail-includes strong {
   display: block;
-  font-size: 12px;
+  font-size: 14px;
   text-transform: uppercase;
   letter-spacing: .13em;
 }
 
 .detail-includes p {
   color: var(--muted);
-  font-size: 13px;
+  font-size: 14px;
   margin: 10px 0 0;
 }
 
 .detail-review-jump {
   display: inline-block;
   color: var(--accent);
-  font-size: 13px;
+  font-size: 14px;
   margin-top: 25px;
   text-decoration: underline;
   text-underline-offset: 5px;
@@ -2810,20 +2810,20 @@ details p {
 
 .item-review-copy strong {
   display: block;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .item-review-copy small {
   display: block;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 14px;
   margin-top: 5px;
 }
 
 .review-example-label {
   display: inline-block;
   color: var(--accent);
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: .09em;
   text-transform: uppercase;
 }
@@ -2851,7 +2851,7 @@ details p {
 
 .item-review-form label,
 .item-review-form legend {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text);
   letter-spacing: .05em;
 }
@@ -2914,7 +2914,7 @@ details p {
 .item-review-error {
   min-height: 1em;
   color: #bb4545;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .product-related {
@@ -2966,7 +2966,7 @@ details p {
     height: 205px;
   }
   .item-review-copy p {
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.45;
     margin: 10px 0;
   }
@@ -2982,5 +2982,68 @@ details p {
   .product-review-photo {
     width: 100%;
     height: 245px;
+  }
+}
+
+.main-nav a,
+.account-link,
+.mobile-menu a {
+  font-size: 16px;
+  letter-spacing: .06em;
+}
+.main-nav {
+  gap: clamp(16px, 1.5vw, 26px);
+}
+.item-review-copy p {
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-wrap: break-word;
+}
+.item-review-copy strong {
+  font-size: 16px;
+}
+.item-review-list {
+  container-type: inline-size;
+}
+.modal-reviews .item-review {
+  grid-template-columns: 1fr;
+}
+.modal-reviews .product-review-photo {
+  height: 300px;
+  object-fit: contain;
+  background: var(--bg);
+}
+@container (max-width: 520px) {
+  .item-review {
+    grid-template-columns: 1fr;
+  }
+  .product-review-photo {
+    height: 280px;
+    object-fit: contain;
+    background: var(--bg);
+  }
+}
+@media (min-width: 1211px) and (max-width: 1500px) {
+  .header-inner {
+    grid-template-columns: 1fr auto;
+    gap: 12px 20px;
+    padding-block: 18px;
+  }
+  .header-actions {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .main-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: space-between;
+  }
+}
+@media (max-width: 620px) {
+  .header-inner > .brand {
+    font-size: clamp(15px, 4.4vw, 20px);
+  }
+  .account-link {
+    font-size: 14px;
   }
 }

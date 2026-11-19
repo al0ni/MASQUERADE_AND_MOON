@@ -74,27 +74,6 @@ The site is served directly by GitHub Pages from the repository. Changes are rev
 
 This is an educational front-end simulation. There are no real payments, bookings, deliveries, public reviews, password-reset emails, or customer-support messages. Account details, requests, favorites and reviews remain in the current browser and can be cleared with its stored data. Do not reuse a real password for this demo. External museum artwork availability depends on the API service.
 
-## Defense checklist
-
-1. Show the home page and the six linked collections.
-2. Resize the browser and demonstrate mobile navigation.
-3. Switch between dark and light themes and open another page to show persistence.
-4. Search, filter and sort the catalog; open a costume and save it as a favorite.
-5. Test signup with invalid input, then create a demo account and log in.
-6. Show saved account details and rental requests on the profile page.
-7. Demonstrate contact and review validation with inline messages.
-8. Open Inspiration and explain `fetch`, loading, errors and the retry button.
-9. Show the HTML, CSS, JavaScript and image folders in the repository.
-
-A good defense depends on understanding and explaining the code. A grade cannot be guaranteed by automated tests alone.
-
 ## Artwork photos and live API
 
 The six museum artwork cards on `events.html` use local WebP copies of the same public-domain objects identified by `objectID` in The Metropolitan Museum of Art Open Access API. They are not generic stock images. The page fetches live object metadata using `fetch()` and updates title, creator, date, and source link when the API is reachable. A loading indicator, retry button, and explicit offline-status message cover failures; an unavailable API never replaces a museum photograph with an unrelated image. Cached data and sources are listed in `data/museum-catalog.json`.
-
-
-## Final audit and oral defense
-
-- `QUALITY_REPORT.md` records the executed checks and their scope.
-- `DEFENSE_GUIDE.md` provides a short three-person presentation plan, answers to common teacher questions and a submission checklist.
-- Submit the live website and repository links together.
